@@ -30,7 +30,7 @@ Set your own node name and put it to <strong>mynewnodename</strong>
 <div align="center"><h3>Genesis L1 Mainnet validator install script</h3></div>
 THIS SCRIPT WILL SETUP YOUR VALIDATOR AUTOMATICALLY WITHOUT SECURITY IN MIND: </br> 
 Will install your Genesis L1 Mainnet validator node, sync it, import your Ethereum private key and create validator with specified amount of self staked L1 coins and specified validator commission.</br>
-
+Please, with on Ubuntu 18/20. 
 
 + <code>git clone https://github.com/alpha-omega-labs/genesisL1.git </code>
 + <code>cd genesisL1</code>
