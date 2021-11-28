@@ -21,7 +21,7 @@ To connect to Genesis L1 testnet with metamask or other geth compatible software
 
 <div align="center"><h3>Genesis L1 Mainnet node install script</h3></div>
 
-+ <code>git clone --branch release/v0.3.x https://github.com/alpha-omega-labs/genesisL1.git </code>
++ <code>git clone https://github.com/alpha-omega-labs/genesisL1.git </code>
 + <code>cd genesisL1</code>
 + <code>sh mainnet-node.sh mynewnodename</code>
 
@@ -32,7 +32,7 @@ THIS SCRIPT WILL SETUP YOUR VALIDATOR AUTOMATICALLY WITHOUT SECURITY IN MIND: </
 Will install your Genesis L1 Mainnet validator node, sync it, import your Ethereum private key and create validator with specified amount of self staked L1 coins and specified validator commission.</br>
 
 
-+ <code>git clone --branch release/v0.3.x https://github.com/alpha-omega-labs/genesisL1.git </code>
++ <code>git clone https://github.com/alpha-omega-labs/genesisL1.git </code>
 + <code>cd genesisL1</code>
 + <code>sh mainnet-validator.sh mynewnodename ETHEREUM-PRIVATE-KEY amount commission</code>
 
@@ -59,7 +59,7 @@ To connect to Genesis L1 testnet with metamask or other geth compatible software
  
 <div align="center"><h3>Genesis L1 Testnet node install script</h3></div>
 
-+ <code>git clone --branch release/v0.3.x https://github.com/alpha-omega-labs/genesisL1.git </code>
++ <code>git clone https://github.com/alpha-omega-labs/genesisL1.git </code>
 + <code>cd genesisL1</code>
 + <code>sh testnet-node.sh mynewnodename</code>
 
@@ -70,7 +70,7 @@ THIS SCRIPT WILL SETUP YOUR VALIDATOR AUTOMATICALLY WITHOUT SECURITY IN MIND: </
 Will install your Genesis L1 Testnet validator node, sync it, import your Ethereum private key and create validator with specified amount of self staked L1 coins and specified validator commission.</br>
 
 
-+ <code>git clone --branch release/v0.3.x https://github.com/alpha-omega-labs/genesisL1.git </code>
++ <code>git clone https://github.com/alpha-omega-labs/genesisL1.git </code>
 + <code>cd genesisL1</code>
 + <code>sh testnet-validator.sh mynewnodename ETHEREUM-PRIVATE-KEY amount commission</code>
 
