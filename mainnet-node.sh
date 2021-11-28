@@ -102,7 +102,7 @@ evmosd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices
 evmosd_pid=$!
 sleep 10s
 kill $evmosd_pid
-echo Genesis L1 node stopped, adjusting to public testnetV2
+echo Genesis L1 node stopped, adjusting to public mainnet
 sleep 5s
 echo Starting some preparations before joining public network: adding peers, seeds, genesis.json and some LOVE!
 cd
