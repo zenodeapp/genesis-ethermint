@@ -108,7 +108,7 @@ evmosd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices
 evmosd_pid=$!
 sleep 10s
 kill $evmosd_pid
-echo Genesis L1 node stopped, adjusting to public testnetV2
+echo Genesis L1 node stopped, adjusting to public mainnet
 sleep 5s
 echo Starting some preparations before joining public network: adding peers, seeds, genesis.json and some LOVE!
 cd
@@ -118,7 +118,7 @@ cd ../config
 sed -i 's/seeds = ""/seeds = "0a509dde381c51bb5ccfe052ba8f54525ffb501e@65.21.34.226:26656"/' config.toml
 sed -i 's/persistent_peers = ""0a509dde381c51bb5ccfe052ba8f54525ffb501e@65.21.34.226:26656"/' config.toml
 rm -r genesis.json
-wget https://raw.githubusercontent.com/alpha-omega-labs/bashscripts/main/testnetv2/genesis.json
+wget https://raw.githubusercontent.com/alpha-omega-labs/bashscripts/main/mainnet/genesis.json
 echo All set! 
 sleep 3s
 cd
