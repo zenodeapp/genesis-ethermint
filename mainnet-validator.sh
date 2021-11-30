@@ -135,7 +135,7 @@ sleep 5s
 cd go/bin
 screen -d -m ./evmosd start --pruning=nothing --log_level info --minimum-gas-prices=1000000000aphoton
 echo Wait 10 min for network sync
-sleep 600s
+sleep 100s
 echo Preparing your Genesis L1 validator 
 sleep 3s 
 echo Importing your Ethereum key 
