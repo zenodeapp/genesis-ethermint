@@ -242,8 +242,7 @@ type Evmos struct {
 }
 
 func init() {
-	setGenesisDefaults()
-            sdk.DefaultPowerReduction = sdk.NewInt(1000000000000000000)
+    sdk.DefaultPowerReduction = sdk.NewInt(1000000000000000000)
 }	
 
 // NewEvmos returns a reference to a new initialized Ethermint application.
