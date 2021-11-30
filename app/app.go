@@ -120,10 +120,7 @@ func init() {
 
 	DefaultNodeHome = filepath.Join(userHomeDir, ".evmosd")
 }
-
-func init() {
-        sdk.DefaultPowerReduction = sdk.NewInt(1000000000000000000)
-}
+	
 
 // Name defines the application binary name
 const Name = "evmosd"
@@ -243,6 +240,11 @@ type Evmos struct {
 
 	tpsCounter *tpsCounter
 }
+
+func init() {
+	setGenesisDefaults()
+            sdk.DefaultPowerReduction = sdk.NewInt(1000000000000000000)
+}	
 
 // NewEvmos returns a reference to a new initialized Ethermint application.
 func NewEvmos(
