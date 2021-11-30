@@ -38,7 +38,3 @@ func setupConfig() {
 	cmdcfg.SetBip44CoinType(config)
 	config.Seal()
 }
-
-func init() {
-        sdk.DefaultPowerReduction = sdk.NewInt(1000000000000000000)
-}
