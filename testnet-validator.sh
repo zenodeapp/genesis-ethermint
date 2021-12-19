@@ -115,8 +115,8 @@ cd
 cd .evmosd/data
 find -regextype posix-awk ! -regex './(priv_validator_state.json)' -print0 | xargs -0 rm -rf
 cd ../config
-sed -i 's/seeds = ""/seeds = "5a6b1dfa5fd9307c21c584cf0100c480106b2172@23.88.68.53:26656"/' config.toml
-sed -i 's/persistent_peers = ""5a6b1dfa5fd9307c21c584cf0100c480106b2172@23.88.68.53:26656"/' config.toml
+sed -i 's/seeds = ""/seeds = "b1699e016721b193a08e24145700fed761fa5be6@65.21.121.202:26656"/' config.toml
+sed -i 's/persistent_peers = "b1699e016721b193a08e24145700fed761fa5be6@65.21.121.202:26656"/' config.toml
 rm -r genesis.json
 wget https://raw.githubusercontent.com/alpha-omega-labs/bashscripts/main/testnetv2/genesis.json
 echo All set! 
