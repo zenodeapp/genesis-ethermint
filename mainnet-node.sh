@@ -48,10 +48,10 @@ TRACE="--trace"
 #TRACE=""
 
 #global change of open files limits
-echo "* - nofile 500000" >> /etc/security/limits.conf
-echo "root - nofile 500000" >> /etc/security/limits.conf
-echo "fs.file-max = 500000" >> /etc/sysctl.conf 
-ulimit -n 500000
+echo "* - nofile 50000" >> /etc/security/limits.conf
+echo "root - nofile 50000" >> /etc/security/limits.conf
+echo "fs.file-max = 50000" >> /etc/sysctl.conf 
+ulimit -n 50000
 
 # remove existing daemon
 rm -rf ~/.evmosd*
