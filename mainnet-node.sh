@@ -32,7 +32,7 @@ cat << "EOF"
 EOF
 sleep 15s
 sudo apt-get update -y
-sudo apt-get install jq git wget make gcc build-essential snapd -y
+sudo apt-get install jq git wget make gcc build-essential snapd wget -y
 snap install --channel=1.17/stable go --classic
 export PATH=$PATH:$(go env GOPATH)/bin
 echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc
@@ -114,9 +114,12 @@ sed -i 's/persistent_peers = ""/persistent_peers = "36111b4156ace8f1cfa5584c3ccf
 rm -r genesis.json
 wget https://raw.githubusercontent.com/alpha-omega-labs/bashscripts/main/mainnet/genesis.json
 cd
-cd go/bin
+cd /etc/systemd/system
+wget https://raw.githubusercontent.com/alpha-omega-labs/genesisL1/release/v0.3.x/genesis.service
+systemctl daemon-reload
 echo All set! 
 sleep 3s
+
 cat << "EOF"
 
      	    \\
@@ -127,8 +130,5 @@ cat << "EOF"
 EOF
  
 sleep 5s
-screen -d -m ./evmosd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=1000000000aphoton --json-rpc.api eth,txpool,net,web3,debug
-echo Your Genesis L1 node started in screen, you may try *screen -r* command to see it! Welcome to Genesis L1 blockchain! 
-export PATH=$PATH:$(go env GOPATH)/bin
-echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc
-sleep 5s
+service genesis start
+echo Your genesisL1 node service started, you may try *service genesis status* command to see it! Welcome to genesisL1 blockchain! Give it some time to sync! 
