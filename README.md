@@ -20,6 +20,7 @@ To connect to Genesis L1 testnet with metamask or other geth compatible software
 + Additional RPC URL: https://rpcb.genesisl1.org/
 
 <div align="center"><h3>Genesis L1 Mainnet node install script (FIRST RUN FULL NODE!!!)</h3></div>
+mainnet-node.sh in genesisL1 project folder
 
 + <code>git clone https://github.com/alpha-omega-labs/genesisL1.git </code>
 + <code>cd genesisL1</code>
@@ -28,6 +29,8 @@ To connect to Genesis L1 testnet with metamask or other geth compatible software
 Set your own node name and put it to <strong>mynewnodename</strong>
 
 <div align="center"><h3>Genesis L1 Mainnet validator install script</h3></div>
+create-validator.sh in genesisL1 project folder</br> 
+
 THIS SCRIPT WILL CREATE VALIDATOR FROM YOUR GENESISL1 NODE </br> 
 Please, with on Ubuntu 18/20. 
 
