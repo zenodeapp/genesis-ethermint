@@ -28,7 +28,7 @@ sleep 3s
   --amount=$3aphoton \
   --pubkey=$(evmosd tendermint show-validator) \
   --moniker="$1" \
-  --chain-id=$CHAINID \
+  --chain-id=genesis_29-1 \
   --commission-rate="$4" \
   --commission-max-rate="0.99" \
   --commission-max-change-rate="0.01" \
