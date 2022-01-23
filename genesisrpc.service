@@ -1,12 +1,12 @@
 [Unit]
-Description=genesisL1 node
+Description=genesisL1 RPC node
 After=network.target
 
 [Service]
 Type=simple
 User=root
 WorkingDirectory=/root
-ExecStart=/root/go/bin/evmosd start --log_level info
+ExecStart=/root/go/bin/evmosd start --pruning=nothing --trace --log_level=info --minimum-gas-prices=1000000000aphoton --json-rpc.api eth,debug,txpool,personal,net,web3
 Restart=on-failure
 RestartSec=60 
 LimitNOFILE=50000 
