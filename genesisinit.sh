@@ -46,7 +46,7 @@ cat $HOME/.genesisd/config/genesis.json | jq '.app_state["crisis"]["constant_fee
 cat $HOME/.genesisd/config/genesis.json | jq '.app_state["gov"]["deposit_params"]["min_deposit"][0]["denom"]="aphoton"' > $HOME/.genesisd/config/tmp_genesis.json && mv $HOME/.genesisd/config/tmp_genesis.json $HOME/.genesisd/config/genesis.json
 cat $HOME/.genesisd/config/genesis.json | jq '.app_state["mint"]["params"]["mint_denom"]="aphoton"' > $HOME/.genesisd/config/tmp_genesis.json && mv $HOME/.genesisd/config/tmp_genesis.json $HOME/.genesisd/config/genesis.json
 
-cat $HOME/.genesisd/config/genesis.json | jq '.app_state["gov"]["deposit_params"]["min_deposit"][0]["amount"]="50000000000000000000000000"' > $HOME/.genesisd/config/tmp_genesis.json && mv $HOME/.genesisd/config/tmp_genesis.json $HOME/.genesisd/config/genesis.json
+cat $HOME/.genesisd/config/genesis.json | jq '.app_state["gov"]["deposit_params"]["min_deposit"][0]["amount"]="10000000000000000000"' > $HOME/.genesisd/config/tmp_genesis.json && mv $HOME/.genesisd/config/tmp_genesis.json $HOME/.genesisd/config/genesis.json
 
 # initial mint inflation rate set to 15%, minimal to 5%.
 cat $HOME/.genesisd/config/genesis.json | jq '.app_state["mint"]["minter"]["inflation"]="0.150000000000000000"' > $HOME/.genesisd/config/tmp_genesis.json && mv $HOME/.genesisd/config/tmp_genesis.json $HOME/.genesisd/config/genesis.json
