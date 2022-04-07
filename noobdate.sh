@@ -90,7 +90,7 @@ cd ../config
 sed -i 's/seeds = ""/seeds = "@0.0.0.0:26656"/' config.toml
 sed -i 's/persistent_peers = ""/persistent_peers = "@0.0.0.0:26656"/' config.toml
 rm -r genesis.json
-wget https://github.com/alpha-omega-labs/noobdate/blob/main/genesis_noobdate_test_state.json
+wget https://raw.githubusercontent.com/alpha-omega-labs/noobdate/main/genesis_noobdate_test_state.json
 mv genesis_noobdate_test_state.json genesis.json
 cd
 genesisd start --chain-id genesis_29-2
