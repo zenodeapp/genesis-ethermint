@@ -53,6 +53,9 @@ echo "root - nofile 50000" >> /etc/security/limits.conf
 echo "fs.file-max = 50000" >> /etc/sysctl.conf 
 ulimit -n 50000
 
+cd 
+rm -r .genesisd
+cd genesisL1
 make install
 genesisd config keyring-backend $KEYRING
 genesisd config chain-id $CHAINID
