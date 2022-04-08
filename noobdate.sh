@@ -90,8 +90,8 @@ cd
 cd .genesisd/data
 find -regextype posix-awk ! -regex './(priv_validator_state.json)' -print0 | xargs -0 rm -rf
 cd ../config
-sed -i 's/seeds = ""/seeds = ""/' config.toml
-sed -i 's/persistent_peers = ""/' config.toml
+sed -i 's/seeds = ""/seeds = "212b792bd68518c6f919216b796d102297480c80@172.105.67.67:26656"/' config.toml
+sed -i 's/persistent_peers = "212b792bd68518c6f919216b796d102297480c80@172.105.67.67:26656"/' config.toml
 rm -r genesis.json
 wget https://raw.githubusercontent.com/alpha-omega-labs/noobdate/main/genesis_noobdate_test_state.json
 mv genesis_noobdate_test_state.json genesis.json
