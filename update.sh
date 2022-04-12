@@ -67,7 +67,7 @@ genesisd config chain-id genesis_29-2
 
 #IMPORTING GENESIS STATE AND VALIDATION
 cd 
-cd ../config
+cd .genesisd/config
 rm -r genesis.json
 wget https://raw.githubusercontent.com/alpha-omega-labs/noobdate/main/genesis_noobdate_test_state.json
 mv genesis_noobdate_test_state.json genesis.json
