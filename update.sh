@@ -109,7 +109,7 @@ cd ../config
 # sed -i 's/persistent_peers = "212b792bd68518c6f919216b796d102297480c80@172.105.67.67:26656"/' config.toml
 
 # COPY WITH REWRITE OF .evmosd FOLDER OF OLD NODE (VALIDATOR) TO .genesisd OF NEW NODE (VALIDATOR)
-cp .evmosd .genesisdt
+cp .evmosd .genesisd
 
 # REMOVING genesis.json, IMPORTING genesis_29-1 STATE
 rm -r genesis.json
