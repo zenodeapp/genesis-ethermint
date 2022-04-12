@@ -40,88 +40,43 @@ snap install --channel=1.17/stable go --classic
 export PATH=$PATH:$(go env GOPATH)/bin
 echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc
 
-# SETTINGS
-
-KEY="mygenesiskey"
-CHAINID="genesis_29-2"
-#MONIKER="nodeone"
-KEYRING="os"
-KEYALGO="eth_secp256k1"
-LOGLEVEL="info"
-# to trace evm
-TRACE="--trace"
-#TRACE=""
-
 # GLOBAL CHANGE OF OPEN FILE LIMITS
-
 echo "* - nofile 50000" >> /etc/security/limits.conf
 echo "root - nofile 50000" >> /etc/security/limits.conf
 echo "fs.file-max = 50000" >> /etc/sysctl.conf 
 ulimit -n 50000
+
+# BACKUP genesis_29-1 .evmosd
+rsync -r --verbose --exclude 'data' ./.evmosd/ ./.evmosd_backup/
 
 # DELETING OF .genesisd FOLDER (PREVIOUS INSTALLATIONS)
 cd 
 rm -r .genesisd
 
 # BUILDING genesisd BINARIES
-
 cd genesisd
 make install
 
+# COPY .evmosd FILES to .genesisd FILES
+rsync -r --verbose --exclude 'data' ./.evmosd/ ./.evmosd_backup/
+
 # SETTING UP THE keyring type and chain-id in CONFIG
-genesisd config keyring-backend $KEYRING
-genesisd config chain-id $CHAINID
+genesisd config chain-id genesis_29-2
 
-# CREATION OF THE NEW KEY NAMED mygenesiskey
-genesisd keys add $KEY --keyring-backend $KEYRING --algo $KEYALGO
-
-# SETTING THE NODE NAME (MONIKER) AND INITIATION OF THE NEW LOCAL GENESISL1 BLOCKCHAIN 
-genesisd init $1 --chain-id $CHAINID 
-
-# ALLOCATION OF 21ML1 IN LOCAL GENESISL1 BLOCKCHAIN TO mygenesiskey
-genesisd add-genesis-account $KEY 21000000000000000000000000el1 --keyring-backend $KEYRING
-
-# SIGN THE GENTX
-genesisd gentx $KEY 1000000000000000000el1 --keyring-backend $KEYRING --chain-id $CHAINID
-
-# COLLECT THE GENTX
-genesisd collect-gentxs
-
-# VALIDATE LOCAL genesis.json
-genesisd validate-genesis
-
-# START GENESISL1 LOCALNODE
-genesisd start --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=1el1 --json-rpc.api eth,txpool,personal,net,web3 &
-genesisd_pid=$!
-
-# LET IT WORK FOR 10S AND STOP IT TO ADJUST TO THE PUBLIC MAINNET 
-sleep 10s
-kill $genesisd_pid
-echo Genesis L1 node stopped, adjusting to public mainnet
-sleep 5s
-echo Starting some preparations before joining public network: adding peers, seeds, genesis.json and some LOVE!
-cd
-cd .genesisd/data
-find -regextype posix-awk ! -regex './(priv_validator_state.json)' -print0 | xargs -0 rm -rf
+#IMPORTING GENESIS STATE AND VALIDATION
+cd 
 cd ../config
-
-# sed -i 's/seeds = ""/seeds = "212b792bd68518c6f919216b796d102297480c80@172.105.67.67:26656"/' config.toml
-# sed -i 's/persistent_peers = "212b792bd68518c6f919216b796d102297480c80@172.105.67.67:26656"/' config.toml
-
-# COPY WITH REWRITE OF .evmosd FOLDER OF OLD NODE (VALIDATOR) TO .genesisd OF NEW NODE (VALIDATOR)
-cp .evmosd .genesisd
-
-# REMOVING genesis.json, IMPORTING genesis_29-1 STATE
 rm -r genesis.json
 wget https://raw.githubusercontent.com/alpha-omega-labs/noobdate/main/genesis_noobdate_test_state.json
 mv genesis_noobdate_test_state.json genesis.json
 cd
+genesisd validate-genesis
 
 # RESET TO IMPORTED genesis.json
 genesisd unsafe-reset-all
 
-# STARTING GENESIS L1 V2 NODE
-genesisd start --chain-id genesis_29-2 --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=1el1
+# STARTING GENESISL1 NEOLITHIC STAGE NODE
+genesisd start --chain-id genesis_29-2 --pruning=nothing --trace --log_level info --minimum-gas-prices=1el1
 echo All set! 
 sleep 3s
 
