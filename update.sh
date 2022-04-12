@@ -47,6 +47,7 @@ echo "fs.file-max = 50000" >> /etc/sysctl.conf
 ulimit -n 50000
 
 # BACKUP genesis_29-1 .evmosd
+cd
 rsync -r --verbose --exclude 'data' ./.evmosd/ ./.evmosd_backup/
 
 # DELETING OF .genesisd FOLDER (PREVIOUS INSTALLATIONS)
@@ -58,7 +59,8 @@ cd genesisd
 make install
 
 # COPY .evmosd FILES to .genesisd FILES
-rsync -r --verbose --exclude 'data' ./.evmosd/ ./.evmosd_backup/
+cd
+rsync -r --verbose --exclude 'data' ./.evmosd/ ./.genesisd/
 
 # SETTING UP THE keyring type and chain-id in CONFIG
 genesisd config chain-id genesis_29-2
