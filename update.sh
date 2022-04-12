@@ -65,7 +65,7 @@ rm -r .genesisd
 
 # BUILDING genesisd BINARIES
 
-cd genesisL1
+cd genesisd
 make install
 
 # SETTING UP THE keyring type and chain-id in CONFIG
