@@ -1,14 +1,14 @@
 [Unit]
-Description=genesisL1 node
+Description=genesisd daemon
 After=network.target
 
 [Service]
 Type=simple
 User=root
 WorkingDirectory=/root
-ExecStart=/root/go/bin/evmosd start --log_level info
+ExecStart=/root/go/bin/genesisd start --log_level info
 Restart=on-failure
-RestartSec=30 
+RestartSec=60 
 LimitNOFILE=50000 
 
 [Install]
