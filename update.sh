@@ -26,7 +26,6 @@ cat << "EOF"
 	 
 	Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
 	This script will update genesis_29-1 to genesis_29-2.
-	NOTE: Be ready to enter and remember your NEW strong passwords during the installation process.
 	GENESIS L1 is a highly experimental decentralized project, provided AS IS, with NO WARRANTY.
 	GENESIS L1 IS A NON COMMERCIAL OPEN DECENRALIZED BLOCKCHAIN PROJECT RELATED TO SCIENCE AND ART
           
@@ -36,22 +35,22 @@ cat << "EOF"
   Min. coin unit: el1
   1 L1 = 1 000 000 000 000 000 000 el1 	
   Initial supply: 21 000 000 L1
+  genesis_29-2 circulation: ~22 000 000 L1
   Mint rate: < 20% annual
   Block target time: ~5s
   Binary name: genesisd
-  
+  genesis_29-1 start: Nov 30, 2021
 EOF
 sleep 15s
 
 
-# SYSTEM UPDATE, INSTALLATION OF THE FOLLOWING PACKAGES: jq git wget make gcc build-essential snapd wget ponysay sl, INSTALLATION OF GO 1.17 via snap
+# SYSTEM UPDATE, INSTALLATION OF THE FOLLOWING PACKAGES: jq git wget make gcc build-essential snapd wget, INSTALLATION OF GO 1.17 via snap
 
 sudo apt-get update -y
 sudo apt-get install jq git wget make gcc build-essential snapd cmatrix sl wget -y
 snap install --channel=1.17/stable go --classic
 export PATH=$PATH:$(go env GOPATH)/bin
 echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc
-snap install ponysay
 
 # GLOBAL CHANGE OF OPEN FILE LIMITS
 echo "* - nofile 50000" >> /etc/security/limits.conf
@@ -59,22 +58,6 @@ echo "root - nofile 50000" >> /etc/security/limits.conf
 echo "fs.file-max = 50000" >> /etc/sysctl.conf 
 ulimit -n 50000
 
-ponysay "LAST REMINDER: This is an update script to migrate from genesis_29-1 to genesis_29-2 network! If you want new node from scratch, terminate this script with CTRL+C and run the install-genesisd.sh script"
-
-sleep 10s
-<< "EOF"
-
-     	    \\
-             \\_
-          .---(')
-        o( )_-\_   
-Follow the white rabbit                                                                                                                                                                                
-EOF
-sleep 5s
-cmatrix
-sleep 5s
-pkill cmatrix
-echo Now just updating the software! 
 #STOPPING EVMOSD DAEMON AND COSMOVISOR IF IT WAS NOT STOPPED
 pkill evmosd
 pkill cosmovisor
@@ -110,9 +93,23 @@ genesisd validate-genesis
 # RESET TO IMPORTED genesis.json
 genesisd unsafe-reset-all
 
-# STARTING GENESISL1 NEOLITHIC STAGE NODE
-genesisd start --chain-id genesis_29-2 --pruning=nothing --trace --log_level info --minimum-gas-prices=1el1
-echo All set, starting your updated node!
+# STARTING genesisd AS A SERVICE
+cd
+cd /etc/systemd/system
+wget https://raw.githubusercontent.com/alpha-omega-labs/genesis/release/v0.3.x/genesisd.service
+systemctl daemon-reload
+echo All set! 
 sleep 3s
-sl
+
+cat << "EOF"
+     	    \\
+             \\_
+          .---(')
+        o( )_-\_
+       Node start                                                                                                                                                                                     
+EOF
+ 
 sleep 5s
+service genesisd start
+echo Your genesisL1 node service started, you may try *service genesisd status* command to see it! Welcome to genesisL1 blockchain! Give it some time to sync! 
+
