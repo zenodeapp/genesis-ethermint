@@ -74,6 +74,10 @@ ponysay "Installing genesisd from source code with updated genesis_29-2 mainnet!
 #STOPPING EVMOSD DAEMON AND COSMOVISOR IF IT WAS NOT STOPPED
 pkill evmosd
 pkill cosmovisor
+service genesis stop
+service genesisd stop
+service evmos stop
+service evmosd stop
 
 # BACKUP genesis_29-1 .evmosd
 cd
