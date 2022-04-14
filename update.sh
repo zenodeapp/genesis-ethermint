@@ -70,6 +70,8 @@ ulimit -n 50000
 #PONYSAY 
 snap install ponysay
 ponysay "Installing genesisd from source code with updated genesis_29-2 mainnet!"
+ponysay "WARNING: cosmosvisor, evmosd processes will be killed and genesis, genesisd, evmos, evmosd system services will be stopped with this script on the next step. If you have other blockchains running, you might want to delete those parts of the script!"
+sleep 20s
 
 #STOPPING EVMOSD DAEMON AND COSMOVISOR IF IT WAS NOT STOPPED
 pkill evmosd
