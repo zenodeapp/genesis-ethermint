@@ -131,5 +131,5 @@ EOF
  
 sleep 5s
 service genesisd start
-echo Your genesisL1 node service started, you may try *service genesisd status* command to see it! Welcome to genesisL1 blockchain! Give it some time to sync! 
+ponysay "genesisd node service started, you may try *service genesisd status* command to see it! Welcome to GenesisL1 blockchain! Give it some time to sync!" 
 
