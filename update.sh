@@ -53,7 +53,7 @@ EOF
 sleep 15s
 
 
-# SYSTEM UPDATE, INSTALLATION OF THE FOLLOWING PACKAGES: jq git wget make gcc build-essential snapd wget, INSTALLATION OF GO 1.17 via snap
+# SYSTEM UPDATE, INSTALLATION OF THE FOLLOWING PACKAGES: jq git wget make gcc build-essential snapd wget ponysay, INSTALLATION OF GO 1.17 via snap
 
 sudo apt-get update -y
 sudo apt-get install jq git wget make gcc build-essential snapd cmatrix sl wget -y
@@ -66,6 +66,10 @@ echo "* - nofile 50000" >> /etc/security/limits.conf
 echo "root - nofile 50000" >> /etc/security/limits.conf
 echo "fs.file-max = 50000" >> /etc/sysctl.conf 
 ulimit -n 50000
+
+#PONYSAY 
+snap install ponysay
+ponysay "Installing genesisd from source code with updated genesis_29-2 mainnet!"
 
 #STOPPING EVMOSD DAEMON AND COSMOVISOR IF IT WAS NOT STOPPED
 pkill evmosd
@@ -83,11 +87,11 @@ rm -r .genesisd
 cd genesisd
 make install
 
-# COPY .evmosd FILES to .genesisd FILES
+# COPY .evmosd FOLDER to .genesisd FOLDER, EXCLUDE data
 cd
 rsync -r --verbose --exclude 'data' ./.evmosd/ ./.genesisd/
 
-# SETTING UP THE keyring type and chain-id in CONFIG
+# SETTING UP THE NEW chain-id in CONFIG
 genesisd config chain-id genesis_29-2
 
 #IMPORTING GENESIS STATE AND VALIDATION
