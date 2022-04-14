@@ -114,12 +114,14 @@ genesisd validate-genesis
 genesisd unsafe-reset-all
 
 # STARTING genesisd AS A SERVICE
-cd
-cd /etc/systemd/system
-wget https://raw.githubusercontent.com/alpha-omega-labs/genesis/release/v0.3.x/genesisd.service
-systemctl daemon-reload
-echo All set! 
-sleep 3s
+# cd
+# cd /etc/systemd/system
+# wget https://raw.githubusercontent.com/alpha-omega-labs/genesis/release/v0.3.x/genesisd.service
+# systemctl daemon-reload
+# echo All set! 
+# sleep 3s
+
+# STARTING NODE
 
 cat << "EOF"
      	    \\
@@ -130,6 +132,7 @@ cat << "EOF"
 EOF
  
 sleep 5s
-service genesisd start
+# service genesisd start
+genesisd start
 ponysay "genesisd node service started, you may try *service genesisd status* command to see it! Welcome to GenesisL1 blockchain! Give it some time to sync!" 
 
