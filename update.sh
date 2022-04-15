@@ -112,6 +112,12 @@ cd
 # RESET TO IMPORTED genesis.json
 genesisd unsafe-reset-all
 
+# ADD PEERS
+cd 
+cd .genesisd/config
+sed -i 's/seeds = ""/seeds = "36111b4156ace8f1cfa5584c3ccf479de4d94936@65.21.34.226:26656"/' config.toml
+sed -i 's/persistent_peers = ""/persistent_peers = "36111b4156ace8f1cfa5584c3ccf479de4d94936@65.21.34.226:26656"/' config.toml
+
 # STARTING genesisd AS A SERVICE
  cd
  cd /etc/systemd/system
