@@ -121,6 +121,7 @@ sed -i 's/persistent_peers = ""/persistent_peers = "36111b4156ace8f1cfa5584c3ccf
 # STARTING genesisd AS A SERVICE
  cd
  cd /etc/systemd/system
+ rm -r genesis.service
  wget https://raw.githubusercontent.com/alpha-omega-labs/genesisd/noobdate/genesisd.service
  systemctl daemon-reload
  echo All set! 
