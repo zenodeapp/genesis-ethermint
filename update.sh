@@ -49,6 +49,7 @@ cat << "EOF"
   Block target time: ~5s
   Binary name: genesisd
   genesis_29-1 start: Nov 30, 2021
+  genesis_29-2 start: Apr 16, 2022
 EOF
 sleep 15s
 
@@ -56,7 +57,7 @@ sleep 15s
 # SYSTEM UPDATE, INSTALLATION OF THE FOLLOWING PACKAGES: jq git wget make gcc build-essential snapd wget ponysay, INSTALLATION OF GO 1.17 via snap
 
 sudo apt-get update -y
-sudo apt-get install jq git wget make gcc build-essential snapd cmatrix sl wget -y
+sudo apt-get install jq git wget make gcc build-essential snapd wget -y
 snap install --channel=1.17/stable go --classic
 export PATH=$PATH:$(go env GOPATH)/bin
 echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc
@@ -105,7 +106,7 @@ genesisd config chain-id genesis_29-2
 cd 
 cd .genesisd/config
 rm -r genesis.json
-wget https://raw.githubusercontent.com/alpha-omega-labs/genesisd/noobdate/genesis_29-1-state/genesis.json
+wget https://github.com/alpha-omega-labs/genesisd/raw/neolithic/genesis_29-1-state/genesis.json
 cd
 
 # RESET TO IMPORTED genesis.json
