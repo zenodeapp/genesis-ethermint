@@ -101,14 +101,13 @@ rsync -r --verbose --exclude 'data' ./.evmosd/ ./.genesisd/
 # SETTING UP THE NEW chain-id in CONFIG
 genesisd config chain-id genesis_29-2
 
-#IMPORTING GENESIS STATE AND VALIDATION
+#IMPORTING GENESIS STATE
 cd 
 cd .genesisd/config
 rm -r genesis.json
 wget https://raw.githubusercontent.com/alpha-omega-labs/noobdate/main/genesis_noobdate_test_state.json
 mv genesis_noobdate_test_state.json genesis.json
 cd
-genesisd validate-genesis
 
 # RESET TO IMPORTED genesis.json
 genesisd unsafe-reset-all
