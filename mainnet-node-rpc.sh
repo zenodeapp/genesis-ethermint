@@ -131,4 +131,4 @@ EOF
  
 sleep 5s
 service genesis start
-echo Your genesisL1 node service started, you may try *service genesis status* command to see it! Welcome to genesisL1 blockchain! Give it some time to sync! 
+echo Your genesisL1 node service started, you may try *service genesis status* command to see it! Welcome to genesisL1 blockchain!
