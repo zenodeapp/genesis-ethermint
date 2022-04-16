@@ -3,9 +3,7 @@
 <li> block #2000000 should be minted on genesis_29-2 blockchain with genesis_29-1 imported state with adjustments
 
 <h2>Update procedure:</h2>
-<li> to update your node (validator) first <strong>halt</strong> your genesis_29-1 network on any chain height prior 1990000
-<li> <strong>stop</strong> your node when you see the 2000000 block height and run update.sh script in genesisd repository:
-sh update.sh 
+ <code>git clone https://github.com/alpha-omega-labs/genesisd.git;cd genesisd;sh update.sh</code>
 
  <h2>Easy update, step-by-step:</h2>
 <li> Login via ssh to the root user of your node (validator)
