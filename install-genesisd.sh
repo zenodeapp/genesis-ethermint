@@ -104,17 +104,16 @@ cd
 cd .genesisd/data
 find -regextype posix-awk ! -regex './(priv_validator_state.json)' -print0 | xargs -0 rm -rf
 cd ../config
-sed -i 's/seeds = ""/seeds = "212b792bd68518c6f919216b796d102297480c80@172.105.67.67:26656"/' config.toml
-sed -i 's/persistent_peers = "212b792bd68518c6f919216b796d102297480c80@172.105.67.67:26656"/' config.toml
+sed -i 's/seeds = ""/seeds = "36111b4156ace8f1cfa5584c3ccf479de4d94936@65.21.34.226:26656"/' config.toml
+sed -i 's/persistent_peers = "36111b4156ace8f1cfa5584c3ccf479de4d94936@65.21.34.226:26656"/' config.toml
 
 # REMOVING NEW genesis.json, IMPORTING genesis_29-1 STATE
 rm -r genesis.json
-wget https://raw.githubusercontent.com/alpha-omega-labs/noobdate/main/genesis_noobdate_test_state.json
-mv genesis_noobdate_test_state.json genesis.json
+wget https://github.com/alpha-omega-labs/genesisd/raw/neolithic/genesis_29-1-state/genesis.json
 cd
 
 # STARTING GENESIS L1 V2 NODE
-genesisd start --chain-id genesis_29-2 --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=1el1
+genesisd start --chain-id genesis_29-2 --pruning=nothing $TRACE --log_level $LOGLEVEL --minimum-gas-prices=1el1 --json-rpc.api eth,txpool,personal,net,web3 &
 echo All set! 
 sleep 3s
 
