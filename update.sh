@@ -125,6 +125,7 @@ sed -i 's/minimum-gas-prices = "0aphoton"/minimum-gas-prices = "0el1"/g' app.tom
  rm -r genesis.service
  wget https://raw.githubusercontent.com/alpha-omega-labs/genesisd/noobdate/genesisd.service
  systemctl daemon-reload
+ systemctl enable genesisd.service
  echo All set! 
  sleep 3s
 
