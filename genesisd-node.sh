@@ -117,13 +117,13 @@ cd
 # RESET TO IMPORTED genesis.json
 genesisd unsafe-reset-all
 
-# ADD PEERS
+# ADD PEERS, ADJUST SETTINGS
 cd 
 cd .genesisd/config
 sed -i 's/seeds = ""/seeds = "36111b4156ace8f1cfa5584c3ccf479de4d94936@65.21.34.226:26656"/' config.toml
 sed -i 's/persistent_peers = ""/persistent_peers = "36111b4156ace8f1cfa5584c3ccf479de4d94936@65.21.34.226:26656"/' config.toml
 sed -i 's/minimum-gas-prices = "0aphoton"/minimum-gas-prices = "0el1"/g' app.toml
-
+sed -i '212s/.*/enable = false/' app.toml
 # STARTING genesisd AS A SERVICE
  cd
  cd /etc/systemd/system
@@ -147,4 +147,4 @@ EOF
 sleep 5s
 service genesisd start
 # genesisd start
-ponysay "genesisd node service started, you may try *service genesisd status* command to see it! Welcome to the GenesisL1 blockchain!" 
+ponysay "genesisd node service started, you may try *service genesisd status* command to see it! Welcome to the GenesisL1 blockchain! After the full sync you can start validator!"
