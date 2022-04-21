@@ -23,20 +23,20 @@ cat << "EOF"
 	|__/  \__/|________/ \______/ |________/|______/   |__/   |__/  |__/|______/ \______/ 
 
 
-   /$$    /$$          /$$ /$$       /$$             /$$                        
-  | $$   | $$         | $$|__/      | $$            | $$                        
-  | $$   | $$ /$$$$$$ | $$ /$$  /$$$$$$$  /$$$$$$  /$$$$$$    /$$$$$$   /$$$$$$ 
-  |  $$ / $$/|____  $$| $$| $$ /$$__  $$ |____  $$|_  $$_/   /$$__  $$ /$$__  $$
-   \  $$ $$/  /$$$$$$$| $$| $$| $$  | $$  /$$$$$$$  | $$    | $$  \ $$| $$  \__/
-    \  $$$/  /$$__  $$| $$| $$| $$  | $$ /$$__  $$  | $$ /$$| $$  | $$| $$      
-     \  $/  |  $$$$$$$| $$| $$|  $$$$$$$|  $$$$$$$  |  $$$$/|  $$$$$$/| $$      
-      \_/    \_______/|__/|__/ \_______/ \_______/   \___/   \______/ |__/      
+   	 /$$    /$$          /$$ /$$       /$$             /$$                        
+  	| $$   | $$         | $$|__/      | $$            | $$                        
+  	| $$   | $$ /$$$$$$ | $$ /$$  /$$$$$$$  /$$$$$$  /$$$$$$    /$$$$$$   /$$$$$$ 
+  	|  $$ / $$/|____  $$| $$| $$ /$$__  $$ |____  $$|_  $$_/   /$$__  $$ /$$__  $$
+   	\  $$ $$/  /$$$$$$$| $$| $$| $$  | $$  /$$$$$$$  | $$    | $$  \ $$| $$  \__/
+    	 \  $$$/  /$$__  $$| $$| $$| $$  | $$ /$$__  $$  | $$ /$$| $$  | $$| $$      
+     	  \  $/  |  $$$$$$$| $$| $$|  $$$$$$$|  $$$$$$$  |  $$$$/|  $$$$$$/| $$      
+      	   \_/    \_______/|__/|__/ \_______/ \_______/   \___/   \______/ |__/      
                                                                                                                                                        +                                                                                                                                                                                                                                                                                                                                                 
                                                                                                                                                                                                                              	 
 	Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
 	This script should create genesis_29-2 blockchain validator while running under root user,
-  Using some Ethereum format private key with some amount of L1 belonging to that key.
-  Should be started after the full node sync, for example after genesisd-node.sh script run.
+  	Using some Ethereum format private key with some amount of L1 belonging to that key.
+  	Should be started after the full node sync, for example after genesisd-node.sh script run.
 	GENESIS L1 is a highly experimental decentralized project, provided AS IS, with NO WARRANTY.
 	GENESIS L1 IS A NON COMMERCIAL OPEN DECENRALIZED BLOCKCHAIN PROJECT RELATED TO SCIENCE AND ART
           
