@@ -75,7 +75,7 @@ snap install ponysay
 ponysay "THIS INSTALLATION WILL SETUP RPC-API ENABLED NODE, DON'T USE IT FOR VALIDATOR!"
 sleep 5s
 ponysay "BE READY TO WRITE DOWN AND REMEMBER YOUR NEW SECRET SEED PHRASE GENERATED WITH THIS SCRIPT FOR YOUR NEW KEY NAMED *mygenesiskey* AND PASSWORDS FOR IT"
-Sleep 5s
+sleep 5s
 ponysay "Installing genesisd from source code with updated genesis_29-2 mainnet!"
 sleep 5s
 ponysay "WARNING: cosmosvisor, evmosd processes will be killed and genesis, genesisd, evmos, evmosd system services will be stopped with this script on the next step. If you have other blockchains running, you might want to delete those parts of the script!"
