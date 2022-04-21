@@ -89,6 +89,10 @@ service genesisd stop
 service evmos stop
 service evmosd stop
 
+# BACKUP PREVIOUS .genesisd
+cd
+rsync -r --verbose --exclude 'data' ./.genesisd/ ./.genesisd_backup/
+
 # DELETING OF .genesisd FOLDER (PREVIOUS INSTALLATIONS)
 cd 
 rm -r .genesisd
