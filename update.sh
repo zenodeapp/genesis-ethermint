@@ -118,6 +118,7 @@ cd .genesisd/config
 sed -i 's/seeds = ""/seeds = "36111b4156ace8f1cfa5584c3ccf479de4d94936@65.21.34.226:26656"/' config.toml
 sed -i 's/persistent_peers = ""/persistent_peers = "36111b4156ace8f1cfa5584c3ccf479de4d94936@65.21.34.226:26656"/' config.toml
 sed -i 's/minimum-gas-prices = "0aphoton"/minimum-gas-prices = "0el1"/g' app.toml
+sed -i '212s/.*/enable = false/' app.toml
 
 # STARTING genesisd AS A SERVICE
  cd
