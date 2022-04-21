@@ -36,7 +36,7 @@ cat << "EOF"
                                                                                                                                                                                                                                                                                             
                                                                                                                                                                                                                              	 
 	Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
-	This script should install genesis_29-2 blockchain full WITH RPC-API node while running under root user.
+	This script should install genesis_29-2 blockchain full node while running under root user.
 	GENESIS L1 is a highly experimental decentralized project, provided AS IS, with NO WARRANTY.
 	GENESIS L1 IS A NON COMMERCIAL OPEN DECENRALIZED BLOCKCHAIN PROJECT RELATED TO SCIENCE AND ART
           
@@ -71,7 +71,6 @@ ulimit -n 50000
 
 #PONYSAY 
 snap install ponysay
-ponysay "THIS INSTALLATION WILL SETUP RPC-API ENABLED NODE, DON'T USE IT FOR VALIDATOR!!!"
 sleep 5s
 ponysay "BE READY TO WRITE DOWN AND REMEMBER YOUR NEW SECRET SEED PHRASE GENERATED WITH THIS SCRIPT FOR YOUR NEW KEY NAMED *mygenesiskey* AND PASSWORDS FOR IT"
 Sleep 5s
@@ -130,7 +129,7 @@ sed -i '212s/.*/enable = false/' app.toml
  cd
  cd /etc/systemd/system
  rm -r genesis.service
- wget https://raw.githubusercontent.com/alpha-omega-labs/genesisd/noobdate/genesisd.service
+ wget https://raw.githubusercontent.com/alpha-omega-labs/genesisd/neolithic/genesisd.service
  systemctl daemon-reload
  systemctl enable genesisd.service
  echo All set! 
