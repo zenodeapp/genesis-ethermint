@@ -27,7 +27,7 @@ cat << "EOF"
 	| $$_____/                   
 	| $$        /$$$$$$  /$$$$$$ 
 	| $$$$$    /$$__  $$|____  $$
-	| $$__/   | $$  \__/ /$$$$$$$
+	| $$__/   | $$  \__/ /$$$$$$$ 
 	| $$      | $$      /$$__  $$
 	| $$$$$$$$| $$     |  $$$$$$$
 	|________/|__/      \_______/
@@ -36,7 +36,7 @@ cat << "EOF"
                                                                                                                                                                                                                                                                                             
                                                                                                                                                                                                                              	 
 	Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
-	This script should install genesis_29-2 blockchain full node while running under root user.
+	This script should install genesis_29-2 blockchain full WITH RPC-API node while running under root user.
 	GENESIS L1 is a highly experimental decentralized project, provided AS IS, with NO WARRANTY.
 	GENESIS L1 IS A NON COMMERCIAL OPEN DECENRALIZED BLOCKCHAIN PROJECT RELATED TO SCIENCE AND ART
           
@@ -55,8 +55,6 @@ cat << "EOF"
 EOF
 sleep 15s
 
-ponysay "BE READY TO WRITE DOWN AND REMEMBER YOUR NEW SECRET SEED PHRASE GENERATED WITH THIS SCRIPT FOR YOUR NEW KEY NAMED *mygenesiskey* AND PASSWORDS FOR IT"
-
 # SYSTEM UPDATE, INSTALLATION OF THE FOLLOWING PACKAGES: jq git wget make gcc build-essential snapd wget ponysay, INSTALLATION OF GO 1.17 via snap
 
 sudo apt-get update -y
@@ -73,6 +71,10 @@ ulimit -n 50000
 
 #PONYSAY 
 snap install ponysay
+ponysay "THIS INSTALLATION WILL SETUP RPC-API ENABLED NODE, DON'T USE IT FOR VALIDATOR!!!"
+sleep 5s
+ponysay "BE READY TO WRITE DOWN AND REMEMBER YOUR NEW SECRET SEED PHRASE GENERATED WITH THIS SCRIPT FOR YOUR NEW KEY NAMED *mygenesiskey* AND PASSWORDS FOR IT"
+Sleep 5s
 ponysay "Installing genesisd from source code with updated genesis_29-2 mainnet!"
 sleep 5s
 ponysay "WARNING: cosmosvisor, evmosd processes will be killed and genesis, genesisd, evmos, evmosd system services will be stopped with this script on the next step. If you have other blockchains running, you might want to delete those parts of the script!"
