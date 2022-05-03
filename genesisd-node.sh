@@ -152,4 +152,4 @@ EOF
 sleep 5s
 service genesisd start
 # genesisd start
-ponysay "genesisd node service started, you may try *service genesisd status* command to see it! Welcome to the GenesisL1 blockchain! After the full sync you can start validator!"
+ponysay "genesisd node service started, you may try *service genesisd status* command to see it! Welcome to the GenesisL1 blockchain! After the full sync you can start validator! Full sync should take 30min to 6h depending on Internet Connectio!"
