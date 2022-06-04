@@ -109,7 +109,7 @@ genesisd config keyring-backend os
 
 ponysay "IN A FEW MOMENTS GET READY TO WRITE YOUR SECRET SEED PHRASE FOR YOUR NEW KEY NAMED *mygenesiskey*, YOU WILL HAVE 2 MINUTES FOR THIS!!!"
 sleep 20s
-genesisd keys add mygenesiskey --keyring-backend os --algo eth_secp256k1
+genesisd keys add mygenesiskey --keyring-backend os --algo secp256k1 --account 0 --index 0 --coin-type 118
 sleep 120s
 
 genesisd init $1 --chain-id genesis_29-2 
