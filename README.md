@@ -1,3 +1,14 @@
+# GenesisL1
+
+Some fellow and his friends wish to store genetic information as NFTs on a chain.  install this one like this:
+
+go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=pebbledb -X github.com/tendermint/tm-db.ForceSync=1' -tags pebbledb ./...
+
+
+
+
+
+
 <h2>GenesisL1 fast installation scripts</h2>
 root user, tested on clean Ubuntu 20.04 LTS </br>
 <li><h3>Update genesis_29-1 to genesis_29-2:</h3>
