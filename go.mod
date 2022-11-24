@@ -15,7 +15,7 @@ require (
 	github.com/spf13/cast v1.5.0
 	github.com/spf13/cobra v1.6.0
 	github.com/stretchr/testify v1.8.0
-	github.com/tendermint/tendermint v0.34.14
+	github.com/tendermint/tendermint v0.34.24
 	github.com/tendermint/tm-db v0.6.7
 	github.com/tharsis/ethermint v0.8.1
 	go.opencensus.io v0.23.0
@@ -54,7 +54,7 @@ require (
 	github.com/cosmos/gorocksdb v1.2.0 // indirect
 	github.com/cosmos/iavl v0.17.2 // indirect
 	github.com/cosmos/ledger-cosmos-go v0.11.2-0.20220811092532-036a277666f3 // indirect
-	github.com/cosmos/ledger-go v0.9.2 // indirect
+	github.com/creachadair/taskgroup v0.3.2 // indirect
 	github.com/danieljoos/wincred v1.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/deckarep/golang-set v1.7.1 // indirect

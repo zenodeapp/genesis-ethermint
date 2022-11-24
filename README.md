@@ -1,8 +1,8 @@
 # GenesisL1
 
-Some fellow and his friends wish to store genetic information as NFTs on a chain.  install this one like this:
+Some fellow and his friends wish to store genetic information as NFTs on a chain.  install and sync this one like this:
 
-go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=pebbledb -X github.com/tendermint/tm-db.ForceSync=1' -tags pebbledb ./...
+bash scripts/statesync.bash
 
 
 
