@@ -17,24 +17,9 @@ cat << "EOF"
 	Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
 	This script should reupdate genesis_29-2 to genesis_29-2 while running under root user.
 	GENESIS L1 is a highly experimental decentralized project, provided AS IS, with NO WARRANTY.
-	GENESIS L1 IS A NON COMMERCIAL OPEN DECENRALIZED BLOCKCHAIN PROJECT RELATED TO SCIENCE AND ART
-          
-  Mainnet EVM chain ID: 29
-  Cosmos chain ID: genesis_29-2
-  Blockchain utilitarian coin: L1
-  Min. coin unit: el1
-  1 L1 = 1 000 000 000 000 000 000 el1 	
-  Initial supply: 21 000 000 L1
-  genesis_29-2 circulation: ~22 000 000 L1
-  Mint rate: < 20% annual
-  Block target time: ~5s
-  Binary name: genesisd
-  genesis_29-1 start: Nov 30, 2021
-  genesis_29-2 start: Apr 16, 2022
+	GENESIS L1 IS A NON COMMERCIAL OPEN DECENRALIZED BLOCKCHAIN PROJECT RELATED TO SCIENCE AND ART.
 EOF
-sleep 15s
-
-
+sleep 5s
 # SYSTEM UPDATE, INSTALLATION OF THE FOLLOWING PACKAGES: jq git wget make gcc build-essential snapd wget ponysay, INSTALLATION OF GO 1.17 via snap
 
 sudo apt-get update -y
@@ -63,8 +48,6 @@ service genesis stop
 service genesisd stop
 service evmos stop
 service evmosd stop
-
-
 
 # DELETING OF .genesisd FOLDER (PREVIOUS INSTALLATIONS)
 cd 
