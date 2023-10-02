@@ -33,7 +33,7 @@ export PATH=$PATH:$(go env GOPATH)/bin
 echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc
 
 # GLOBAL CHANGE OF OPEN FILE LIMITS
-echo "* - nofile 50000" >> /etc/security/limits.confnesis_29-2 
+echo "* - nofile 50000" >> /etc/security/limits.conf
 echo "root - nofile 50000" >> /etc/security/limits.conf
 echo "fs.file-max = 50000" >> /etc/sysctl.conf 
 ulimit -n 50000
@@ -65,15 +65,32 @@ rm -r .genesisd
 cd genesisd
 make install
 
-# RESTORE KEYS FROM BACKUP MADE DURING V0.46 UPGRADE - NOTE DATE AFTER _backup_; IF YOU HAVE SEVERAL BACKUPS, USE OLDEST!
+# COPY .genesisd_backup FOLDER to .genesisd FOLDER, EXCLUDE data
+cd
+rsync -r --verbose --exclude 'data' ./.genesisd_backup_reupdate/ ./.genesisd/
+
+# FIND PATH TO THE OLDEST BACKUP FOLDER
+oldest_dir=""
+oldest_timestamp=0
+
+for dir in ~/.genesisd_backup*/; do
+    if [ -d "$dir" ]; then
+        timestamp=$(stat -c %Y "$dir")
+
+        if [ "$timestamp" -lt "$oldest_timestamp" ] || [ "$oldest_timestamp" -eq 0 ]; then
+            oldest_timestamp=$timestamp
+            oldest_dir="$dir"
+        fi
+    fi
+done
+
+# RESTORE KEYS FROM OLDEST BACKUP MADE DURING OR BEFORE V0.46 UPGRADE
 # THERE MIGHT BE OLD BACKUP IN DIRECTORY NAMED .evmosd_backup, YOU CAN TRY USE THIS. 
 cd
 
-for dir in .genesisd_backup_*; do
-    if [ -d "$dir" ]; then
-        rsync -av --exclude=config/ --exclude=data/ "$dir/" .genesisd/
-    fi
-done
+if [ -d "$oldest_dir" ]; then
+    rsync -av --exclude=config/ --exclude=data/ "$dir" .genesisd/
+fi
 
 # SETTING UP THE NEW chain-id in CONFIG
 genesisd config chain-id genesis_29-2
@@ -86,7 +103,7 @@ wget https://github.com/alpha-omega-labs/genesisd/raw/neolithic/genesis_29-1-sta
 cd
 
 # RESET TO IMPORTED genesis.json
-genesisd unsafe-reset-all
+genesisd tendermint unsafe-reset-all
 
 # ADD PEERS, ADJUST SETTINGS
 cd 
