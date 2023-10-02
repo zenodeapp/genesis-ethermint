@@ -141,4 +141,4 @@ sed -i '212s/.*/enable = false/' app.toml
 
 # service genesisd start
 # genesisd start
-ponysay "start genesisd daemon, set stop height before it`"
+ponysay "start genesisd daemon, set stop height before it"
