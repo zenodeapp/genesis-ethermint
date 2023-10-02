@@ -38,9 +38,23 @@ echo "root - nofile 50000" >> /etc/security/limits.conf
 echo "fs.file-max = 50000" >> /etc/sysctl.conf 
 ulimit -n 50000
 
-# REMOVE ALL SWAP FILES MADE BY THE 0.46 UPGRADE
-files_to_remove=$(find / -maxdepth 1 -type f -name 'genesisd_swapfile*')
+#PONYSAY 
+snap install ponysay
+ponysay "Installing genesisd from source code with updated genesis_29-2 mainnet!"
+sleep 5s
+ponysay "WARNING: cosmosvisor, evmosd processes will be killed and genesis, genesisd, evmos, evmosd system services will be stopped with this script on the next step. If you have other blockchains running, you might want to delete those parts of the script!"
+sleep 20s
 
+# STOPPING EVMOSD DAEMON AND COSMOVISOR IF IT WAS NOT STOPPED
+pkill evmosd
+pkill cosmovisor
+service genesis stop
+service genesisd stop
+service evmos stop
+service evmosd stop
+
+# AFTER STOPPING OF DAEMONS REMOVE ALL SWAP FILES MADE BY THE 0.46 UPGRADE
+files_to_remove=$(find / -maxdepth 1 -type f -name 'genesisd_swapfile*')
 if [ -z "$files_to_remove" ]; then
     echo "No swap files starting with '/genesisd_swapfile' found in the root directory."
 else
@@ -61,21 +75,6 @@ for file in $files_to_remove; do
     sed -i "/^\/$swapfile_name /d" /etc/fstab
     echo "Removed entry for $swapfile_name from /etc/fstab"
 done
-
-#PONYSAY 
-snap install ponysay
-ponysay "Installing genesisd from source code with updated genesis_29-2 mainnet!"
-sleep 5s
-ponysay "WARNING: cosmosvisor, evmosd processes will be killed and genesis, genesisd, evmos, evmosd system services will be stopped with this script on the next step. If you have other blockchains running, you might want to delete those parts of the script!"
-sleep 20s
-
-# STOPPING EVMOSD DAEMON AND COSMOVISOR IF IT WAS NOT STOPPED
-pkill evmosd
-pkill cosmovisor
-service genesis stop
-service genesisd stop
-service evmos stop
-service evmosd stop
 
 # BACKUP .genesisd FOLDER
 cd
