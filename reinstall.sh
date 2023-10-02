@@ -120,7 +120,7 @@ wget https://github.com/alpha-omega-labs/genesisd/raw/neolithic/genesis_29-1-sta
 cd
 
 # RESET TO IMPORTED genesis.json
-genesisd unsafe-reset-all
+genesisd tendermint unsafe-reset-all
 
 # ADD PEERS, ADJUST SETTINGS
 cd 
