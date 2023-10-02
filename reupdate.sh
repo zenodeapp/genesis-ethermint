@@ -41,13 +41,17 @@ sleep 5s
 ponysay "WARNING: cosmosvisor, evmosd processes will be killed and genesis, genesisd, evmos, evmosd system services will be stopped with this script on the next step. If you have other blockchains running, you might want to delete those parts of the script!"
 sleep 20s
 
-#STOPPING EVMOSD DAEMON AND COSMOVISOR IF IT WAS NOT STOPPED
+# STOPPING EVMOSD DAEMON AND COSMOVISOR IF IT WAS NOT STOPPED
 pkill evmosd
 pkill cosmovisor
 service genesis stop
 service genesisd stop
 service evmos stop
 service evmosd stop
+
+# BACKUP .genesisd FOLDER
+cd
+rsync -r --verbose --exclude 'data' ./.genesisd/ ./.genesisd_backup_reupdate/
 
 # DELETING OF .genesisd FOLDER (PREVIOUS INSTALLATIONS)
 cd 
