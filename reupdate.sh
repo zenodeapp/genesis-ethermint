@@ -102,6 +102,17 @@ sed -i 's/minimum-gas-prices = "0aphoton"/minimum-gas-prices = "0el1"/g' app.tom
 sed -i 's/halt-height = 0/halt-height = 6751390/g' app.toml
 sed -i '212s/.*/enable = false/' app.toml
 
+# RESTORE KEYS FROM BACKUP MADE DURING V0.46 UPGRADE - NOTE DATE AFTER _backup_; IF YOU HAVE SEVERAL BACKUPS, USE OLDEST!
+# THERE MIGHT BE OLD BACKUP IN DIRECTORY NAMED .evmosd_backup, YOU CAN TRY USE THIS. 
+
+for dir in .genesisd_backup_*; do
+    if [ -d "$dir" ]; then
+        rsync -av --exclude=config/ --exclude=data/ "$dir/" .genesisd/
+    fi
+done
+
+
+
 # STARTING genesisd AS A SERVICE
  cd
  cd /etc/systemd/system
