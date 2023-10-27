@@ -159,7 +159,7 @@ curl -o - -L http://135.181.135.29/data.tar.lz4 | lz4 -c -d - | tar -x -C ~/.gen
 # STARTING genesisd AS A SERVICE
  cd
  cd /etc/systemd/system
- rm -r genesis.service
+ rm -r genesisd.service
  wget https://raw.githubusercontent.com/alpha-omega-labs/genesisd/noobdate/genesisd.service
  systemctl daemon-reload
  systemctl enable genesisd.service
