@@ -154,7 +154,7 @@ sed -i '212s/.*/enable = false/' app.toml
 # GET DATA SNAPSHOT AND EXTRACT FOLDER
 cd ~/.genesisd
 rm -r data
-curl -o - -L https://ftp.basementnodes.ca/data.tar.lz4 | lz4 -c -d - | tar -x -C ~/.genesisd
+curl -o - -L http://135.181.135.29/data.tar.lz4 | lz4 -c -d - | tar -x -C ~/.genesisd
 
 # STARTING genesisd AS A SERVICE
  cd
