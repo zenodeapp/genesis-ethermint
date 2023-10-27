@@ -27,7 +27,7 @@ sl -F
 # SYSTEM UPDATE, INSTALLATION OF THE FOLLOWING PACKAGES: jq git wget make gcc build-essential snapd wget ponysay, INSTALLATION OF GO 1.17 via snap
 
 sudo apt-get update -y
-sudo apt-get install jq git wget make gcc build-essential snapd wget lz4 tar -y
+sudo apt-get install jq git wget make gcc build-essential snapd wget curl lz4 tar -y
 snap install --channel=1.20/stable go --classic
 export PATH=$PATH:$(go env GOPATH)/bin
 echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc
@@ -145,9 +145,9 @@ sed -i "s/.*moniker = .*/moniker = \"$moniker\"/" config.toml
 sed -i 's/^seeds = .*/seeds = ""/' config.toml
 sed -i 's/^timeout_commit = .*/timeout_commit = "10s"/' config.toml
 sed -i 's/^persistent_peers = .*/persistent_peers = ""/' config.toml # TODO: manual peers list
+sed -i 's/^pex = .*/pex = false/g' config.toml
 
 sed -i 's/^minimum-gas-prices = .*/minimum-gas-prices = "50000000000el1"/g' app.toml
-sed -i 's/^pex = .*/pex = false/g' app.toml
 sed -i 's/^halt-height = .*/halt-height = 6751390/g' app.toml
 sed -i '212s/.*/enable = false/' app.toml
 
