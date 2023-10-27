@@ -154,7 +154,12 @@ sed -i '212s/.*/enable = false/' app.toml
 # GET DATA SNAPSHOT AND EXTRACT FOLDER
 cd ~/.genesisd
 rm -r data
-curl -o - -L http://135.181.135.29/data.tar.lz4 | lz4 -c -d - | tar -x -C ~/.genesisd
+
+urls=("http://135.181.135.29/data.tar.lz4" "http://168.119.138.91/data.tar.lz4")
+url_count=${#urls[@]}
+random_index=$((RANDOM % url_count))
+chosen_url=${urls[$random_index]}
+curl -o - -L "$chosen_url" | lz4 -c -d - | tar -x -C ~/.genesisd
 
 # STARTING genesisd AS A SERVICE
  cd
