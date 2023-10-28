@@ -115,7 +115,7 @@ done
 cd ~/.genesisd
 if [ -d "$oldest_dir" ]; then
     # FIRST REMOVE CURRENT KEYS BEFORE USING THE OLDER BACKUP
-    find . -type f ! \( -name "data" -o -name "config" \) -exec rm -v {} +
+    find . -mindepth 1 -maxdepth 1 ! -name "data" ! -name "config" -exec rm -rv {} +
     
     # COPY OLDER KEYS
     cd
