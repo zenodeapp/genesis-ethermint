@@ -45,7 +45,7 @@ no_start=false
 hard_reset=false
 
 if [ "$#" -lt 1 ]; then
-    echo "Usage: $0 \e[3m--moniker string\e[0m \e[3m[...options]\e[0m"
+    echo "Usage: sh $0 \e[3m--moniker string\e[0m \e[3m[...options]\e[0m"
     echo ""
     echo "   Options:"
     echo "     \e[3m--key string\e[0m             This creates a new key with the given alias, else no key gets generated."
