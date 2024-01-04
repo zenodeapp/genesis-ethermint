@@ -42,9 +42,6 @@ git checkout v0.5.0
 
 ### 3. Setting up your node
 
-> [!CAUTION]
-> Both these scripts wipe any existing database in the data folder of .genesis. If this is not desired, then make sure to create a backup!
-
 As this repository is only required for full node syncing, we've only included two scripts. Both share the same purpose of initializing the node and starting the sync process till height `insert_height_here`, but are tailored for two specific audiences:
 
 - **The less experienced**
