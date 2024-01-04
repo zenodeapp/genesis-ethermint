@@ -36,7 +36,7 @@ backup_dir=".genesis_backup_$(date +"%Y%m%d%H%M%S")"
 
 # Fixed/default variables (do not modify)
 chain_id="genesis_29-2"
-node_dir=".genesis" # if you come from the .genesisd-era, change this variable to .genesisd
+node_dir=".genesis"
 repo_dir=$(cd "$(dirname "$0")"/.. && pwd)
 moniker=""
 key=""
