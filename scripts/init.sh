@@ -31,14 +31,19 @@ GENESIS L1 IS A NON COMMERCIAL OPEN DECENTRALIZED BLOCKCHAIN PROJECT RELATED TO 
   
 EOF
 
+# User-configurable variables
+backup_dir=".genesis_backup_$(date +"%Y%m%d%H%M%S")"
+
 # Fixed/default variables (do not modify)
-moniker=""
-key=""
 chain_id="genesis_29-2"
 node_dir=".genesis" # if you come from the .genesisd-era, change this variable to .genesisd
 repo_dir=$(cd "$(dirname "$0")"/.. && pwd)
+moniker=""
+key=""
 no_service=false
 no_start=false
+hard_reset=false
+backup_made=false
 
 if [ "$#" -lt 1 ]; then
     echo "Usage: $0 \e[3m--moniker string\e[0m \e[3m[...options]\e[0m"
@@ -47,17 +52,12 @@ if [ "$#" -lt 1 ]; then
     echo "     \e[3m--key string\e[0m             This creates a new key with the given alias, else no key gets generated."
     echo "     \e[3m--no-service\e[0m             This prevents the genesisd service from being made (default: false)."
     echo "     \e[3m--no-start\e[0m               This prevents the genesisd service from starting at the end of the script (default: false)."
+    echo "     \e[3m--hard-reset\e[0m             This completely removes the old $node_dir folder (it will still leave a copy, excluding db data, in your $HOME folder)."
     exit 1
 fi
 
 if [ "$(id -u)" -ne 0 ]; then
     echo "This script must be run as the root user."
-    exit 1
-fi
-
-if [ -e ~/"$node_dir" ]; then
-    echo "Error: The '$node_dir' folder already exists. If you intend to upgrade, use the upgrade script instead."
-    echo "Or you can stop the node and remove the $node_dir folder yourself. Just be sure to have made a backup!"
     exit 1
 fi
 
@@ -85,6 +85,9 @@ while [ "$#" -gt 0 ]; do
         --no-start)
             no_start=true
             ;;
+        --hard-reset)
+            hard_reset=true
+            ;;
         *)
             echo "Error: Unknown option $1"
             exit 1
@@ -107,6 +110,7 @@ $no_service && echo "o Will skip installing genesisd as a service (--no-service:
 if ! $no_service && $no_start; then
     echo "o Will skip starting the genesisd service at the end of the script (--no-start: $no_start)"
 fi
+$hard_reset && echo "o Will not restore a previously found $node_dir folder (--hard-reset: $hard_reset)"
 
 echo ""
 echo "Please note that the Cosmovisor process will be killed and the Genesis Daemon will be halted. You will have a 20-second window to cancel this action."
@@ -151,7 +155,18 @@ add_line_to_file "root - nofile 50000" /etc/security/limits.conf false
 add_line_to_file "fs.file-max = 50000" /etc/sysctl.conf false
 ulimit -n 50000
 
-# Precautionary deletion of the previous configuration (this should always fail since this script can not run if a node_dir already exists.)
+# Backup of previous configuration if one existed
+if [ -e ~/"$node_dir" ]; then
+    rsync -r --verbose --exclude 'data' --exclude 'config/genesis.json' ~/$node_dir/ ~/"$backup_dir"/
+    echo "Backed up previous $node_dir folder."
+    
+    mkdir -p ~/"$backup_dir"/data
+    if cp ~/$node_dir/data/priv_validator_state.json ~/"$backup_dir"/data/priv_validator_state.json; then
+        echo "Backed up previous priv_validator_state.json file."
+    fi
+fi
+
+# Deletion of the previous configuration
 rm -rf ~/$node_dir
 
 # cd to root of the repository
@@ -162,11 +177,17 @@ ponysay "In 5 seconds the wizard will start to build the binaries for genesisd..
 sleep 5s
 make install
 
+# Restore backup if backup exists and --hard-reset is false
+if ! $hard_reset && [ -e ~/"$backup_dir" ]; then
+    rsync -r --verbose --exclude 'data' --exclude 'config/genesis.json' ~/"$backup_dir"/ ~/$node_dir/
+    echo "Restored previous $node_dir folder."
+fi
+
 # Configurations
 # The provided toml files already have chain specific configurations set (i.e. timeout_commit 10s, min gas price 50gel).
 cp $repo_dir/services/$chain_id/genesis.json ~/$node_dir/config/genesis.json
-cp "$repo_dir/configs/default_app.toml" ~/$node_dir/config/app.toml
-cp "$repo_dir/configs/default_config.toml" ~/$node_dir/config/config.toml
+cp $repo_dir/configs/default_app.toml ~/$node_dir/config/app.toml
+cp $repo_dir/configs/default_config.toml ~/$node_dir/config/config.toml
 genesisd config chain-id $chain_id
 
 # Reset to imported genesis.json
@@ -186,6 +207,13 @@ fi
 
 # Init node
 genesisd init $moniker --chain-id $chain_id
+
+# Restore priv_validator_state.json if backup exists and --hard-reset is false
+if ! $hard_reset && [ -e ~/"$backup_dir" ]; then
+    if cp ~/"$backup_dir"/data/priv_validator_state.json ~/$node_dir/data/priv_validator_state.json; then
+        echo "Restored backed up priv_validator_state.json file"
+    fi
+fi
 
 # Set genesisd as a systemd service
 if ! $no_service; then
