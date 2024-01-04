@@ -13,16 +13,6 @@ cat << "EOF"
 	 \______/  \_______/|__/  |__/ \_______/|_______/ |__/|_______/       |________/|______/
 
 
-	 /$$   /$$ /$$$$$$$$  /$$$$$$  /$$       /$$$$$$ /$$$$$$$$ /$$   /$$ /$$$$$$  /$$$$$$ 
-	| $$$ | $$| $$_____/ /$$__  $$| $$      |_  $$_/|__  $$__/| $$  | $$|_  $$_/ /$$__  $$
-	| $$$$| $$| $$      | $$  \ $$| $$        | $$     | $$   | $$  | $$  | $$  | $$  \__/
-	| $$ $$ $$| $$$$$   | $$  | $$| $$        | $$     | $$   | $$$$$$$$  | $$  | $$      
-	| $$  $$$$| $$__/   | $$  | $$| $$        | $$     | $$   | $$__  $$  | $$  | $$      
-	| $$\  $$$| $$      | $$  | $$| $$        | $$     | $$   | $$  | $$  | $$  | $$    $$
-	| $$ \  $$| $$$$$$$$|  $$$$$$/| $$$$$$$$ /$$$$$$   | $$   | $$  | $$ /$$$$$$|  $$$$$$/
-	|__/  \__/|________/ \______/ |________/|______/   |__/   |__/  |__/|______/ \______/ 
-
-
    	 /$$    /$$          /$$ /$$       /$$             /$$                        
   	| $$   | $$         | $$|__/      | $$            | $$                        
   	| $$   | $$ /$$$$$$ | $$ /$$  /$$$$$$$  /$$$$$$  /$$$$$$    /$$$$$$   /$$$$$$ 
@@ -33,31 +23,31 @@ cat << "EOF"
       	   \_/    \_______/|__/|__/ \_______/ \_______/   \___/   \______/ |__/      
                                                                                                                                                        +                                                                                                                                                                                                                                                                                                                                                 
                                                                                                                                                                                                                              	 
-	Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
-	This script should create genesis_29-2 blockchain validator while running under root user,
-  	Using some Ethereum format private key with some amount of L1 belonging to that key.
-  	Should be started after the full node sync, for example after genesisd-node.sh script run.
-	GENESIS L1 is a highly experimental decentralized project, provided AS IS, with NO WARRANTY.
-	GENESIS L1 IS A NON COMMERCIAL OPEN DECENRALIZED BLOCKCHAIN PROJECT RELATED TO SCIENCE AND ART
+Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
+This script should create genesis_29-2 blockchain validator while running under root user,
+Using some Ethereum format private key with some amount of L1 belonging to that key. This
+should be started after the initializing a node and being fully synced with the network.
+
+GENESIS L1 is a highly experimental decentralized project, provided AS IS, with NO WARRANTY.
+GENESIS L1 IS A NON COMMERCIAL OPEN DECENTRALIZED BLOCKCHAIN PROJECT RELATED TO SCIENCE AND ART
           
   Mainnet EVM chain ID: 29
-  Cosmos chain ID: genesis_29-2
+  Chain ID: genesis_29-2
   Blockchain utilitarian coin: L1
   Min. coin unit: el1
   1 L1 = 1 000 000 000 000 000 000 el1 	
   Initial supply: 21 000 000 L1
-  genesis_29-2 circulation: ~22 000 000 L1
+  genesis_29-2 at the time of upgrade circulation: ~29 000 000 L1
   Mint rate: < 20% annual
-  Block target time: ~5s
+  Block target time: ~11s
   Binary name: genesisd
   genesis_29-1 start: Nov 30, 2021
   genesis_29-2 start: Apr 16, 2022
+
 EOF
 sleep 15s
 
-
-
-ponysay "This script will create your new GenesisL1 validator. You should run this script on fully synchronized node. For example after the genesisd-node.sh script run. You can check status of your node service with:
+ponysay "This script will create your new GenesisL1 validator. You should run this script on a fully synchronized node. You can check status of your node service with:
 service genesisd status"
 
 cat << "EOF"
@@ -65,7 +55,9 @@ This script should be running with arguments:
 -YOUR_VALIDATOR_NAME
 -YOUR_PRIVATE_KEY (please, use NEW keys to avoid issues!!!)
 -AMOUNT_EL1_STAKED (nominated in el1, 1L1 = 1,000,000,000,000,000,000el1)
--COMMISSION_RATE(0.01 = 1%; 0.99 = 99%)
+-COMMISSION_RATE (0.01 = 1%; 1.00 = 100%)
+-COMMISSION_MAX_RATE (optional, defaults to 0.99)
+-COMMISSION_MAX_CHANGE_RATE (optional, defaults to 0.01)
 
 Example that will create validator named "supervalidator" with 1000L1 self stake and 10% commission:
 sh create-validator.sh supervalidator 58a86862565e596bcf185d699ef4db6a8f02f6696f4a3fe6ff5cf5c0b451c866 1000000000000000000000 0.1
@@ -87,8 +79,8 @@ ponysay "Submitting create validator transaction, enter your key password"
   --moniker="$1" \
   --chain-id=genesis_29-2 \
   --commission-rate="$4" \
-  --commission-max-rate="0.99" \
-  --commission-max-change-rate="0.01" \
+  --commission-max-rate=${5:-"0.99"} \
+  --commission-max-change-rate=${6:-"0.01"} \
   --min-self-delegation="1000000" \
   --gas="2100000" \
   --from=importedethkey \

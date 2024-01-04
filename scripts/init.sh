@@ -43,7 +43,6 @@ key=""
 no_service=false
 no_start=false
 hard_reset=false
-backup_made=false
 
 if [ "$#" -lt 1 ]; then
     echo "Usage: $0 \e[3m--moniker string\e[0m \e[3m[...options]\e[0m"
