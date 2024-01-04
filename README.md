@@ -52,7 +52,7 @@ As this repository is only required for full node syncing, we've only included t
   ```
   > _your_moniker_name_ is the name of your node and _your_key_alias_ the name for the key that will be generated.
 
-  > This will not backup any existing `.genesis/data` folder! if you do not want this to get wiped, add the `--backup-data` flag!
+  > Running this will not backup any database in an existing _.genesis/data_ folder! If you do not want this to get wiped, then add the `--preserve-db` flag!
   
   > More options or flags could be set; see the [\/scripts](scripts/)-folder for more details on this.
   
