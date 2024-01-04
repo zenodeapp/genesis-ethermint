@@ -14,10 +14,11 @@ Usage: sh node-setup-wizard.sh --moniker string [...options]
 
    Options:
      --key string             This creates a new key with the given alias, else no key gets generated.
-     --backup-dir string      Set a different name for the backup directory. (default is time-based: see below for more information)
+     --backup-dir string      Set a different name for the backup directory. (default is time-based: see below for more information).
+     --preserve-db            This makes sure the complete /data folder gets backed up via a move-operation (default: false).
+     --no-restore             This prevents restoring the old backed up .genesis folder in the /root folder (default: false).
      --no-service             This prevents the genesisd service from being made (default: false).
      --no-start               This prevents the genesisd service from starting at the end of the script (default: false).
-     --hard-reset             This completely removes the old .genesis folder (it will still leave a copy as a backup, excluding db data, in your /root folder).
 ```
 > Here can be seen that the _--moniker_ is the only required field, unlike the _--key_ option; which may have been expected given the example in the repo's main [README.md](../README.md).
 
