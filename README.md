@@ -42,6 +42,9 @@ git checkout v0.5.0
 
 ### 3. Setting up your node
 
+> [!CAUTION]
+> Both these scripts wipe any existing database in the data folder of .genesis. If this is not desired, then make sure to create a backup!
+
 As this repository is only required for full node syncing, we've only included two scripts. Both share the same purpose of initializing the node and starting the sync process till height `insert_height_here`, but are tailored for two specific audiences:
 
 - **The less experienced**
@@ -51,6 +54,8 @@ As this repository is only required for full node syncing, we've only included t
   sh scripts/node-setup-wizard.sh --moniker your_moniker_name --key your_key_alias
   ```
   > _your_moniker_name_ is the name of your node and _your_key_alias_ the name for the key that will be generated.
+
+  > This will not backup any existing `.genesis/data` folder! if you do not want this to get wiped, add the `--backup-data` flag!
   
   > More options or flags could be set; see the [\/scripts](scripts/)-folder for more details on this.
   
@@ -58,6 +63,6 @@ As this repository is only required for full node syncing, we've only included t
 
    [quick-node-setup.sh](scripts/quick-node-setup.sh) is made for those who prefer and are used to manually configuring their setup. This is a slim-sized script, containing only the necessary commands for starting a full node sync. Suggested is to treat the script as a manual rather than one you run without careful consideration _(though, this can be done)_.
 
-### 4. Syncing
+### 4. Sync your node
 
 The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the `genesis-cronos` repository.
