@@ -43,13 +43,9 @@ make install
 
 # Configurations
 # The provided toml files already have chain specific configurations set (i.e. timeout_commit 10s, min gas price 50gel).
-cp ./services/genesis_29-2/genesis.json ~/.genesis/config/genesis.json
 cp "./configs/default_app.toml" ~/.genesis/config/app.toml
 cp "./configs/default_config.toml" ~/.genesis/config/config.toml
 genesisd config chain-id genesis_29-2
-
-# Just to be sure we reset to the newly imported genesis.json
-genesisd tendermint unsafe-reset-all
 
 # Create key
 genesisd config keyring-backend os
@@ -57,6 +53,12 @@ genesisd keys add mygenesiskey --keyring-backend os --algo eth_secp256k1
 
 # Init node
 genesisd init mygenesismoniker --chain-id genesis_29-2
+
+# Add genesis state file
+cp ./states/genesis_29-2/genesis.json ~/.genesis/config/genesis.json
+
+# Reset to imported genesis.json
+genesisd tendermint unsafe-reset-all
 
 # Add service
 cp "./services/genesisd.service" /etc/systemd/system/genesisd.service

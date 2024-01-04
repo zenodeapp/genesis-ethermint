@@ -49,9 +49,10 @@ if [ "$#" -lt 1 ]; then
     echo ""
     echo "   Options:"
     echo "     \e[3m--key string\e[0m             This creates a new key with the given alias, else no key gets generated."
+    echo "     \e[3m--backup-dir string\e[0m      Set a different name for the backup directory. (default is time-based: $backup_dir)"
     echo "     \e[3m--no-service\e[0m             This prevents the genesisd service from being made (default: false)."
     echo "     \e[3m--no-start\e[0m               This prevents the genesisd service from starting at the end of the script (default: false)."
-    echo "     \e[3m--hard-reset\e[0m             This completely removes the old $node_dir folder (it will still leave a copy, excluding db data, in your $HOME folder)."
+    echo "     \e[3m--hard-reset\e[0m             This completely removes the old $node_dir folder (it will still leave a copy as a backup, excluding db data, in your $HOME folder)."
     exit 1
 fi
 
@@ -78,6 +79,14 @@ while [ "$#" -gt 0 ]; do
             fi
             key="$1"
             ;;
+        --backup-dir)
+            shift
+            if [ -z "$1" ] || [ "$(echo "$1" | cut -c 1)" = "-" ]; then
+                echo "Error: --backup-dir option requires a non-empty value."
+                exit 1
+            fi
+            backup_dir="$1"
+            ;;
         --no-service)
             no_service=true
             ;;
@@ -101,10 +110,11 @@ if [ -z "$moniker" ]; then
     exit 1
 fi
 
-echo "o Init mode with moniker: $moniker."
+echo "o Init mode with moniker: $moniker"
 if [ ! -z "$key" ]; then
   echo "o Will create a key with the alias: $key"
 fi
+echo "o Backup directory is set to: $backup_dir"
 $no_service && echo "o Will skip installing genesisd as a service (--no-service: $no_service)"
 if ! $no_service && $no_start; then
     echo "o Will skip starting the genesisd service at the end of the script (--no-start: $no_start)"
@@ -156,7 +166,7 @@ ulimit -n 50000
 
 # Backup of previous configuration if one existed
 if [ -e ~/"$node_dir" ]; then
-    rsync -r --verbose --exclude 'data' --exclude 'config/genesis.json' ~/$node_dir/ ~/"$backup_dir"/
+    rsync -qr --verbose --exclude 'data' --exclude 'config/genesis.json' ~/$node_dir/ ~/"$backup_dir"/
     echo "Backed up previous $node_dir folder."
     
     mkdir -p ~/"$backup_dir"/data
@@ -178,34 +188,38 @@ make install
 
 # Restore backup if backup exists and --hard-reset is false
 if ! $hard_reset && [ -e ~/"$backup_dir" ]; then
-    rsync -r --verbose --exclude 'data' --exclude 'config/genesis.json' ~/"$backup_dir"/ ~/$node_dir/
+    rsync -qr --verbose --exclude 'data' --exclude 'config/genesis.json' ~/"$backup_dir"/ ~/$node_dir/
     echo "Restored previous $node_dir folder."
 fi
 
 # Configurations
 # The provided toml files already have chain specific configurations set (i.e. timeout_commit 10s, min gas price 50gel).
-cp $repo_dir/services/$chain_id/genesis.json ~/$node_dir/config/genesis.json
 cp $repo_dir/configs/default_app.toml ~/$node_dir/config/app.toml
 cp $repo_dir/configs/default_config.toml ~/$node_dir/config/config.toml
 genesisd config chain-id $chain_id
 
-# Reset to imported genesis.json
-genesisd tendermint unsafe-reset-all
-
 # Create key
-if [ -z $key ]; then
+if [ ! -z "$key" ]; then
     genesisd config keyring-backend os
-    ponysay "GET READY TO WRITE YOUR SECRET SEED PHRASE FOR YOUR NEW KEY NAMED: $key. YOU WILL HAVE 2 MINUTES FOR THIS!"
-    sleep 20s
+    ponysay "GET READY TO WRITE YOUR SECRET SEED PHRASE FOR YOUR NEW KEY NAMED: $key."
+    sleep 10s
     genesisd keys add $key --keyring-backend os --algo eth_secp256k1
+
     # Check if the exit status of the previous command is equal to zero (zero means it succeeded, anything else means it failed)
     if [ $? -eq 0 ]; then
-      sleep 120s
+      echo "Press Enter to continue..."
+      read REPLY
     fi
 fi
 
 # Init node
 genesisd init $moniker --chain-id $chain_id
+
+# Add genesis state file
+cp $repo_dir/states/$chain_id/genesis.json ~/$node_dir/config/genesis.json
+
+# Reset to imported genesis.json
+genesisd tendermint unsafe-reset-all
 
 # Restore priv_validator_state.json if backup exists and --hard-reset is false
 if ! $hard_reset && [ -e ~/"$backup_dir" ]; then
