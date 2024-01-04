@@ -192,10 +192,7 @@ if ! $hard_reset && [ -e ~/"$backup_dir" ]; then
     echo "Restored previous $node_dir folder."
 fi
 
-# Configurations
-# The provided toml files already have chain specific configurations set (i.e. timeout_commit 10s, min gas price 50gel).
-cp $repo_dir/configs/default_app.toml ~/$node_dir/config/app.toml
-cp $repo_dir/configs/default_config.toml ~/$node_dir/config/config.toml
+# Set chain-id
 genesisd config chain-id $chain_id
 
 # Create key
@@ -213,10 +210,14 @@ if [ ! -z "$key" ]; then
 fi
 
 # Init node
-genesisd init $moniker --chain-id $chain_id
+genesisd init $moniker --chain-id $chain_id -o
 
-# Add genesis state file
+# State and chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel).
+cp $repo_dir/configs/default_app.toml ~/$node_dir/config/app.toml
+cp $repo_dir/configs/default_config.toml ~/$node_dir/config/config.toml
 cp $repo_dir/states/$chain_id/genesis.json ~/$node_dir/config/genesis.json
+# Set moniker again since the configs got overwritten
+sed -i "s/moniker = \"\"/moniker = \"$moniker\"/" ~/$node_dir/config/config.toml
 
 # Reset to imported genesis.json
 genesisd tendermint unsafe-reset-all

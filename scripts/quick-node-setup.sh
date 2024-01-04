@@ -41,10 +41,7 @@ cd ..
 # Building genesisd binaries
 make install
 
-# Configurations
-# The provided toml files already have chain specific configurations set (i.e. timeout_commit 10s, min gas price 50gel).
-cp "./configs/default_app.toml" ~/.genesis/config/app.toml
-cp "./configs/default_config.toml" ~/.genesis/config/config.toml
+# Set chain-id
 genesisd config chain-id genesis_29-2
 
 # Create key
@@ -52,10 +49,14 @@ genesisd config keyring-backend os
 genesisd keys add mygenesiskey --keyring-backend os --algo eth_secp256k1
 
 # Init node
-genesisd init mygenesismoniker --chain-id genesis_29-2
+genesisd init mygenesismoniker --chain-id genesis_29-2 -o
 
-# Add genesis state file
+# State and chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel).
+cp "./configs/default_app.toml" ~/.genesis/config/app.toml
+cp "./configs/default_config.toml" ~/.genesis/config/config.toml
 cp ./states/genesis_29-2/genesis.json ~/.genesis/config/genesis.json
+# Set moniker again since the configs got overwritten
+sed -i "s/moniker = \"\"/moniker = \"mygenesismoniker\"/" ~/.genesis/config/config.toml
 
 # Reset to imported genesis.json
 genesisd tendermint unsafe-reset-all
