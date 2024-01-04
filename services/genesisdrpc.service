@@ -1,5 +1,5 @@
 [Unit]
-Description=GenesisL1 RPC node
+Description=genesis rpc
 After=network.target
 
 [Service]
