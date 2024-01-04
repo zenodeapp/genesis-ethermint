@@ -46,14 +46,12 @@ As this repository is only required for full node syncing, we've only included t
 
 - **The less experienced**
 
-   [node-setup-wizard.sh](scripts/node-setup-wizard.sh) is made for those who prefer to run a script without having to do any manual editing. It's a more interactive experience with visual feedback. A simple one-liner would be:
+   [node-setup-wizard.sh](scripts/node-setup-wizard.sh) is made for those who prefer to run a script without having to do any manual editing. It's a more interactive experience with visual feedback. A simple one-liner to initialize a node and generate a key would be:
   ```
   sh scripts/node-setup-wizard.sh --moniker your_moniker_name --key your_key_alias
   ```
-  > _your_moniker_name_ is the name of your node and _your_key_alias_ the name for the key that will be generated.
-
   > Running this will not backup any database in an existing _.genesis/data_ folder! If you do not want this to get wiped, then add the `--preserve-db` flag!
-  
+  > 
   > More options or flags could be set; see the [\/scripts](scripts/)-folder for more details on this.
   
 - **The more experienced**
