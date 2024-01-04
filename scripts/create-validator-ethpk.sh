@@ -21,7 +21,7 @@ cat << "EOF"
     	 \  $$$/  /$$__  $$| $$| $$| $$  | $$ /$$__  $$  | $$ /$$| $$  | $$| $$      
      	  \  $/  |  $$$$$$$| $$| $$|  $$$$$$$|  $$$$$$$  |  $$$$/|  $$$$$$/| $$      
       	   \_/    \_______/|__/|__/ \_______/ \_______/   \___/   \______/ |__/      
-                                                                                                                                                       +                                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
                                                                                                                                                                                                                              	 
 Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
 This script should create genesis_29-2 blockchain validator while running under root user,
