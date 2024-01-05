@@ -35,6 +35,12 @@ If you plan on running the `node-setup-wizard.sh` script more often (testing pur
 ## quick-node-setup.sh
 
 > [!CAUTION]
-> This script does not contain any backup logic whatsoever, so proceed with caution.
+> As said in [README.md](../README.md), this script is made for those who are "more experienced" and prefer manual configuration. It does not contain any backup logic whatsoever, so proceed with caution. The script is pretty straight forward and easy to follow. Once you're confident enough that it will work without losing any data, use it.
 
-As said in [README.md](../README.md), this script is made for those who are more experienced and prefer manual configuration. We suggest reading the script and running the commands yourself, unless you're confident the script will work correctly in your setup.
+### Example usage
+
+```
+   sh quick-node-setup.sh mynode mykey
+```
+
+> The script allows two args: _moniker_ and _key_. It defaults to _mygenesismoniker_ and _mygenesiskey_ if either one of them is not provided.
