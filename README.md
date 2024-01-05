@@ -1,5 +1,5 @@
 <h1 align="center">
-  GenesisL1 Blockchain (Evmos fork)
+  GenesisL1 Mainnet (Evmos fork)
 </h1>
 
 <p align="center">
