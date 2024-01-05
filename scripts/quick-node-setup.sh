@@ -56,7 +56,7 @@ cp "./configs/default_app.toml" ~/.genesis/config/app.toml
 cp "./configs/default_config.toml" ~/.genesis/config/config.toml
 cp ./states/genesis_29-2/genesis.json ~/.genesis/config/genesis.json
 # Set moniker again since the configs got overwritten
-sed -i "s/moniker = \"\"/moniker = \"mygenesismoniker\"/" ~/.genesis/config/config.toml
+sed -i "s/moniker = .*/moniker = \"mygenesismoniker\"/" ~/.genesis/config/config.toml
 
 # Reset to imported genesis.json
 genesisd tendermint unsafe-reset-all

@@ -40,19 +40,21 @@ node_dir=".genesis"
 repo_dir=$(cd "$(dirname "$0")"/.. && pwd)
 moniker=""
 key=""
+preserve_db=false
+no_restore=false
 no_service=false
 no_start=false
-hard_reset=false
 
 if [ "$#" -lt 1 ]; then
     echo "Usage: sh $0 \e[3m--moniker string\e[0m \e[3m[...options]\e[0m"
     echo ""
     echo "   Options:"
     echo "     \e[3m--key string\e[0m             This creates a new key with the given alias, else no key gets generated."
-    echo "     \e[3m--backup-dir string\e[0m      Set a different name for the backup directory. (default is time-based: $backup_dir)"
+    echo "     \e[3m--backup-dir string\e[0m      Set a different name for the backup directory. (default is time-based, ex: $backup_dir)."
+    echo "     \e[3m--preserve-db\e[0m            This makes sure the complete /data folder gets backed up via a move-operation (default: false)."
+    echo "     \e[3m--no-restore\e[0m             This prevents restoring the old backed up $node_dir folder in the $HOME folder (default: false)."
     echo "     \e[3m--no-service\e[0m             This prevents the genesisd service from being made (default: false)."
     echo "     \e[3m--no-start\e[0m               This prevents the genesisd service from starting at the end of the script (default: false)."
-    echo "     \e[3m--hard-reset\e[0m             This completely removes the old $node_dir folder (it will still leave a copy as a backup, excluding db data, in your $HOME folder)."
     exit 1
 fi
 
@@ -87,14 +89,17 @@ while [ "$#" -gt 0 ]; do
             fi
             backup_dir="$1"
             ;;
+        --preserve-db)
+            preserve_db=true
+            ;;
+        --no-restore)
+            no_restore=true
+            ;;
         --no-service)
             no_service=true
             ;;
         --no-start)
             no_start=true
-            ;;
-        --hard-reset)
-            hard_reset=true
             ;;
         *)
             echo "Error: Unknown option $1"
@@ -110,20 +115,36 @@ if [ -z "$moniker" ]; then
     exit 1
 fi
 
-echo "o Init mode with moniker: $moniker"
+echo "Script configurations:"
+echo " o Moniker will be set to: $moniker."
 if [ ! -z "$key" ]; then
-  echo "o Will create a key with the alias: $key"
+    echo " o Will create a key with the alias: $key."
 fi
-echo "o Backup directory is set to: $backup_dir"
-$no_service && echo "o Will skip installing genesisd as a service (--no-service: $no_service)"
+echo " o Backup directory is set to: $HOME/$backup_dir."
+$preserve_db && echo " o The complete /data folder will be backed up (\e[3m--preserve-db\e[0m: $preserve_db)."
+$no_restore && echo " o Will not restore a previously found $node_dir folder (\e[3m--no-restore\e[0m: $no_restore)."
+$no_service && echo " o Will skip installing genesisd as a service (\e[3m--no-service\e[0m: $no_service)."
 if ! $no_service && $no_start; then
-    echo "o Will skip starting the genesisd service at the end of the script (--no-start: $no_start)"
+    echo " o Will skip starting the genesisd service at the end of the script (\e[3m--no-start\e[0m: $no_start)."
 fi
-$hard_reset && echo "o Will not restore a previously found $node_dir folder (--hard-reset: $hard_reset)"
 
 echo ""
-echo "Please note that the Cosmovisor process will be killed and the Genesis Daemon will be halted. You will have a 20-second window to cancel this action."
-sleep 20s
+echo "Please note the following:"
+echo " - If a Cosmovisor process is running, it will be killed."
+echo " - If the Genesis daemon is running, it will be halted."
+echo " - Existing app.toml and config.toml files will get overwritten, but backed up safely in the $HOME/$backup_dir folder."
+! $preserve_db && echo " - Any existing Genesis database (in the /data folder) will get wiped! Use the flag \e[3m--preserve-db\e[0m if this is not desirable."
+echo ""
+
+read -p "Do you still wish to continue? (y/N): " answer
+answer=$(echo "$answer" | tr 'A-Z' 'a-z')  # Convert to lowercase
+
+if [ "$answer" != "y" ]; then
+  echo "Aborted."
+  exit 1
+fi
+
+echo "Continuing..."
 
 systemctl stop genesisd
 pkill cosmovisor
@@ -169,9 +190,18 @@ if [ -e ~/"$node_dir" ]; then
     rsync -qr --verbose --exclude 'data' --exclude 'config/genesis.json' ~/$node_dir/ ~/"$backup_dir"/
     echo "Backed up previous $node_dir folder."
     
+    rm -r ~/"$backup_dir"/data
     mkdir -p ~/"$backup_dir"/data
-    if cp ~/$node_dir/data/priv_validator_state.json ~/"$backup_dir"/data/priv_validator_state.json; then
-        echo "Backed up previous priv_validator_state.json file."
+    
+    if $preserve_db; then
+        # A move is more feasible, especially with big data.
+        if mv ~/$node_dir/data ~/"$backup_dir"/; then
+            echo "Backed up entire /data folder."
+        fi
+    else
+        if cp ~/$node_dir/data/priv_validator_state.json ~/"$backup_dir"/data/priv_validator_state.json; then
+            echo "Backed up previous priv_validator_state.json file."
+        fi
     fi
 fi
 
@@ -186,8 +216,8 @@ ponysay "In 5 seconds the wizard will start to build the binaries for genesisd..
 sleep 5s
 make install
 
-# Restore backup if backup exists and --hard-reset is false
-if ! $hard_reset && [ -e ~/"$backup_dir" ]; then
+# Restore backup if backup exists and --no-restore is false
+if ! $no_restore && [ -e ~/"$backup_dir" ]; then
     rsync -qr --verbose --exclude 'data' --exclude 'config/genesis.json' ~/"$backup_dir"/ ~/$node_dir/
     echo "Restored previous $node_dir folder."
 fi
@@ -217,15 +247,24 @@ cp $repo_dir/configs/default_app.toml ~/$node_dir/config/app.toml
 cp $repo_dir/configs/default_config.toml ~/$node_dir/config/config.toml
 cp $repo_dir/states/$chain_id/genesis.json ~/$node_dir/config/genesis.json
 # Set moniker again since the configs got overwritten
-sed -i "s/moniker = \"\"/moniker = \"$moniker\"/" ~/$node_dir/config/config.toml
+sed -i "s/moniker = .*/moniker = \"$moniker\"/" ~/$node_dir/config/config.toml
 
 # Reset to imported genesis.json
 genesisd tendermint unsafe-reset-all
 
-# Restore priv_validator_state.json if backup exists and --hard-reset is false
-if ! $hard_reset && [ -e ~/"$backup_dir" ]; then
-    if cp ~/"$backup_dir"/data/priv_validator_state.json ~/$node_dir/data/priv_validator_state.json; then
-        echo "Restored backed up priv_validator_state.json file"
+# Restore priv_validator_state.json or the entire /data folder if backup exists and --no-restore is false.
+if ! $no_restore && [ -e ~/"$backup_dir" ]; then
+    if $preserve_db; then
+        if mv ~/$backup_dir/data/* ~/"$node_dir"/data/; then
+            echo "Restored previous /data folder."
+
+            # the mv removes the priv_validator_state from the backup, so reintroduce it back.
+            cp ~/"$node_dir"/data/priv_validator_state.json ~/$backup_dir/data/priv_validator_state.json;
+        fi
+    else
+        if cp ~/"$backup_dir"/data/priv_validator_state.json ~/$node_dir/data/priv_validator_state.json; then
+            echo "Restored backed up priv_validator_state.json file"
+        fi
     fi
 fi
 
