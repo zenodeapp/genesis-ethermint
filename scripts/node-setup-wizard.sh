@@ -50,7 +50,7 @@ if [ "$#" -lt 1 ]; then
     echo ""
     echo "   Options:"
     echo "     \e[3m--key string\e[0m             This creates a new key with the given alias, else no key gets generated."
-    echo "     \e[3m--backup-dir string\e[0m      Set a different name for the backup directory. (default is time-based: $backup_dir)."
+    echo "     \e[3m--backup-dir string\e[0m      Set a different name for the backup directory. (default is time-based, ex: $backup_dir)."
     echo "     \e[3m--preserve-db\e[0m            This makes sure the complete /data folder gets backed up via a move-operation (default: false)."
     echo "     \e[3m--no-restore\e[0m             This prevents restoring the old backed up $node_dir folder in the $HOME folder (default: false)."
     echo "     \e[3m--no-service\e[0m             This prevents the genesisd service from being made (default: false)."
@@ -115,21 +115,36 @@ if [ -z "$moniker" ]; then
     exit 1
 fi
 
-echo "o Init mode with moniker: $moniker"
+echo "Script configurations:"
+echo " o Moniker will be set to: $moniker."
 if [ ! -z "$key" ]; then
-  echo "o Will create a key with the alias: $key"
+    echo " o Will create a key with the alias: $key."
 fi
-echo "o Backup directory is set to: $backup_dir"
-$preserve_db && echo "o The complete /data folder will be backed up (--preserve-db: $preserve_db)"
-$no_restore && echo "o Will not restore a previously found $node_dir folder (--no-restore: $no_restore)"
-$no_service && echo "o Will skip installing genesisd as a service (--no-service: $no_service)"
+echo " o Backup directory is set to: $HOME/$backup_dir."
+$preserve_db && echo " o The complete /data folder will be backed up (\e[3m--preserve-db\e[0m: $preserve_db)."
+$no_restore && echo " o Will not restore a previously found $node_dir folder (\e[3m--no-restore\e[0m: $no_restore)."
+$no_service && echo " o Will skip installing genesisd as a service (\e[3m--no-service\e[0m: $no_service)."
 if ! $no_service && $no_start; then
-    echo "o Will skip starting the genesisd service at the end of the script (--no-start: $no_start)"
+    echo " o Will skip starting the genesisd service at the end of the script (\e[3m--no-start\e[0m: $no_start)."
 fi
 
 echo ""
-echo "Please note that the Cosmovisor process will be killed and the Genesis Daemon will be halted. You will have a 20-second window to cancel this action."
-sleep 20s
+echo "Please note the following:"
+echo " - If a Cosmovisor process is running, it will be killed."
+echo " - If the Genesis daemon is running, it will be halted."
+echo " - Existing app.toml and config.toml files will get overwritten, but backed up safely in the $HOME/$backup_dir folder."
+! $preserve_db && echo " - Any existing Genesis database (in the /data folder) will get wiped! Use the flag \e[3m--preserve-db\e[0m if this is not desirable."
+echo ""
+
+read -p "Do you still wish to continue? (y/N): " answer
+answer=$(echo "$answer" | tr 'A-Z' 'a-z')  # Convert to lowercase
+
+if [ "$answer" != "y" ]; then
+  echo "Aborted."
+  exit 1
+fi
+
+echo "Continuing..."
 
 systemctl stop genesisd
 pkill cosmovisor
