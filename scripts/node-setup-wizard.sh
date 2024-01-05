@@ -31,13 +31,11 @@ GENESIS L1 IS A NON COMMERCIAL OPEN DECENTRALIZED BLOCKCHAIN PROJECT RELATED TO 
   
 EOF
 
-# User-configurable variables
-backup_dir=".genesis_backup_$(date +"%Y%m%d%H%M%S")"
-
 # Fixed/default variables (do not modify)
 chain_id="genesis_29-2"
 node_dir=".genesis"
 repo_dir=$(cd "$(dirname "$0")"/.. && pwd)
+backup_dir=".genesis_backup_$(date +"%Y%m%d%H%M%S")"
 moniker=""
 key=""
 preserve_db=false
