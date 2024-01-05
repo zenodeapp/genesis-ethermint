@@ -48,17 +48,19 @@ As this repository is only required for full node syncing, we've only included t
 
 - **The less experienced**
 
-   [node-setup-wizard.sh](scripts/node-setup-wizard.sh) is made for those who prefer to run a script without having to do any manual preparation. It's a more interactive experience with visual feedback and automatically backs up previous installations if there were any. A simple one-liner to initialize a node and generate a key _(optional)_ would be:
+   [node-setup-wizard.sh](scripts/node-setup-wizard.sh) is made for those who prefer to run a script without having to do any manual preparation. It's a more interactive experience with visual feedback and automatically backs up previous installations if there were any.
+
+  A one-liner to initialize a node and generate a key _(optional)_ would be:
   ```
   sh scripts/node-setup-wizard.sh --moniker your_moniker_name --key your_key_alias
   ```
-  > Running this will not backup any database in an existing _.genesis/data_ folder! If you do not want this to get wiped, then add the `--preserve-db` flag!
-  > 
-  > More options or flags could be set; see the [\/scripts](scripts/)-folder for more details on this.
+  > Running this will not backup any database in an existing _.genesis/data_ folder! If you do not want this to get wiped, then add the `--preserve-db` flag! More options or flags could be set; see the [\/scripts](scripts/)-folder for more details on this.
   
 - **The more experienced**
 
-   [quick-node-setup.sh](scripts/quick-node-setup.sh) is made for those who prefer and are used to manually configuring their setup. This is a slim-sized script, does not make any backups and contains only the necessary commands for starting a full node sync. Suggested is to treat the script as a guide rather than one you run without careful consideration _(though, this can be done)_. A one-liner to initialize a node and generate a key _(optional)_ with this script would be:
+   [quick-node-setup.sh](scripts/quick-node-setup.sh) is made for those who prefer and are used to manually configuring their setup. This is a slim-sized script, does not make any backups and contains only the necessary commands for starting a full node sync. Suggested is to treat the script as a guide rather than one you run without careful consideration _(though, this can be done)_.
+
+  A one-liner to initialize a node and generate a key _(optional)_ with this script would be:
   ```
   sh scripts/quick-node-setup.sh your_moniker_name your_key_alias
   ```
