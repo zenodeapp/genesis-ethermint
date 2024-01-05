@@ -24,9 +24,9 @@ Usage: sh node-setup-wizard.sh --moniker string [...options]
 
 ### Concerning backups
 
-If a `.genesis` folder already exists, the `node-setup-wizard.sh` script will back this up to a folder formatted as `.genesisd_backup_{date_time}`. This is a unique name based on the system's current time. Therefore running the script multiple times will continue to create new backup folders.
+If a `.genesis` folder already exists, the `node-setup-wizard.sh` script will back this up to a folder in the user's $HOME formatted as `.genesisd_backup_{date_time}`. This is a unique name based on the system's current time. Therefore running the script multiple times will continue to create new backup folders.
 
-If you plan on running the `node-setup-wizard.sh` script more often (testing purposes for instance), you could set the `--backup-dir` to a static name to prevent creating a lot of unnecessary backups.
+If you plan on running the `node-setup-wizard.sh` script more often (testing purposes for instance), you could set the `--backup-dir` to a static name to prevent creating a lot of unnecessary folders.
 
 ## quick-node-setup.sh
 
