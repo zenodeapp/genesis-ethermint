@@ -48,7 +48,7 @@ As this repository is only required for full node syncing, we've only included t
 
 - **The less experienced**
 
-   [node-setup-wizard.sh](scripts/node-setup-wizard.sh) is made for those who prefer to run a script without having to do any manual editing. It's a more interactive experience with visual feedback. A simple one-liner to initialize a node and generate a key would be:
+   [node-setup-wizard.sh](scripts/node-setup-wizard.sh) is made for those who prefer to run a script without having to do any manual editing. It's a more interactive experience with visual feedback. A simple one-liner to initialize a node and generate a key _(optional)_ would be:
   ```
   sh scripts/node-setup-wizard.sh --moniker your_moniker_name --key your_key_alias
   ```
