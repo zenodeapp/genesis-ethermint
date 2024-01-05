@@ -17,26 +17,24 @@ GENESIS L1 is a highly experimental decentralized project, provided AS IS, with 
 GENESIS L1 IS A NON COMMERCIAL OPEN DECENTRALIZED BLOCKCHAIN PROJECT RELATED TO SCIENCE AND ART
   
   Mainnet EVM chain ID: 29
-  Chain ID: genesis_29-2
+  Chain ID: tgenesis_29-2
   Blockchain utilitarian coin: L1
   Min. coin unit: el1
   1 L1 = 1 000 000 000 000 000 000 el1 	
   Initial supply: 21 000 000 L1
-  genesis_29-2 at the time of upgrade circulation: ~29 000 000 L1
   Mint rate: < 20% annual
   Block target time: ~11s
-  Binary name: genesisd
-  genesis_29-1 start: Nov 30, 2021
-  genesis_29-2 start: Apr 16, 2022
+  Binary name: tgenesisd
+  tgenesis_29-2 start: Jan 01, 2024
   
 EOF
 
 # User-configurable variables
-backup_dir=".genesis_backup_$(date +"%Y%m%d%H%M%S")"
+backup_dir=".tgenesis_backup_$(date +"%Y%m%d%H%M%S")"
 
 # Fixed/default variables (do not modify)
-chain_id="genesis_29-2"
-node_dir=".genesis"
+chain_id="tgenesis_29-2"
+node_dir=".tgenesis"
 repo_dir=$(cd "$(dirname "$0")"/.. && pwd)
 moniker=""
 key=""
@@ -53,8 +51,8 @@ if [ "$#" -lt 1 ]; then
     echo "     \e[3m--backup-dir string\e[0m      Set a different name for the backup directory. (default is time-based, ex: $backup_dir)."
     echo "     \e[3m--preserve-db\e[0m            This makes sure the complete /data folder gets backed up via a move-operation (default: false)."
     echo "     \e[3m--no-restore\e[0m             This prevents restoring the old backed up $node_dir folder in the $HOME folder (default: false)."
-    echo "     \e[3m--no-service\e[0m             This prevents the genesisd service from being made (default: false)."
-    echo "     \e[3m--no-start\e[0m               This prevents the genesisd service from starting at the end of the script (default: false)."
+    echo "     \e[3m--no-service\e[0m             This prevents the tgenesisd service from being made (default: false)."
+    echo "     \e[3m--no-start\e[0m               This prevents the tgenesisd service from starting at the end of the script (default: false)."
     exit 1
 fi
 
@@ -123,9 +121,9 @@ fi
 echo " o Backup directory is set to: $HOME/$backup_dir."
 $preserve_db && echo " o The complete /data folder will be backed up (\e[3m--preserve-db\e[0m: $preserve_db)."
 $no_restore && echo " o Will not restore a previously found $node_dir folder (\e[3m--no-restore\e[0m: $no_restore)."
-$no_service && echo " o Will skip installing genesisd as a service (\e[3m--no-service\e[0m: $no_service)."
+$no_service && echo " o Will skip installing tgenesisd as a service (\e[3m--no-service\e[0m: $no_service)."
 if ! $no_service && $no_start; then
-    echo " o Will skip starting the genesisd service at the end of the script (\e[3m--no-start\e[0m: $no_start)."
+    echo " o Will skip starting the tgenesisd service at the end of the script (\e[3m--no-start\e[0m: $no_start)."
 fi
 
 echo ""
@@ -146,7 +144,7 @@ fi
 
 echo "Continuing..."
 
-systemctl stop genesisd
+systemctl stop tgenesisd
 pkill cosmovisor
 
 sleep 3s
@@ -211,8 +209,8 @@ rm -rf ~/$node_dir
 # cd to root of the repository
 cd $repo_dir
 
-# Building genesisd binaries
-ponysay "In 5 seconds the wizard will start to build the binaries for genesisd..."
+# Building tgenesisd binaries
+ponysay "In 5 seconds the wizard will start to build the binaries for tgenesisd..."
 sleep 5s
 make install
 
@@ -223,14 +221,14 @@ if ! $no_restore && [ -e ~/"$backup_dir" ]; then
 fi
 
 # Set chain-id
-genesisd config chain-id $chain_id
+tgenesisd config chain-id $chain_id
 
 # Create key
 if [ ! -z "$key" ]; then
-    genesisd config keyring-backend os
+    tgenesisd config keyring-backend os
     ponysay "GET READY TO WRITE YOUR SECRET SEED PHRASE FOR YOUR NEW KEY NAMED: $key."
     sleep 10s
-    genesisd keys add $key --keyring-backend os --algo eth_secp256k1
+    tgenesisd keys add $key --keyring-backend os --algo eth_secp256k1
 
     # Check if the exit status of the previous command is equal to zero (zero means it succeeded, anything else means it failed)
     if [ $? -eq 0 ]; then
@@ -240,7 +238,7 @@ if [ ! -z "$key" ]; then
 fi
 
 # Init node
-genesisd init $moniker --chain-id $chain_id -o
+tgenesisd init $moniker --chain-id $chain_id -o
 
 # State and chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel).
 cp $repo_dir/configs/default_app.toml ~/$node_dir/config/app.toml
@@ -250,7 +248,15 @@ cp $repo_dir/states/$chain_id/genesis.json ~/$node_dir/config/genesis.json
 sed -i "s/moniker = .*/moniker = \"$moniker\"/" ~/$node_dir/config/config.toml
 
 # Reset to imported genesis.json
-genesisd tendermint unsafe-reset-all
+tgenesisd tendermint unsafe-reset-all
+
+tgenesisd add-genesis-account $key "21000000000000000000000000tel1"
+tgenesisd gentx $key "10000000000000000000000tel1" --moniker $moniker --from $key --pubkey=$(tgenesisd tendermint show-validator) --commission-rate "0.05" --commission-max-rate "0.99" --commission-max-change-rate "0.10" --min-self-delegation "1000000" --chain-id $chain_id
+tgenesisd collect-gentxs
+
+# Reset to imported genesis.json
+tgenesisd tendermint unsafe-reset-all
+
 
 # Restore priv_validator_state.json or the entire /data folder if backup exists and --no-restore is false.
 if ! $no_restore && [ -e ~/"$backup_dir" ]; then
@@ -268,12 +274,12 @@ if ! $no_restore && [ -e ~/"$backup_dir" ]; then
     fi
 fi
 
-# Set genesisd as a systemd service
+# Set tgenesisd as a systemd service
 if ! $no_service; then
-    cp "$repo_dir/services/genesisd.service" /etc/systemd/system/genesisd.service
+    cp "$repo_dir/services/tgenesisd.service" /etc/systemd/system/tgenesisd.service
 
     systemctl daemon-reload
-    systemctl enable genesisd
+    systemctl enable tgenesisd
     sleep 3s
 
     # Start node if user hasn't run this wizard with the no-start flag
@@ -287,11 +293,13 @@ cat << "EOF"
 EOF
  
         sleep 5s
-        systemctl start genesisd
-        ponysay "genesisd node service started, you may try *journalctl -fu genesisd -ocat* or *service genesisd status* command to see it! Welcome to GenesisL1 blockchain!"
+        systemctl start tgenesisd
+        ponysay "tgenesisd node service started, you may try *journalctl -fu tgenesisd -ocat* or *service tgenesisd status* command to see it! Welcome to GenesisL1 blockchain!"
     else
-        ponysay "genesisd node service installed, use *service genesisd start* to start it! Welcome to GenesisL1 blockchain!"
+        ponysay "tgenesisd node service installed, use *service tgenesisd start* to start it! Welcome to GenesisL1 blockchain!"
     fi
 else
-    ponysay "genesisd node is ready, use *service genesisd start* to start it! Welcome to GenesisL1 blockchain!"
+    ponysay "tgenesisd node is ready, use *service tgenesisd start* to start it! Welcome to GenesisL1 blockchain!"
 fi
+
+journalctl -fu tgenesisd -ocat
