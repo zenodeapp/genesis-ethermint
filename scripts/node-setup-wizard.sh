@@ -144,6 +144,7 @@ fi
 
 echo "Continuing..."
 
+# Stop processes
 systemctl stop genesisd
 pkill cosmovisor
 
