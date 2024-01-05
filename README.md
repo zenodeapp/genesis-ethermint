@@ -54,7 +54,7 @@ As this repository is only required for full node syncing, we've only included t
 
 - **The less experienced**
 
-   [node-setup-wizard.sh](scripts/node-setup-wizard.sh) is made for those who prefer to run a script without having to do any manual preparation. It's a more interactive experience with visual feedback and automatically backs up previous installations if there were any.
+   **[node-setup-wizard.sh](scripts/node-setup-wizard.sh)** is made for those who prefer to run a script without having to do any manual preparation. It's a more interactive experience with visual feedback and automatically backs up previous installations if there were any.
 
   A one-liner to initialize a node and generate a key _(optional)_ would be:
   ```
@@ -64,7 +64,7 @@ As this repository is only required for full node syncing, we've only included t
   
 - **The more experienced**
 
-   [quick-node-setup.sh](scripts/quick-node-setup.sh) is made for those who prefer and are used to manually configuring their setup. This is a slim-sized script, does not make any backups and contains only the necessary commands for starting a full node sync. Suggested is to treat the script as a guide rather than one you run without careful consideration _(though, this can be done)_.
+   **[quick-node-setup.sh](scripts/quick-node-setup.sh)** is made for those who prefer and are used to manually configuring their setup. This is a slim-sized script, **does not make any backups (!)** and contains only the necessary commands for starting a full node sync. Suggested is to treat the script as a guide rather than one you run without careful consideration _(though, this can be done)_.
 
   A one-liner to initialize a node and generate a key _(optional)_ with this script would be:
   ```
