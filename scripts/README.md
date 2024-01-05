@@ -1,5 +1,9 @@
 # Scripts
 
+## dependencies.sh
+
+This script will install all the dependencies (and system configurations) that are necessary for the binary to run. Since this file already gets called from within the other scripts, it is not required to call this yourself.
+
 ## node-setup-wizard.sh
 
 > [!IMPORTANT]
@@ -34,7 +38,3 @@ If you plan on running the `node-setup-wizard.sh` script more often (testing pur
 > This script does not contain any backup logic whatsoever, so proceed with caution.
 
 As said in [README.md](../README.md), this script is made for those who are more experienced and prefer manual configuration. We suggest reading the script and running the commands yourself, unless you're confident the script will work correctly in your setup.
-
-## dependencies.sh
-
-These are all the dependencies (and system configurations) that are necessary for the binary to run. It is not needed to call this yourself, since this file already gets called from inside the other scripts.
