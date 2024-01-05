@@ -7,11 +7,15 @@
 </p>
 
 <p align="center">
-   <i>A source code fork of Evmos and Ethermint.</i>
+  Chain ID <b>genesis_29-2</b>
 </p>
 
 <p align="center">
-   Cosmos SDK v0.44.5-patch
+   A source code fork of <b>Evmos</b> and <b>Ethermint</b>
+</p>
+
+<p align="center">
+  Cosmos SDK <b>v0.44.5-patch</b>
 </p>
 
 > [!IMPORTANT]
