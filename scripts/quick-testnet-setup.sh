@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Variables
-MONIKER=mygenesismoniker
-KEY=mygenesiskey
+MONIKER=${1:-mygenesismoniker} # $1 or defaults to mygenesismoniker
+KEY=${2:-mygenesiskey} # $2 or defaults to mygenesiskey
 CHAIN_ID=tgenesis_29-2
 NODE_DIR=.tgenesis
 

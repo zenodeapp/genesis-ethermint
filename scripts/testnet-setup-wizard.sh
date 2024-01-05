@@ -84,11 +84,12 @@ fi
 
 echo "Continuing..."
 
+# Stop processes
 systemctl stop tgenesisd
 pkill cosmovisor
 
-# Deletion of the previous configuration
-# rm -rf ~/$node_dir
+# System update and installation of dependencies
+sh dependencies.sh
 
 # cd to root of the repository
 cd $repo_dir
