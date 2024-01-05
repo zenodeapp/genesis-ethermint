@@ -129,7 +129,7 @@ fi
 echo ""
 echo "Please note the following:"
 echo " - If a Cosmovisor process is running, it will be killed."
-echo " - If the Genesis daemon is running, it will be halted."
+echo " - If the Genesis Daemon is running, it will be halted."
 echo " - Existing app.toml and config.toml files will get overwritten, but backed up safely in the $HOME/$backup_dir folder."
 ! $preserve_db && echo " - Any existing Genesis database (in the /data folder) will get wiped! Use the flag \e[3m--preserve-db\e[0m if this is not desirable."
 echo ""
