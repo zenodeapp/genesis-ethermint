@@ -66,7 +66,7 @@ As this repository is only required for full node syncing, we've only included t
 
    **[quick-node-setup.sh](scripts/quick-node-setup.sh)** is made for those who prefer and are used to manually configuring their setup. This is a slim-sized script, **does not make any backups (!)** and contains only the necessary commands for starting a full node sync. Suggested is to treat the script as a guide rather than one you run without careful consideration _(though, this can be done)_.
 
-  A one-liner to initialize a node and generate a key _(optional)_ with this script would be:
+  A one-liner to initialize a node and generate a key with this script would be:
   ```
   sh scripts/quick-node-setup.sh your_moniker_name your_key_alias
   ```
