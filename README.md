@@ -18,6 +18,8 @@
   Cosmos SDK <b>v0.44.5-patch</b>
 </p>
 
+---
+
 > [!IMPORTANT]
 > **From Evmos to Cronos**
 > 
