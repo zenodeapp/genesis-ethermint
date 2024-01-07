@@ -8,7 +8,7 @@ KEY=${2:-mygenesiskey} # $2 or defaults to mygenesiskey
 CHAIN_ID=tgenesis_29-2
 NODE_DIR=.tgenesis
 REPO_DIR=$(cd "$(dirname "$0")"/.. && pwd)
-SCRIPTS_DIR=$REPO_DIR/scripts
+SETUP_DIR=$REPO_DIR/setup
 
 # Stop processes
 systemctl stop tgenesisd
@@ -18,7 +18,7 @@ pkill cosmovisor
 rm -rf ~/.tgenesis
 
 # System update and installation of dependencies
-sh $SCRIPTS_DIR/dependencies.sh
+sh $SETUP_DIR/dependencies.sh
 
 # cd to root of the repository
 cd $REPO_DIR
@@ -45,14 +45,14 @@ cp ./configs/default_config_local.toml ~/$NODE_DIR/config/config.toml
 # Set moniker again since the configs got overwritten
 sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" ~/$NODE_DIR/config/config.toml
 
-sh $SCRIPTS_DIR/generate-validator.sh $MONIKER $KEY
-sh $SCRIPTS_DIR/collect-gentxs.sh
+sh $SETUP_DIR/generate-validator.sh $MONIKER $KEY
+sh $SETUP_DIR/collect-gentxs.sh
 
 # Reset to imported genesis.json
 tgenesisd tendermint unsafe-reset-all
 
 # Install service
-sh $SCRIPTS_DIR/install-service.sh
+sh $SETUP_DIR/install-service.sh
 
 # Start node as service
 systemctl start tgenesisd
