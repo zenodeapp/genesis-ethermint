@@ -51,10 +51,8 @@ sh $SCRIPTS_DIR/collect-gentxs.sh
 # Reset to imported genesis.json
 tgenesisd tendermint unsafe-reset-all
 
-# Add service
-cp ./services/tgenesisd.service /etc/systemd/system/tgenesisd.service
-systemctl daemon-reload
-systemctl enable tgenesisd
+# Install service
+sh $SCRIPTS_DIR/install-service.sh
 
 # Start node as service
 systemctl start tgenesisd
