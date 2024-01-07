@@ -2,13 +2,13 @@ accounts:
   - name: alice
     coins: ["100000000uatom", "100000000000000000000aphoton"]
   - name: bob
-    coins: ["5000000000000el1"]
+    coins: ["5000000000000tel1"]
 validator:
   name: alice
-  staked: "100000000000000000000el1"
+  staked: "100000000000000000000tel1"
 faucet:
   name: bob 
-  coins: ["10el1"]
+  coins: ["10tel1"]
 build:
   binary: "tgenesisd"
 init:
@@ -22,18 +22,18 @@ genesis:
   app_state:
     staking:
       params:
-        bond_denom: "el1"
+        bond_denom: "tel1"
     mint:
       params:
-        mint_denom: "el1"
+        mint_denom: "tel1"
     crisis:
       constant_fee:
-        denom: "el1"
+        denom: "tel1"
     gov:
       deposit_params:
         min_deposit:
           - amount: "10000000"
-            denom: "el1"
+            denom: "tel1"
     evm:
       params:
-        evm_denom: "el1"
+        evm_denom: "tel1"
