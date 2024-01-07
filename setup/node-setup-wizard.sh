@@ -52,7 +52,7 @@ if [ "$#" -lt 1 ]; then
     echo "     \e[3m--backup-dir string\e[0m      Set a different name for the backup directory. (default is time-based, ex: $BACKUP_DIR)."
     echo "     \e[3m--preserve-db\e[0m            This makes sure the complete /data folder gets backed up via a move-operation (default: false)."
     echo "     \e[3m--no-restore\e[0m             This prevents restoring the old backed up $NODE_DIR folder in the $HOME folder (default: false)."
-    echo "     \e[3m--no-service\e[0m             This prevents the genesisd service from being made (default: false)."
+    echo "     \e[3m--no-service\e[0m             This prevents the genesisd service from being installed (default: false)."
     echo "     \e[3m--no-start\e[0m               This prevents the genesisd service from starting at the end of the script (default: false)."
     exit 1
 fi

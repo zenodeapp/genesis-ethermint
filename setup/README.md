@@ -4,6 +4,10 @@
 
 This script installs all the dependencies (and system configurations) that are necessary for the binary to run. Since this file already gets called from within the other scripts, it is not required to call this yourself.
 
+## install-service.sh
+
+This script installs the `genesisd` service, which will automatically start the node whenever the device reboots (see [genesisd.service](/services/genesisd.service)). Since this file already gets called from within the other scripts, it is not required to call this yourself.
+
 ## node-setup-wizard.sh
 
 As said in the [README.md](../README.md), this script is more of an interactive experience and takes care of some extra precautionary steps. It's made for those who prefer to run a script without having to do any manual preparation like backing up previous installations.
@@ -22,7 +26,7 @@ Usage: sh node-setup-wizard.sh --moniker string [...options]
      --backup-dir string      Set a different name for the backup directory. (default is time-based: see below for more information).
      --preserve-db            This makes sure the complete /data folder gets backed up via a move-operation (default: false).
      --no-restore             This prevents restoring the old backed up .genesis folder in the /root folder (default: false).
-     --no-service             This prevents the genesisd service from being made (default: false).
+     --no-service             This prevents the genesisd service from being installed (default: false).
      --no-start               This prevents the genesisd service from starting at the end of the script (default: false).
 ```
 > Here can be seen that the _--moniker_ is the only required field, but it is recommended to also add the _--key_ option if you haven't already created a key. This is useful to have if you later on wish to interact with your node (i.e. create a validator, do transactions etc.).
