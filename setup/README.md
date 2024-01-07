@@ -1,4 +1,4 @@
-# Scripts
+# Setup
 
 ## dependencies.sh
 
@@ -13,7 +13,7 @@ As said in the [README.md](../README.md), this script is more of an interactive 
 
 ### Usage
 
-Running _sh scripts/node-setup-wizard.sh_ gives an overview of what the script is capable of:
+Running _sh node-setup-wizard.sh_ gives an overview of what the script is capable of:
 ```
 Usage: sh node-setup-wizard.sh --moniker string [...options]
 

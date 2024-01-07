@@ -58,21 +58,21 @@ As this repository is only required for full node syncing, we've only included t
 
 - **Normal Users**
 
-   **[node-setup-wizard.sh](scripts/node-setup-wizard.sh)** is made for those who prefer to run a script without having to do any manual preparation. It's a more interactive experience with visual feedback and automatically backs up previous installations if there were any.
+   **[node-setup-wizard.sh](setup/node-setup-wizard.sh)** is made for those who prefer to run a script without having to do any manual preparation. It's a more interactive experience with visual feedback and automatically backs up previous installations if there were any.
 
   A one-liner to initialize a node and generate a key _(optional)_ would be:
   ```
-  sh scripts/node-setup-wizard.sh --moniker your_moniker_name --key your_key_alias
+  sh node-setup-wizard.sh --moniker your_moniker_name --key your_key_alias
   ```
-  > Running this will not backup any database in an existing _.genesis/data_ folder! If you do not want this to get wiped, then add the `--preserve-db` flag! More options or flags could be set; see the [\/scripts](scripts/)-folder for more information on this.
+  > Running this will not backup any database in an existing _.genesis/data_ folder! If you do not want this to get wiped, then add the `--preserve-db` flag! More options or flags could be set; see the [\/setup](setup/)-folder for more information on this.
   
 - **Advanced Users**
 
-   **[quick-node-setup.sh](scripts/quick-node-setup.sh)** is made for those who prefer and are used to manually configuring their setup. This is a slim-sized script, **does not make any backups (!)** and contains only the necessary commands for starting a full node sync. Suggested is to treat the script as a guide rather than one you run without careful consideration _(though, this could also be done)_.
+   **[quick-node-setup.sh](setup/quick-node-setup.sh)** is made for those who prefer and are used to manually configuring their setup. This is a slim-sized script, **does not make any backups (!)** and contains only the necessary commands for starting a full node sync. Suggested is to treat the script as a guide rather than one you run without careful consideration _(though, this could also be done)_.
 
   A one-liner to initialize a node and generate a key with this script would be:
   ```
-  sh scripts/quick-node-setup.sh your_moniker_name your_key_alias
+  sh quick-node-setup.sh your_moniker_name your_key_alias
   ```
   > The args are optional and default to _mygenesismoniker_ and _mygenesiskey_ if they're not provided.
   
