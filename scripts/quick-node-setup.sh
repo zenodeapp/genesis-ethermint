@@ -22,13 +22,14 @@ MONIKER=${1:-mygenesismoniker} # $1 or defaults to mygenesismoniker
 KEY=${2:-mygenesiskey} # $2 or defaults to mygenesiskey
 CHAIN_ID=genesis_29-2
 NODE_DIR=.genesis
+SCRIPTS_DIR=$(cd "$(dirname "$0")" && pwd)
 
 # Stop processes
 systemctl stop genesisd
 pkill cosmovisor
 
 # System update and installation of dependencies
-sh dependencies.sh
+sh $SCRIPTS_DIR/dependencies.sh
 
 # cd to root of the repository
 cd ..
@@ -56,10 +57,8 @@ sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" ~/$NODE_DIR/config/config.toml
 # Reset to imported genesis.json
 genesisd tendermint unsafe-reset-all
 
-# Add service
-cp "./services/genesisd.service" /etc/systemd/system/genesisd.service
-systemctl daemon-reload
-systemctl enable genesisd
+# Install service
+sh $SCRIPTS_DIR/install-service.sh
 
 # Start node as service
 systemctl start genesisd
