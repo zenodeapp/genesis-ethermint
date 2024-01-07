@@ -38,7 +38,7 @@ cp ./states/$CHAIN_ID/genesis.json ~/$NODE_DIR/config/genesis.json
 cp ./configs/default_app.toml ~/$NODE_DIR/config/app.toml
 cp ./configs/default_config.toml ~/$NODE_DIR/config/config.toml
 
-# For local configs (addr_book_strict is set to false and allow_duplicate_ip to true)
+# For local configs (addr_book_strict is set to false, allow_duplicate_ip to true, api true and unsafe-cors also true)
 # cp ./configs/default_app_local.toml ~/$NODE_DIR/config/app.toml
 # cp ./configs/default_config_local.toml ~/$NODE_DIR/config/config.toml
 

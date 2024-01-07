@@ -38,7 +38,7 @@ tgenesisd init $MONIKER --chain-id $CHAIN_ID -o
 
 # State and chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel).
 cp ./states/$CHAIN_ID/genesis-empty.json ~/$NODE_DIR/config/genesis.json
-# For local configs (addr_book_strict is set to false and allow_duplicate_ip to true)
+# For local configs (addr_book_strict is set to false, allow_duplicate_ip to true, api true and unsafe-cors also true)
 cp ./configs/default_app_local.toml ~/$NODE_DIR/config/app.toml
 cp ./configs/default_config_local.toml ~/$NODE_DIR/config/config.toml
 
