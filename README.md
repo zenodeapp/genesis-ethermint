@@ -38,7 +38,7 @@
 
 ## Instructions
 
-Only follow these steps if you wish to set up a full node, else you could immediately go to the `genesis-cronos` repository.
+Only follow these steps if you wish to set up a full node, else you could immediately go to the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
 
 ### 1. Cloning the repository
 
@@ -78,4 +78,4 @@ As this repository is only required for full node syncing, we've only included t
   
 ### 4. Sync your node
 
-The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the `genesis-cronos` repository.
+The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
