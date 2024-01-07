@@ -35,7 +35,7 @@ EOF
 CHAIN_ID="genesis_29-2"
 NODE_DIR=".genesis"
 REPO_DIR=$(cd "$(dirname "$0")"/.. && pwd)
-SCRIPTS_DIR=$REPO_DIR/scripts
+SETUP_DIR=$REPO_DIR/setup
 BACKUP_DIR=".genesis_backup_$(date +"%Y%m%d%H%M%S")"
 MONIKER=""
 KEY=""
@@ -152,7 +152,7 @@ pkill cosmovisor
 sleep 3s
 
 # System update and installation of dependencies
-sh $SCRIPTS_DIR/dependencies.sh
+sh $SETUP_DIR/dependencies.sh
 snap install ponysay
 
 # Backup of previous configuration if one existed
@@ -241,7 +241,7 @@ fi
 # Set genesisd as a systemd service
 if ! $NO_SERVICE; then
     # Install service
-    sh $SCRIPTS_DIR/install-service.sh
+    sh $SETUP_DIR/install-service.sh
     sleep 3s
 
     # Start node if user hasn't run this wizard with the no-start flag
