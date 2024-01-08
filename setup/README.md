@@ -57,4 +57,4 @@ If you plan on running the script more often (testing purposes for instance), yo
 
 ## shift-ports.sh
 
-This script is useful if you want to shift the ports in the configuration files. It comes from https://github.com/zenodeapp/port-shifter and is slightly adapted for GenesisL1. If you prefer a more simplistic version of the script, use quick-shift.sh found in the aforementioned repository instead.
+This script is useful if you quickly want to replace the ports in the configuration files. It comes from https://github.com/zenodeapp/port-shifter and is slightly adapted for GenesisL1. If you prefer a more simplistic version of the script, use quick-shift.sh found in the aforementioned repository instead.
