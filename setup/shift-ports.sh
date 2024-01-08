@@ -95,7 +95,7 @@ sed -i "/^\[api\]/,/\[.*\]/ s/\(address = \".*\):\([0-9]*\)/\1:$((API_ADDRESS + 
 sed -i "/^\[rosetta\]/,/\[.*\]/ s/\(address = \".*\):\([0-9]*\)/\1:$((ROSETTA_ADDRESS + INCREMENT))/" $CONFIG_PATH/app.toml
 sed -i "/^\[grpc\]/,/\[.*\]/ s/\(address = \".*\):\([0-9]*\)/\1:$((GRPC_ADDRESS + INCREMENT))/" $CONFIG_PATH/app.toml
 sed -i "/^\[grpc-web\]/,/\[.*\]/ s/\(address = \".*\):\([0-9]*\)/\1:$((GRPC_WEB_ADDRESS + INCREMENT))/" $CONFIG_PATH/app.toml
-# Make sure to run all these three together and do not comment out the last two, since the first will at first overwrite all three.
+# Make sure to run the three below together and do not comment out the last two, since the first will at first overwrite all three.
 sed -i "/^\[json-rpc\]/,/\[.*\]/ s/\(address = \".*\):\([0-9]*\)/\1:$((JSON_RPC_ADDRESS + INCREMENT))/" $CONFIG_PATH/app.toml
 sed -i "/^\[json-rpc\]/,/\[.*\]/ s/\(ws-address = \".*\):\([0-9]*\)/\1:$((JSON_RPC_WS_ADDRESS + INCREMENT))/" $CONFIG_PATH/app.toml
 sed -i "/^\[json-rpc\]/,/\[.*\]/ s/\(metrics-address = \".*\):\([0-9]*\)/\1:$((JSON_RPC_METRICS_ADDRESS + INCREMENT))/" $CONFIG_PATH/app.toml
