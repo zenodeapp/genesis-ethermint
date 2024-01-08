@@ -22,7 +22,8 @@ MONIKER=${1:-mygenesismoniker} # $1 or defaults to mygenesismoniker
 KEY=${2:-mygenesiskey} # $2 or defaults to mygenesiskey
 CHAIN_ID=genesis_29-2
 NODE_DIR=.genesis
-SETUP_DIR=$(cd "$(dirname "$0")" && pwd)
+REPO_DIR=$(cd "$(dirname "$0")"/.. && pwd)
+SETUP_DIR=$REPO_DIR/setup
 
 # Stop processes
 systemctl stop genesisd
@@ -32,7 +33,7 @@ pkill cosmovisor
 sh $SETUP_DIR/dependencies.sh
 
 # cd to root of the repository
-cd ..
+cd $REPO_DIR
 
 # Building genesisd binaries
 make install
