@@ -26,15 +26,8 @@ Though if you're only running a testnet locally, either run `quick-testnet-setup
 > [!CAUTION]
 > Running this will **wipe the whole data-folder** (database **AND** the priv_validator_state.json file!). Make a backup if needed.
 
-This script takes care of everything to join the `tgenesis_54-1` testnet, run it using:
-```
-sh quick-testnet-setup.sh [MONIKER] [KEY_ALIAS]
-```
-> [MONIKER] and [KEY_ALIAS] are optional and will default, respectively, to _mygenesismoniker_ and _mygenesiskey_. Advised is to always add the key alias, so that in case it already exists it will ask whether you'd like to overwrite it or not. This way you prevent it from creating a new key every time you run this.
-> 
-> You can add the `--local` flag if you would like to spin up a local testnet. Be careful though, this will still use the `.tgenesis`-folder and wipe the data folder!
+This script takes care of everything to join the `tgenesis_54-1` testnet:
 
-### What it does
 - It stops the service (if it exists)
 - installs all the necessary dependencies
 - Builds the binaries
@@ -44,3 +37,16 @@ sh quick-testnet-setup.sh [MONIKER] [KEY_ALIAS]
 - Initializes the node
 - Installs the service
 - Runs the node
+  
+### Usage
+
+```
+sh quick-testnet-setup.sh [MONIKER] [KEY_ALIAS]
+```
+> You can add the `--local` flag if you would like to spin up a local testnet. Be careful though, this will still use the `.tgenesis`-folder and wipe the data folder!
+
+[MONIKER] and [KEY_ALIAS] are optional and will default, respectively, to _mygenesismoniker_ and _mygenesiskey_. Advised is to always add the key alias, so that in case it already exists it will ask whether you'd like to overwrite it or not. This way you prevent it from creating a new key every time you run this.
+
+
+
+
