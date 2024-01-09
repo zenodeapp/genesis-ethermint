@@ -66,7 +66,7 @@ sh ./utils/fetch-peers.sh
 $BINARY_NAME tendermint unsafe-reset-all
 
 # Install service
-sh ./setup/install-service.sh
+sh ./utils/install-service.sh
 
 # Start node as service
 systemctl start $BINARY_NAME

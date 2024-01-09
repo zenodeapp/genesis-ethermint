@@ -249,7 +249,7 @@ fi
 # Add binary as a systemd service
 if ! $NO_SERVICE; then
     # Install service
-    sh ./setup/install-service.sh
+    sh ./utils/install-service.sh
     sleep 3s
 
     # Start node if user hasn't run this wizard with the no-start flag
