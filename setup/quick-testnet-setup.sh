@@ -95,6 +95,7 @@ $BINARY_NAME tendermint unsafe-reset-all
 
 # If local, generate a validator and collect gentxs
 if $LOCAL; then
+    rm -rf $CONFIG_DIR/gentx # Remove gentxs folder in case it already exists
     sh $REPO_ROOT/setup/generate-validator.sh $MONIKER $KEY
     $BINARY_NAME collect-gentxs
     # Reset again for genesis.json has changed
