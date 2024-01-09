@@ -15,11 +15,9 @@ This script installs all the dependencies (and system configurations) that are n
 
 ## generate-validator.sh
 
-This script uses `add-genesis-account` and `gentx` to create a genesis-validator. This will create a file inside of the `/.tgenesis/config/gentx`-folder, which contains the transaction details for adding this validator to the `genesis.json` file.
+This script uses `add-genesis-account` and `gentx` to create a genesis-validator. This will create a file inside of the `/.tgenesis/config/gentx`-folder, which contains the transaction details for adding this validator to the `genesis.json` file. 
 
-This file is necessary to send in if you want to join as a genesis validator in the testnet.
-
-Though if you're only running a testnet locally, either run `quick-testnet-setup.sh --local` (which will automatically add your key as a genesis validator) or stop the node and run `generate-validator.sh` followed by a `tgenesisd collect-gentxs && tgenesisd tendermint unsafe-reset-all`.
+Though if you're only going to run a local testnet, simply run the `quick-testnet-setup.sh` with the `--local` flag which will automatically add your key as a genesis validator (see below).
 
 ## quick-testnet-setup.sh
 
@@ -31,8 +29,8 @@ This script takes care of everything to join the `tgenesis_54-1` testnet:
 - It stops the service (if it exists)
 - installs all the necessary dependencies
 - Builds the binaries
-- Generates a key
-- Resets all configuration files
+- Generates a new _or_ attempts to overwrite an existing key
+- Resets all configuration files to their default
 - Fetches state, seeds and peers
 - Initializes the node
 - Installs the service
@@ -41,12 +39,17 @@ This script takes care of everything to join the `tgenesis_54-1` testnet:
 ### Usage
 
 ```
-sh quick-testnet-setup.sh [MONIKER] [KEY_ALIAS]
+sh quick-testnet-setup.sh --moniker string --key string
 ```
-> You can add the `--local` flag if you would like to spin up a local testnet. Be careful though, this will still use the `.tgenesis`-folder and wipe the data folder!
+> _--moniker_ and _--key_ are optional and will default, respectively, to _mygenesismoniker_ and _mygenesiskey_. Advised is to always add the key alias, so that in case it already exists it asks whether you'd like to overwrite it or not. This way you prevent it from accidentally creating a _mygenesiskey_ if you do not desire this.
 
-[MONIKER] and [KEY_ALIAS] are optional and will default, respectively, to _mygenesismoniker_ and _mygenesiskey_. Advised is to always add the key alias, so that in case it already exists it will ask whether you'd like to overwrite it or not. This way you prevent it from creating a new key every time you run this.
-
-
+> [!TIP]
+> You can add the `--local` flag if you would like to spin up a local testnet. This will immediately create a genesis validator using your key and set these configurations:
+> - **[p2p]** addr_book_strict = false
+> - **[p2p]** allow_duplicate_ip = true
+> - **[api]** enabled = true
+> - **[api]** enabled-unsafe-cors = true
+> 
+> Be careful though, this will still use the `.tgenesis`-folder and wipe everything in the data folder!
 
 
