@@ -52,8 +52,8 @@ if [ "$#" -lt 1 ]; then
     echo "   Options:"
     echo "     \e[3m--key string\e[0m             This creates a new key with the given alias, else no key gets generated."
     echo "     \e[3m--backup-dir string\e[0m      Set a different name for the backup directory. (default is time-based, ex: $BACKUP_DIR)."
-    echo "     \e[3m--preserve-db\e[0m            This makes sure the complete /data folder gets backed up via a move-operation (default: false)."
-    echo "     \e[3m--no-restore\e[0m             This prevents restoring the old backed up $NODE_DIR folder in the $HOME folder (default: false)."
+    echo "     \e[3m--preserve-db\e[0m            This makes sure the complete $DATA_DIR folder gets backed up via a move-operation (default: false)."
+    echo "     \e[3m--no-restore\e[0m             This prevents restoring the old backed up $NODE_DIR folder (default: false)."
     echo "     \e[3m--no-service\e[0m             This prevents the $BINARY_NAME service from being installed (default: false)."
     echo "     \e[3m--no-start\e[0m               This prevents the $BINARY_NAME service from starting at the end of the script (default: false)."
     exit 1
