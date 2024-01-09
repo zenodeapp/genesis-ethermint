@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  Chain ID <b>tgenesis_29-2</b>
+  Chain ID <b>tgenesis_54-1</b>
 </p>
 
 <p align="center">

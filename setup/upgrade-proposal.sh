@@ -9,5 +9,5 @@ KEY=$1
 UPGRADE_HEIGHT=${2:-100}
 NEXT_PROPOSAL_ID=${3:-1}
 
-tgenesisd tx gov submit-proposal software-upgrade plan_cronos --upgrade-height $UPGRADE_HEIGHT --from $KEY --title "Hardfork to cronos" --description "Hardfork to cronos" --deposit "10000000000000000000000tel1" --fees "10000000000000000tel1" -y
-tgenesisd tx gov vote $NEXT_PROPOSAL_ID yes --from $KEY --fees "10000000000000000tel1" -y
+tgenesisd tx gov submit-proposal software-upgrade plan_cronos --upgrade-height $UPGRADE_HEIGHT --from $KEY --title "Hardfork to cronos" --description "Hardfork to cronos" --deposit "10000000000000000000000el1" --fees "10000000000000000el1" -y
+tgenesisd tx gov vote $NEXT_PROPOSAL_ID yes --from $KEY --fees "10000000000000000el1" -y

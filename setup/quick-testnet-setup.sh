@@ -3,7 +3,7 @@
 # Variables
 MONIKER=${1:-mygenesismoniker} # $1 or defaults to mygenesismoniker
 KEY=${2:-mygenesiskey} # $2 or defaults to mygenesiskey
-CHAIN_ID=tgenesis_29-2
+CHAIN_ID=tgenesis_54-1
 NODE_DIR=.tgenesis
 REPO_DIR=$(cd "$(dirname "$0")"/.. && pwd)
 SETUP_DIR=$REPO_DIR/setup
