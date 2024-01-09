@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHAIN_ID=genesis_29-2
 BINARY_NAME=genesisd
 NODE_DIR=$HOME/.genesis
