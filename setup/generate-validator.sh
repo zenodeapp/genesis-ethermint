@@ -7,7 +7,7 @@ REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 . "$REPO_ROOT/utils/_variables.sh"
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "Usage: sh $0 <MONIKER> <KEY>"
+    echo "Usage: sh $0 <MONIKER> <KEY_ALIAS>"
     exit 1
 fi
 

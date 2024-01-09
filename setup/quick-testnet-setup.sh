@@ -17,20 +17,6 @@
 # WARNING: This script does not create any backups whatsoever, make sure to create one if
 # you go this route.
 
-# If --local flag is provided, use the config files for local environments.
-LOCAL=false
-while [ "$#" -gt 0 ]; do
-  case $1 in
-    --local)
-        LOCAL=true;
-        shift
-        ;;
-    *) 
-        shift
-        ;;
-  esac
-done
-
 # Root of the current repository
 REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 
@@ -38,8 +24,47 @@ REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 . "$REPO_ROOT/utils/_variables.sh"
 
 # Arguments
-MONIKER=${1:-mygenesismoniker} # $1 or defaults to mygenesismoniker
-KEY=${2:-mygenesiskey} # $2 or defaults to mygenesiskey
+MONIKER=mygenesismoniker
+KEY=mygenesiskey
+LOCAL=false
+
+# Parse command line options
+while [ "$#" -gt 0 ]; do
+  case $1 in
+    --moniker)
+        shift
+        if [ -z "$1" ] || [ "$(echo "$1" | cut -c 1)" = "-" ]; then
+            echo "Error: --moniker option requires a non-empty value."
+            exit 1
+        fi
+        MONIKER="$1"
+        ;;
+    --key)
+        shift
+        if [ -z "$1" ] || [ "$(echo "$1" | cut -c 1)" = "-" ]; then
+            echo "Error: --key option requires a non-empty value."
+            exit 1
+        fi
+        KEY="$1"
+        ;;
+    --local)
+        LOCAL=true
+        ;;
+    *) 
+        echo "Error: Unknown option $1"
+        exit 1
+        ;;
+  esac
+  shift
+done
+
+# Echo configurations
+echo ""
+echo "Configurations:"
+echo "--moniker: $MONIKER"
+echo "--key: $KEY"
+echo "--local: $LOCAL"
+echo ""
 
 # Stop processes
 systemctl stop $BINARY_NAME
@@ -66,8 +91,8 @@ $BINARY_NAME init $MONIKER --chain-id $CHAIN_ID -o
 
 # Chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel)
 if ! $LOCAL; then
-    # - addr_book_strict = true
-    # - allow_duplicate_ip = false
+    # - [p2p] addr_book_strict = true
+    # - [p2p] allow_duplicate_ip = false
     # - [api] enabled = false
     # - [api] enabled-unsafe-cors = false
     cp "./configs/default_app.toml" $CONFIG_DIR/app.toml
@@ -77,8 +102,8 @@ if ! $LOCAL; then
     # Fetch latest seeds and peers list from genesis-parameters repo
     sh ./utils/fetch-peers.sh
 else
-    # - addr_book_strict = false
-    # - allow_duplicate_ip = true
+    # - [p2p] addr_book_strict = false
+    # - [p2p] allow_duplicate_ip = true
     # - [api] enabled = true
     # - [api] enabled-unsafe-cors = true
     cp "./configs/default_app_local.toml" $CONFIG_DIR/app.toml
@@ -107,3 +132,6 @@ sh ./utils/install-service.sh
 
 # Start node as service
 systemctl start $BINARY_NAME
+
+echo ""
+echo "$BINARY_NAME started, use 'journalctl -fu $BINARY_NAME -ocat' to see its status!"

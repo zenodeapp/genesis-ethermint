@@ -7,8 +7,10 @@ REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 . "$REPO_ROOT/utils/_variables.sh"
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "Usage: sh $0 <KEY> <UPGRADE_HEIGHT> [NEXT_PROPOSAL_ID]"
-    echo " - [NEXT_PROPOSAL_ID] defaults to 1"
+    echo ""
+    echo "Usage: sh $0 <KEY_ALIAS> <UPGRADE_HEIGHT> [NEXT_PROPOSAL_ID]"
+    echo "       - [NEXT_PROPOSAL_ID] is optional, but should point towards the upgrade proposal to vote on (default: 1)"
+    echo ""
     exit 1
 fi
 
