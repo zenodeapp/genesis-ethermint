@@ -4,10 +4,6 @@
 
 This script installs all the dependencies (and system configurations) that are necessary for the binary to run. Since this file already gets called from within the other scripts, it is not required to call this yourself.
 
-## install-service.sh
-
-This script installs the `genesisd` service, which will automatically start the node whenever the device reboots (see [genesisd.service](/services/genesisd.service)). Since this file already gets called from within the other scripts, it is not required to call this yourself.
-
 ## node-setup-wizard.sh
 
 As said in the [README.md](../README.md), this script is more of an interactive experience and takes care of some extra precautionary steps. It's made for those who prefer to run a script without having to do any manual preparation like backing up previous installations.
@@ -54,7 +50,3 @@ If you plan on running the script more often (testing purposes for instance), yo
    sh quick-node-setup.sh mynode mykey
 ```
 > The args are optional and default to mygenesismoniker and mygenesiskey if they're not provided.
-
-## shift-ports.sh
-
-This script is useful if you quickly want to replace the ports in the configuration files. It comes from https://github.com/zenodeapp/port-shifter and is slightly adapted for GenesisL1. If you prefer a more simplistic version of the script, use quick-shift.sh found in the aforementioned repository instead.
