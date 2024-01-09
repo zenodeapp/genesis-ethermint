@@ -79,3 +79,6 @@ As this repository is only required for full node syncing, we've only included t
 ### 4. Sync your node
 
 The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
+
+> [!TIP]
+> There are some useful utilities in the utils-folder (e.g. for fetching seeds and peers, fetching the genesis state, shifting ports etc.). To learn more about these, see the [README](utils/README.md).
