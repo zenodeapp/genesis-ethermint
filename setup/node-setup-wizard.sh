@@ -31,14 +31,16 @@ GENESIS L1 IS A NON COMMERCIAL OPEN DECENTRALIZED BLOCKCHAIN PROJECT RELATED TO 
   
 EOF
 
-# Fixed/default variables (do not modify)
-CHAIN_ID="genesis_29-2"
-NODE_DIR=".genesis"
-REPO_DIR=$(cd "$(dirname "$0")"/.. && pwd)
-SETUP_DIR=$REPO_DIR/setup
-BACKUP_DIR=".genesis_backup_$(date +"%Y%m%d%H%M%S")"
+# Root of the current repository
+REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
+
+# Source the variables file
+. "$REPO_ROOT/utils/_variables.sh"
+
+# Default variables (do not modify)
 MONIKER=""
 KEY=""
+BACKUP_DIR=".genesis_backup_$(date +"%Y%m%d%H%M%S")"
 PRESERVE_DB=false
 NO_RESTORE=false
 NO_SERVICE=false
@@ -50,10 +52,10 @@ if [ "$#" -lt 1 ]; then
     echo "   Options:"
     echo "     \e[3m--key string\e[0m             This creates a new key with the given alias, else no key gets generated."
     echo "     \e[3m--backup-dir string\e[0m      Set a different name for the backup directory. (default is time-based, ex: $BACKUP_DIR)."
-    echo "     \e[3m--preserve-db\e[0m            This makes sure the complete /data folder gets backed up via a move-operation (default: false)."
-    echo "     \e[3m--no-restore\e[0m             This prevents restoring the old backed up $NODE_DIR folder in the $HOME folder (default: false)."
-    echo "     \e[3m--no-service\e[0m             This prevents the genesisd service from being installed (default: false)."
-    echo "     \e[3m--no-start\e[0m               This prevents the genesisd service from starting at the end of the script (default: false)."
+    echo "     \e[3m--preserve-db\e[0m            This makes sure the complete $DATA_DIR folder gets backed up via a move-operation (default: false)."
+    echo "     \e[3m--no-restore\e[0m             This prevents restoring the old backed up $NODE_DIR folder (default: false)."
+    echo "     \e[3m--no-service\e[0m             This prevents the $BINARY_NAME service from being installed (default: false)."
+    echo "     \e[3m--no-start\e[0m               This prevents the $BINARY_NAME service from starting at the end of the script (default: false)."
     exit 1
 fi
 
@@ -108,6 +110,9 @@ while [ "$#" -gt 0 ]; do
     shift
 done
 
+# Add $HOME path to backup directory
+BACKUP_DIR=$HOME/$BACKUP_DIR
+
 # Check if required options are provided
 if [ -z "$MONIKER" ]; then
     echo "Error: --moniker is required."
@@ -119,19 +124,19 @@ echo " o Moniker will be set to: $MONIKER."
 if [ ! -z "$KEY" ]; then
     echo " o Will create a key with the alias: $KEY."
 fi
-echo " o Backup directory is set to: $HOME/$BACKUP_DIR."
+echo " o Backup directory is set to: $BACKUP_DIR."
 $PRESERVE_DB && echo " o The complete /data folder will be backed up (\e[3m--preserve-db\e[0m: $PRESERVE_DB)."
 $NO_RESTORE && echo " o Will not restore a previously found $NODE_DIR folder (\e[3m--no-restore\e[0m: $NO_RESTORE)."
-$NO_SERVICE && echo " o Will skip installing genesisd as a service (\e[3m--no-service\e[0m: $NO_SERVICE)."
+$NO_SERVICE && echo " o Will skip installing $BINARY_NAME as a service (\e[3m--no-service\e[0m: $NO_SERVICE)."
 if ! $NO_SERVICE && $NO_START; then
-    echo " o Will skip starting the genesisd service at the end of the script (\e[3m--no-start\e[0m: $NO_START)."
+    echo " o Will skip starting the $BINARY_NAME service at the end of the script (\e[3m--no-start\e[0m: $NO_START)."
 fi
 
 echo ""
 echo "Please note the following:"
 echo " - If a Cosmovisor process is running, it will be killed."
 echo " - If the Genesis Daemon is running, it will be halted."
-echo " - Existing app.toml and config.toml files will get overwritten, but backed up safely in the $HOME/$BACKUP_DIR folder."
+echo " - Existing app.toml and config.toml files will get overwritten, but backed up safely in the $BACKUP_DIR folder."
 ! $PRESERVE_DB && echo " - Any existing Genesis database (in the /data folder) will get wiped! Use the flag \e[3m--preserve-db\e[0m if this is not desirable."
 echo ""
 
@@ -146,61 +151,59 @@ fi
 echo "Continuing..."
 
 # Stop processes
-systemctl stop genesisd
+systemctl stop $BINARY_NAME
 pkill cosmovisor
 
-sleep 3s
+# cd to root of the repository
+cd $REPO_ROOT
 
 # System update and installation of dependencies
-sh $SETUP_DIR/dependencies.sh
+sh ./setup/dependencies.sh
 snap install ponysay
 
 # Backup of previous configuration if one existed
-if [ -e ~/"$NODE_DIR" ]; then
-    rsync -qr --verbose --exclude 'data' --exclude 'config/genesis.json' ~/$NODE_DIR/ ~/"$BACKUP_DIR"/
+if [ -e "$NODE_DIR" ]; then
+    rsync -qr --verbose --exclude 'data' --exclude 'config/genesis.json' "$NODE_DIR"/ "$BACKUP_DIR"/
     echo "Backed up previous $NODE_DIR folder."
     
-    rm -r ~/"$BACKUP_DIR"/data
-    mkdir -p ~/"$BACKUP_DIR"/data
+    rm -r "$BACKUP_DIR"/data
+    mkdir -p "$BACKUP_DIR"/data
     
     if $PRESERVE_DB; then
         # A move is more feasible, especially with big data.
-        if mv ~/$NODE_DIR/data ~/"$BACKUP_DIR"/; then
+        if mv $DATA_DIR "$BACKUP_DIR"/; then
             echo "Backed up entire /data folder."
         fi
     else
-        if cp ~/$NODE_DIR/data/priv_validator_state.json ~/"$BACKUP_DIR"/data/priv_validator_state.json; then
+        if cp "$DATA_DIR"/priv_validator_state.json "$BACKUP_DIR"/data/priv_validator_state.json; then
             echo "Backed up previous priv_validator_state.json file."
         fi
     fi
 fi
 
 # Deletion of the previous configuration
-rm -rf ~/$NODE_DIR
+rm -rf $NODE_DIR
 
-# cd to root of the repository
-cd $REPO_DIR
-
-# Building genesisd binaries
-ponysay "In 5 seconds the wizard will start to build the binaries for genesisd..."
+# Building binaries
+ponysay "In 5 seconds the wizard will start to build the binaries for $BINARY_NAME..."
 sleep 5s
 make install
 
 # Restore backup if backup exists and --no-restore is false
-if ! $NO_RESTORE && [ -e ~/"$BACKUP_DIR" ]; then
-    rsync -qr --verbose --exclude 'data' --exclude 'config/genesis.json' ~/"$BACKUP_DIR"/ ~/$NODE_DIR/
+if ! $NO_RESTORE && [ -e "$BACKUP_DIR" ]; then
+    rsync -qr --verbose --exclude 'data' --exclude 'config/genesis.json' "$BACKUP_DIR"/ "$NODE_DIR"/
     echo "Restored previous $NODE_DIR folder."
 fi
 
 # Set chain-id
-genesisd config chain-id $CHAIN_ID
+$BINARY_NAME config chain-id $CHAIN_ID
 
 # Create key
 if [ ! -z "$KEY" ]; then
-    genesisd config keyring-backend os
+    $BINARY_NAME config keyring-backend os
     ponysay "GET READY TO WRITE YOUR SECRET SEED PHRASE FOR YOUR NEW KEY NAMED: $KEY."
     sleep 10s
-    genesisd keys add $KEY --keyring-backend os --algo eth_secp256k1
+    $BINARY_NAME keys add $KEY --keyring-backend os --algo eth_secp256k1
 
     # Check if the exit status of the previous command is equal to zero (zero means it succeeded, anything else means it failed)
     if [ $? -eq 0 ]; then
@@ -210,38 +213,43 @@ if [ ! -z "$KEY" ]; then
 fi
 
 # Init node
-genesisd init $MONIKER --chain-id $CHAIN_ID -o
+$BINARY_NAME init $MONIKER --chain-id $CHAIN_ID -o
 
 # State and chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel).
-cp $REPO_DIR/configs/default_app.toml ~/$NODE_DIR/config/app.toml
-cp $REPO_DIR/configs/default_config.toml ~/$NODE_DIR/config/config.toml
-cp $REPO_DIR/states/$CHAIN_ID/genesis.json ~/$NODE_DIR/config/genesis.json
+cp "./configs/default_app.toml" $CONFIG_DIR/app.toml
+cp "./configs/default_config.toml" $CONFIG_DIR/config.toml
 # Set moniker again since the configs got overwritten
-sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" ~/$NODE_DIR/config/config.toml
+sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" $CONFIG_DIR/config.toml
+
+# Fetch state file from genesis-parameters repo
+sh ./utils/fetch-state.sh
+
+# Fetch latest seeds and peers list from genesis-parameters repo
+sh ./utils/fetch-peers.sh
 
 # Reset to imported genesis.json
-genesisd tendermint unsafe-reset-all
+$BINARY_NAME tendermint unsafe-reset-all
 
 # Restore priv_validator_state.json or the entire /data folder if backup exists and --no-restore is false.
-if ! $NO_RESTORE && [ -e ~/"$BACKUP_DIR" ]; then
+if ! $NO_RESTORE && [ -e "$BACKUP_DIR" ]; then
     if $PRESERVE_DB; then
-        if mv ~/$BACKUP_DIR/data/* ~/"$NODE_DIR"/data/; then
+        if mv $BACKUP_DIR/data/* "$DATA_DIR"/; then
             echo "Restored previous /data folder."
 
             # the mv removes the priv_validator_state from the backup, so reintroduce it back.
-            cp ~/"$NODE_DIR"/data/priv_validator_state.json ~/$BACKUP_DIR/data/priv_validator_state.json;
+            cp $DATA_DIR/priv_validator_state.json $BACKUP_DIR/data/priv_validator_state.json;
         fi
     else
-        if cp ~/"$BACKUP_DIR"/data/priv_validator_state.json ~/$NODE_DIR/data/priv_validator_state.json; then
+        if cp "$BACKUP_DIR"/data/priv_validator_state.json $DATA_DIR/priv_validator_state.json; then
             echo "Restored backed up priv_validator_state.json file"
         fi
     fi
 fi
 
-# Set genesisd as a systemd service
+# Add binary as a systemd service
 if ! $NO_SERVICE; then
     # Install service
-    sh $SETUP_DIR/install-service.sh
+    sh ./utils/install-service.sh
     sleep 3s
 
     # Start node if user hasn't run this wizard with the no-start flag
@@ -255,11 +263,11 @@ cat << "EOF"
 EOF
  
         sleep 5s
-        systemctl start genesisd
-        ponysay "genesisd node service started, you may try *journalctl -fu genesisd -ocat* or *service genesisd status* command to see it! Welcome to GenesisL1 blockchain!"
+        systemctl start $BINARY_NAME
+        ponysay "$BINARY_NAME node service started, you may try *journalctl -fu $BINARY_NAME -ocat* or *service $BINARY_NAME status* command to see it! Welcome to GenesisL1 blockchain!"
     else
-        ponysay "genesisd node service installed, use *service genesisd start* to start it! Welcome to GenesisL1 blockchain!"
+        ponysay "$BINARY_NAME node service installed, use *service $BINARY_NAME start* to start it! Welcome to GenesisL1 blockchain!"
     fi
 else
-    ponysay "genesisd node is ready, use *service genesisd start* to start it! Welcome to GenesisL1 blockchain!"
+    ponysay "$BINARY_NAME node is ready, use *service $BINARY_NAME start* to start it! Welcome to GenesisL1 blockchain!"
 fi

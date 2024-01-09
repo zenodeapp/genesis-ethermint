@@ -17,49 +17,56 @@
 # WARNING: This script does not create any backups whatsoever, make sure to create one if
 # you go this route.
 
-# Variables
+# Root of the current repository
+REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
+
+# Source the variables file
+. "$REPO_ROOT/utils/_variables.sh"
+
+# Arguments
 MONIKER=${1:-mygenesismoniker} # $1 or defaults to mygenesismoniker
 KEY=${2:-mygenesiskey} # $2 or defaults to mygenesiskey
-CHAIN_ID=genesis_29-2
-NODE_DIR=.genesis
-REPO_DIR=$(cd "$(dirname "$0")"/.. && pwd)
-SETUP_DIR=$REPO_DIR/setup
 
 # Stop processes
-systemctl stop genesisd
+systemctl stop $BINARY_NAME
 pkill cosmovisor
 
-# System update and installation of dependencies
-sh $SETUP_DIR/dependencies.sh
-
 # cd to root of the repository
-cd $REPO_DIR
+cd $REPO_ROOT
 
-# Building genesisd binaries
+# System update and installation of dependencies
+sh ./setup/dependencies.sh
+
+# Building binaries
 make install
 
 # Set chain-id
-genesisd config chain-id $CHAIN_ID
+$BINARY_NAME config chain-id $CHAIN_ID
 
 # Create key
-genesisd config keyring-backend os
-genesisd keys add $KEY --keyring-backend os --algo eth_secp256k1
+$BINARY_NAME config keyring-backend os
+$BINARY_NAME keys add $KEY --keyring-backend os --algo eth_secp256k1
 
 # Init node
-genesisd init $MONIKER --chain-id $CHAIN_ID -o
+$BINARY_NAME init $MONIKER --chain-id $CHAIN_ID -o
 
 # State and chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel).
-cp "./configs/default_app.toml" ~/$NODE_DIR/config/app.toml
-cp "./configs/default_config.toml" ~/$NODE_DIR/config/config.toml
-cp ./states/$CHAIN_ID/genesis.json ~/$NODE_DIR/config/genesis.json
+cp "./configs/default_app.toml" $CONFIG_DIR/app.toml
+cp "./configs/default_config.toml" $CONFIG_DIR/config.toml
 # Set moniker again since the configs got overwritten
-sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" ~/$NODE_DIR/config/config.toml
+sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" $CONFIG_DIR/config.toml
+
+# Fetch state file from genesis-parameters repo
+sh ./utils/fetch-state.sh
+
+# Fetch latest seeds and peers list from genesis-parameters repo
+sh ./utils/fetch-peers.sh
 
 # Reset to imported genesis.json
-genesisd tendermint unsafe-reset-all
+$BINARY_NAME tendermint unsafe-reset-all
 
 # Install service
-sh $SETUP_DIR/install-service.sh
+sh ./utils/install-service.sh
 
 # Start node as service
-systemctl start genesisd
+systemctl start $BINARY_NAME
