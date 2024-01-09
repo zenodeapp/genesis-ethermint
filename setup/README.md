@@ -20,8 +20,8 @@ Usage: sh node-setup-wizard.sh --moniker string [...options]
    Options:
      --key string             This creates a new key with the given alias, else no key gets generated.
      --backup-dir string      Set a different name for the backup directory. (default is time-based: see below for more information).
-     --preserve-db            This makes sure the complete /data folder gets backed up via a move-operation (default: false).
-     --no-restore             This prevents restoring the old backed up .genesis folder in the /root folder (default: false).
+     --preserve-db            This makes sure the complete /root/.genesis/data folder gets backed up via a move-operation (default: false).
+     --no-restore             This prevents restoring the old backed up /root/.genesis folder (default: false).
      --no-service             This prevents the genesisd service from being installed (default: false).
      --no-start               This prevents the genesisd service from starting at the end of the script (default: false).
 ```
