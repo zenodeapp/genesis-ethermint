@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Root of the current repository
 REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 
