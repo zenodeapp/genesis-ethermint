@@ -216,7 +216,7 @@ fi
 # Init node
 $BINARY_NAME init $MONIKER --chain-id $CHAIN_ID -o
 
-# State and chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel).
+# Chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel)
 cp "./configs/default_app.toml" $CONFIG_DIR/app.toml
 cp "./configs/default_config.toml" $CONFIG_DIR/config.toml
 # Set moniker again since the configs got overwritten
