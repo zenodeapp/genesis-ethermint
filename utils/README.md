@@ -18,7 +18,7 @@ This script installs the `tgenesisd` service, which will automatically start the
 
 ## shift-ports.sh
 
-This script is useful if you quickly want to replace the ports in the `config.toml` and `app.toml` files. It uses the script(s) from https://github.com/zenodeapp/port-shifter. If in doubt whether this is safe, you could always check the repository to see how it works.
+This script is useful if you quickly want to replace the ports in the `config.toml` and `app.toml` files. It uses the script(s) from https://github.com/zenodeapp/port-shifter/tree/v1.0.0. If in doubt whether this is safe, you could always check the repository to see how it works.
 
 ```
 sh shift-ports.sh <port_increment_value>
