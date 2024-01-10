@@ -2,6 +2,7 @@
 
 CHAIN_ID=genesis_29-2
 BINARY_NAME=genesisd
-NODE_DIR=$HOME/.genesis
+NODE_DIR_NAME=.genesis
+NODE_DIR=$HOME/$NODE_DIR_NAME
 CONFIG_DIR=$NODE_DIR/config
 DATA_DIR=$NODE_DIR/data
