@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Set default value
 # If --empty flag is provided, fetch the empty genesis file.
 EMPTY=false
 while [ "$#" -gt 0 ]; do
