@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# If --empty flag is provided, fetch the empty genesis file.
+# Flags
 EMPTY=false
 while [ "$#" -gt 0 ]; do
   case $1 in

@@ -27,8 +27,8 @@ echo "This script should only be used if you intend on running a full-node for t
 echo "This will not take care of any backups! So make sure to do this if you have an existing .tgenesis"
 echo "folder already. You can use utils/create-backup.sh for this."
 echo ""
-echo "WARNING: this script should NOT be used for local testnet purposes."
-echo "Use setup-local/quick-testnet-setup.sh for this instead."
+echo "WARNING: this script is intended for LOCAL testing and should NOT be used for public testnet purposes."
+echo "Use setup/quick-testnet-setup.sh for this instead."
 echo ""
 read -p "Do you want to continue? (y/N): " ANSWER
 
@@ -39,14 +39,14 @@ if [ "$ANSWER" != "y" ]; then
     exit 1
 fi
 
-# Arguments
-MONIKER=$1
-
 # Root of the current repository
 REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 
 # Source the variables file
 . "$REPO_ROOT/utils/_variables.sh"
+
+# Arguments
+MONIKER=$1
 
 # Stop processes
 systemctl stop $BINARY_NAME
@@ -67,16 +67,19 @@ $BINARY_NAME config chain-id $CHAIN_ID
 $BINARY_NAME init $MONIKER --chain-id $CHAIN_ID -o
 
 # Chain specific configurations (i.e. timeout_commit 10s, min gas price 50gel)
-cp "./configs/default_app.toml" $CONFIG_DIR/app.toml
-cp "./configs/default_config.toml" $CONFIG_DIR/config.toml
+# - [p2p] addr_book_strict = false
+# - [p2p] allow_duplicate_ip = true
+# - [api] enabled = true
+# - [api] enabled-unsafe-cors = true
+cp "./configs/default_app_local.toml" $CONFIG_DIR/app.toml
+cp "./configs/default_app_local.toml" $CONFIG_DIR/config.toml
 # Set moniker again since the configs got overwritten
 sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" $CONFIG_DIR/config.toml
 
-# Fetch state file from genesis-parameters repo
-sh ./utils/fetch-state.sh
+# Fetch empty state file from genesis-parameters repo
+sh ./utils/fetch-state.sh --empty
 
-# Fetch latest seeds and peers list from genesis-parameters repo
-sh ./utils/fetch-peers.sh
+# We don't fetch any peers when we setup a local chain
 
 # Reset to imported genesis.json
 $BINARY_NAME tendermint unsafe-reset-all
@@ -88,5 +91,6 @@ sh ./utils/install-service.sh
 echo ""
 echo "Done!"
 echo ""
-echo "If you haven't already created a key, use utils/create-key.sh or utils/import-key.sh to create or import a private key."
-echo "When ready, turn on your node using 'systemctl start $BINARY_NAME' and 'journalctl -fu $BINARY_NAME -ocat' to see the logs."
+echo "o If you haven't already created a key, use utils/key-create.sh or utils/key-import.sh to create or import a private key."
+echo "o Follow this by running setup-local/create-validator.sh to add this key as a validator."
+echo "o When ready, turn on your node using 'systemctl start $BINARY_NAME' and 'journalctl -fu $BINARY_NAME -ocat' to see the logs."

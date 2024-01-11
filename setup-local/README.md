@@ -1,15 +1,5 @@
 # Setup
 
-## dependencies.sh
-
-This script installs all the dependencies (and system configurations) that are necessary for the binary to run. Since this file already gets called from within the other scripts, it is not required to call this yourself.
-
-## genesis-validator.sh
-
-This script uses `add-genesis-account` and `gentx` to create a genesis-validator. This will create a file inside of the `/.tgenesis/config/gentx`-folder, which contains the transaction details for adding this validator to the `genesis.json` file.
-
-Though if you're only going to run a local testnet, simply run the `quick-testnet-setup.sh` with the `--local` flag which will automatically add your key as a genesis validator (see below).
-
 ## quick-testnet-setup.sh
 
 > [!CAUTION]
@@ -44,12 +34,3 @@ sh quick-testnet-setup.sh --moniker string --key string
 > - **[api]** enabled-unsafe-cors = true
 >
 > Be careful though, this will still use the `.tgenesis`-folder and wipe everything in the data folder!
-
-## upgrade-proposal.sh
-
-This script creates a proposal to upgrade to cronos and immediately votes yes through governance. Needless to say, this requires you to already have joined the testnet (i.e. by using `quick-testnet-setup.sh`). For the plan name it uses _plan_cronos_.
-
-```
-Usage: sh cronos-upgrade-proposal.sh <KEY_ALIAS> <UPGRADE_HEIGHT> [NEXT_PROPOSAL_ID]
- - [NEXT_PROPOSAL_ID] is optional, but should point towards the upgrade proposal to vote on (default: 1)
-```
