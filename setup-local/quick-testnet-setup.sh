@@ -63,6 +63,9 @@ make install
 # Set chain-id
 $BINARY_NAME config chain-id $CHAIN_ID
 
+# Remove current genesis.json if it exists
+rm -f $CONFIG_DIR/genesis.json
+
 # Init node
 $BINARY_NAME init $MONIKER --chain-id $CHAIN_ID -o
 
@@ -72,12 +75,23 @@ $BINARY_NAME init $MONIKER --chain-id $CHAIN_ID -o
 # - [api] enabled = true
 # - [api] enabled-unsafe-cors = true
 cp "./configs/default_app_local.toml" $CONFIG_DIR/app.toml
-cp "./configs/default_app_local.toml" $CONFIG_DIR/config.toml
+cp "./configs/default_config_local.toml" $CONFIG_DIR/config.toml
 # Set moniker again since the configs got overwritten
 sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" $CONFIG_DIR/config.toml
 
-# Fetch empty state file from genesis-parameters repo
-sh ./utils/fetch-state.sh --empty
+# Shape our empty genesis.json file
+# Replace "stake" with "el1"
+sed -i 's/"stake"/"el1"/g' $CONFIG_DIR/genesis.json
+# Replace "aphoton" with "el1"
+sed -i 's/"aphoton"/"el1"/g' $CONFIG_DIR/genesis.json
+# Change "max_deposit_period"
+sed -i 's/"max_deposit_period": "[^"]*"/"max_deposit_period": "100s"/g' $CONFIG_DIR/genesis.json
+# Change "voting_period"
+sed -i 's/"voting_period": "[^"]*"/"voting_period": "100s"/g' $CONFIG_DIR/genesis.json
+# Change "token_pair_voting_period"
+sed -i 's/"token_pair_voting_period": "[^"]*"/"token_pair_voting_period": "100s"/g' $CONFIG_DIR/genesis.json
+# Change "unbonding_time"
+sed -i 's/"unbonding_time": "[^"]*"/"unbonding_time": "100s"/g' $CONFIG_DIR/genesis.json
 
 # We don't fetch any peers when we setup a local chain
 

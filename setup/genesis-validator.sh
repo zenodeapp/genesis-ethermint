@@ -16,10 +16,16 @@ REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 MONIKER=$1
 KEY_ALIAS=$2
 
+echo ""
+
 # Create genesis account with provided key
+echo "Confirm the creation of genesis account: $KEY_ALIAS..."
 $BINARY_NAME add-genesis-account $KEY_ALIAS "1100000000000000000000000el1"
 
+echo ""
+
 # Generate transaction for adding a genesis validator
+echo "Confirm generating a genesis transaction for validator $MONIKER..."
 $BINARY_NAME gentx $KEY_ALIAS "100000000000000000000000el1" --moniker $MONIKER --from $KEY_ALIAS \
 --pubkey=$($BINARY_NAME tendermint show-validator) --commission-rate "0.05" --commission-max-rate "0.99" \
 --commission-max-change-rate "0.10" --min-self-delegation "1000000" --chain-id $CHAIN_ID
