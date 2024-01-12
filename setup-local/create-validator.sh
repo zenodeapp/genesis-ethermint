@@ -8,8 +8,6 @@ if [ -z "$1" ] || [ -z "$2" ]; then
     exit 1
 fi
 
-
-
 # Root of the current repository
 REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 

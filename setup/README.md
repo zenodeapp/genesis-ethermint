@@ -1,14 +1,11 @@
 # Setup
 
+> [!NOTE]
+> This folder is not specifically written for LOCAL testnet purposes. Use [setup-local](/setup-local) for this instead. Be careful though as this will still use the `.tgenesis`-folder and overwrite everything in that folder!
+
 ## dependencies.sh
 
 This script installs all the dependencies (and system configurations) that are necessary for the binary to run. Since this file already gets called from within the other scripts, it is not required to call this yourself.
-
-## genesis-validator.sh
-
-This script uses `add-genesis-account` and `gentx` to create a genesis-validator. This will create a file inside of the `/.tgenesis/config/gentx`-folder, which contains the transaction details for adding this validator to the `genesis.json` file.
-
-Though if you're only going to run a local testnet, simply run the `quick-testnet-setup.sh` with the `--local` flag which will automatically add your key as a genesis validator (see below).
 
 ## quick-testnet-setup.sh
 
@@ -18,38 +15,32 @@ Though if you're only going to run a local testnet, simply run the `quick-testne
 This script takes care of everything to join the `tgenesis_54-1` testnet:
 
 - It stops the service (if it exists)
-- installs all the necessary dependencies
+- Installs all the necessary dependencies
 - Builds the binaries
-- Generates a new _or_ attempts to overwrite an existing key
 - Resets all configuration files to their default
 - Fetches state, seeds and peers
 - Initializes the node
 - Installs the service
-- Runs the node
+
+If you haven't already, create or import a key using [utils/create-key.sh](/utils/create-key.sh) or [utils/import-key.sh](/utils/import-key.sh) and run the node using `systemctl start tgenesisd`.
 
 ### Usage
 
 ```
-sh quick-testnet-setup.sh --moniker string --key string
+sh quick-testnet-setup.sh <moniker>
 ```
 
-> _--moniker_ and _--key_ are optional and will default, respectively, to _mygenesismoniker_ and _mygenesiskey_. Advised is to always add the key alias, so that in case it already exists it asks whether you'd like to overwrite it or not. This way you prevent it from accidentally creating a _mygenesiskey_ if you do not desire this.
+## genesis-validator.sh
 
-> [!TIP]
-> You can add the `--local` flag if you would like to spin up a local testnet. This will immediately create a genesis validator using your key and set these configurations:
->
-> - **[p2p]** addr_book_strict = false
-> - **[p2p]** allow_duplicate_ip = true
-> - **[api]** enabled = true
-> - **[api]** enabled-unsafe-cors = true
->
-> Be careful though, this will still use the `.tgenesis`-folder and wipe everything in the data folder!
+This script uses `add-genesis-account` and `gentx` to create a genesis-validator. This will generate a file inside of the `/.tgenesis/config/gentx`-folder, which contains the transaction details for adding this validator to the `genesis.json` file.
 
-## upgrade-proposal.sh
+> This does not mean that the validator gets added to the `genesis.json` file yet. Use this only if you're going to get included in the initial state of `tgenesis_54-1`.
 
-This script creates a proposal to upgrade to cronos and immediately votes yes through governance. Needless to say, this requires you to already have joined the testnet (i.e. by using `quick-testnet-setup.sh`). For the plan name it uses _plan_cronos_.
+### Usage
+
+> [!IMPORTANT]
+> This requires a key. If you haven't already created or imported one, use [utils/create-key.sh](/utils/create-key.sh) or [utils/import-key.sh](/utils/import-key.sh).
 
 ```
-Usage: sh cronos-upgrade-proposal.sh <KEY_ALIAS> <UPGRADE_HEIGHT> [NEXT_PROPOSAL_ID]
- - [NEXT_PROPOSAL_ID] is optional, but should point towards the upgrade proposal to vote on (default: 1)
+sh genesis-validator.sh <moniker> <key_alias>
 ```
