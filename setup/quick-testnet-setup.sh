@@ -39,14 +39,14 @@ if [ "$ANSWER" != "y" ]; then
     exit 1
 fi
 
-# Arguments
-MONIKER=$1
-
 # Root of the current repository
 REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 
 # Source the variables file
 . "$REPO_ROOT/utils/_variables.sh"
+
+# Arguments
+MONIKER=$1
 
 # Stop processes
 systemctl stop $BINARY_NAME
