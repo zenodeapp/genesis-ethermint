@@ -24,7 +24,8 @@
 
 ---
 
-> [!IMPORTANT] > **From Evmos to Cronos**
+> [!IMPORTANT]
+> **From Evmos to Cronos**
 >
 > This repository is an Evmos-fork and was used before we upgraded to a Cronos-fork. For those who want to run a full-node it's required to start out in this repository and sync up till height `insert_height_here`.
 
@@ -37,29 +38,24 @@
 
 ## Instructions
 
-> [!IMPORTANT]
-> The instructions provided here will only be suitable for those who would like to **join** the _existing_ **public** testnet: `tgenesis_54-1`. If you instead want to **create** a **local** testnet, see [/setup-local](/setup-local).
+> [!NOTE]
+> The instructions provided here will only be suitable for those who would like to **join** the _existing_ **public** testnet: `tgenesis_54-1`. If you instead want to **create a local testnet**, see [/setup-local](/setup-local).
 >
 > More details can be found in the folders where the scripts we mention below are respectively stored ([/setup](/setup), [/setup-local](/setup-local) or [/utils](/utils)).
 
-### Joining tgenesis_54-1
-
-#### 1. Cloning the repository
+### 1. Cloning the repository
 
 ```
 git clone https://github.com/zenodeapp/genesis-evmos.git
 ```
 
-#### 2. Checkout the right tag/branch
+### 2. Checkout the right tag/branch
 
 ```
 git checkout tgenesis-v0.5.0
 ```
 
-#### 3. Setting up your node
-
-> [!NOTE]
-> There are more scripts in the setup-folder. To learn more, see [README](setup/README.md).
+### 3. Setting up your node
 
 ```
 sh setup/quick-testnet-setup.sh <moniker>
@@ -67,7 +63,7 @@ sh setup/quick-testnet-setup.sh <moniker>
 
 > This wipes the whole _.tgenesis/data_ folder, so proceed with caution!
 
-#### 4. Create or import key
+### 4. Create or import key
 
 A key is necessary to interact with the network/node. Either import one you already have or generate a new one, using:
 
@@ -75,16 +71,29 @@ A key is necessary to interact with the network/node. Either import one you alre
 sh utils/create-key.sh <key_alias>
 ```
 
+OR
+
 ```
 sh utils/import-key.sh <key_alias> <private_eth_key>
 ```
 
 > _<private_eth_key>_ is the private key for a (wallet) address you already own.
 
-#### 5. Explore utilities (Optional)
+### 5. Explore utilities (Optional)
 
-The [/utils](/utils)-folder contains useful utilities one could use to manage their node (e.g. for fetching latest seeds and peers, fetching the genesis state, quickly shifting your config's ports etc.). To learn more about these, see the [README](utils/README.md) in the folder.
+> [!TIP]
+> The [/utils](/utils)-folder contains useful utilities one could use to manage their node (e.g. for fetching latest seeds and peers, fetching the genesis state, quickly shifting your config's ports etc.). To learn more about these, see the [README](utils/README.md) in the folder.
 
-#### 6. Start and monitoring your node
+### 6. Start and monitoring your node
 
-If everything went well, you should now be able to run your node using: `systemctl start tgenesisd` and see its status with `journalctl -fu tgenesisd -ocat`.
+If everything went well, you should now be able to run your node using:
+
+```
+systemctl start tgenesisd
+```
+
+and see its status with:
+
+```
+journalctl -fu tgenesisd -ocat
+```
