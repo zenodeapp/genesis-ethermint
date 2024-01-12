@@ -7,7 +7,7 @@ REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 . "$REPO_ROOT/utils/_variables.sh"
 
 # Repository where the latest seeds/peers are stored for the current chain-id
-REPO_URL=https://raw.githubusercontent.com/zenodeapp/genesis-parameters/main/$CHAIN_ID
+REPO_URL=$REPO_BASE_URL/genesis-parameters/main/$CHAIN_ID
 
 # Fetch latest seeds and peers
 SEEDS=$(wget -qO - $REPO_URL/seeds.txt | head -n 1)
