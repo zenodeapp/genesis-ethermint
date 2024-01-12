@@ -21,7 +21,7 @@ UPGRADE_HEIGHT=$2
 NEXT_PROPOSAL_ID=${3:-1}
 
 # Submit software-upgrade proposal for plan_cronos
-$BINARY_NAME tx gov submit-proposal software-upgrade plan_cronos --upgrade-height $UPGRADE_HEIGHT \
+$BINARY_NAME tx gov submit-proposal software-upgrade "plan_cronos" --upgrade-height $UPGRADE_HEIGHT \
 --from $KEY_ALIAS --title "Hardfork to Cronos" --description "Hardfork to Cronos" --deposit "10000000000000000000000el1" \
 --fees "10000000000000000el1" -y
 

@@ -22,9 +22,9 @@ REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 
 # Fetch genesis.json or genesis-empty.json, depending on whether we are creating a local chain or public test chain.
 if ! $EMPTY; then
-    wget -qO "$CONFIG_DIR/genesis.json" https://raw.githubusercontent.com/zenodeapp/genesis-parameters/main/$CHAIN_ID/genesis.json
+    wget -qO "$CONFIG_DIR/genesis.json" $REPO_BASE_URL/genesis-parameters/main/$CHAIN_ID/genesis.json
 else
-    wget -qO "$CONFIG_DIR/genesis.json" https://raw.githubusercontent.com/zenodeapp/genesis-parameters/main/$CHAIN_ID/genesis-empty.json
+    wget -qO "$CONFIG_DIR/genesis.json" $REPO_BASE_URL/genesis-parameters/main/$CHAIN_ID/genesis-empty.json
 fi
 
 # Echo result
