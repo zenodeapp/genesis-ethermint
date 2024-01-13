@@ -15,7 +15,7 @@
 This script takes care of everything to **create** a `tgenesis_54-1` chain for **local** testing purposes:
 
 - It stops the service (if it exists)
-- installs all the necessary dependencies
+- Installs all the necessary dependencies
 - Builds the binaries
 - Generates a new _or_ attempts to overwrite an existing key
 - Resets all configuration files to their default _and sets_:
