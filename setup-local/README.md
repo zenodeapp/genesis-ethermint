@@ -36,7 +36,7 @@ This script takes care of everything to **create** a `tgenesis_54-1` chain for *
 ### Usage
 
 ```
-sh quick-testnet-setup.sh <moniker>
+sh setup-local/quick-testnet-setup.sh <moniker>
 ```
 
 ## create-validator.sh
@@ -51,5 +51,5 @@ This script leverages [setup/genesis-validator.sh](/setup.genesis-validator.sh) 
 ### Usage
 
 ```
-sh create-validator.sh <moniker> <key_alias>
+sh setup-local/create-validator.sh <moniker> <key_alias>
 ```
