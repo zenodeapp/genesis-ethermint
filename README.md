@@ -38,7 +38,8 @@
 
 ## Instructions
 
-Only follow these steps if you wish to set up a full node, else you could immediately go to the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
+> [!WARNING]
+> Only follow these steps if you wish to set up a full node, else you could immediately go to the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
 
 ### 1. Cloning the repository
 
@@ -49,36 +50,50 @@ git clone https://github.com/zenodeapp/genesis-evmos.git
 ### 2. Checkout the right tag/branch
 
 ```
-git checkout v0.5.0
+git checkout genesis-v0.5.0
 ```
 
 ### 3. Setting up your node
 
-As this repository is only required for full node syncing, we've only included two scripts. Both share the same purpose of initializing the node and starting the sync process till height `insert_height_here`, but are tailored for two specific audiences:
+There are two scripts¹ one could use to initialize a node:
 
-- **Normal Users**
+- [**node-setup-wizard.sh**](setup/node-setup-wizard.sh)
 
-   **[node-setup-wizard.sh](setup/node-setup-wizard.sh)** is made for those who prefer to run a script without having to do any manual preparation. It's a more interactive experience with visual feedback and automatically backs up previous installations if there were any.
+  Use this script if you prefer to setup a node without having to do any manual preparation. It's a more interactive experience with visual feedback and takes care of things like: _backing up previous setups_, _creating keys_ and _starting the node_.
 
-  A one-liner to initialize a node and generate a key _(optional)_ would be:
+  A one-liner to initialize a node _and_ generate a key _(optional)_ would be:
   ```
   sh node-setup-wizard.sh --moniker your_moniker_name --key your_key_alias
   ```
-  > Running this will not backup any database in an existing _.genesis/data_ folder! If you do not want this to get wiped, then add the `--preserve-db` flag! More options or flags could be set; see the [\/setup](setup/)-folder for more information on this.
+  > **WARNING:** running this won't backup the **database** in an existing _.genesis/data_ folder!
+  >
+  > If you don't want this to get wiped, add the `--preserve-db` flag!
+  >
+  > More flags can be set; see the [README](setup/README.md) in the [\/setup](setup/)-folder for more information on this.
   
-- **Advanced Users**
+- **[quick-node-setup.sh](setup/quick-node-setup.sh)**
 
-   **[quick-node-setup.sh](setup/quick-node-setup.sh)** is made for those who prefer and are used to manually configuring their setup. This is a slim-sized script, **does not make any backups (!)** and contains only the necessary commands for starting a full node sync. Suggested is to treat the script as a guide rather than one you run without careful consideration _(though, this could also be done)_.
+   This is a less bulky script, **does not create any backups (!) or keys** and contains only the necessary commands for initializing a full node. Its readability is higher, thus users who are used to manually setting up a node could use this script as a guide.
 
-  A one-liner to initialize a node and generate a key with this script would be:
+  A one-liner to initialize a node would be:
   ```
-  sh quick-node-setup.sh your_moniker_name your_key_alias
+  sh quick-node-setup.sh your_moniker_name
   ```
-  > The args are optional and default to _mygenesismoniker_ and _mygenesiskey_ if they're not provided.
-  
-### 4. Sync your node
 
-The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
+  > **NOTE:** this won't auto-start the node, which can be done using `systemctl start genesisd`.
+  > 
+  > **WARNING:** no keys will be imported or created, which can be done directly using the CLI _or_ see [utils/create-key.sh](/utils/create-key.sh) or [utils/import-key.sh](/utils/import-key.sh).
+
+---
+
+¹ As this repository is only required for full node syncing, we've only included scripts for **initializing a node and starting the sync process** till height `insert_height_here`. Scripts for e.g. _creating a validator_ will only be available in the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
+
+### 4. Explore utilities (Optional)
 
 > [!TIP]
-> There are some useful utilities in the utils-folder (e.g. for fetching seeds and peers, fetching the genesis state, shifting ports etc.). To learn more about these, see the [README](utils/README.md).
+> The [/utils](/utils)-folder contains useful utilities one could use to manage their node (e.g. for fetching latest seeds and peers, fetching the genesis state, quickly shifting your config's ports etc.). To learn more about these, see the [README](utils/README.md) in the folder.
+
+### 5. Sync your node
+
+The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
+> Monitor your node's status using `journalctl -fu genesisd -ocat`.
