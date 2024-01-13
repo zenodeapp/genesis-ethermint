@@ -33,11 +33,13 @@ sh quick-node-setup.sh <moniker>
    sh quick-node-setup.sh mynode
 ```
 
-The node can now be started using `systemctl start genesisd`. Later, if you ever wish to interact with your node or create a validator, you'll need to have a key. If you haven't already created or imported an existing one, use [utils/create-key.sh](/utils/create-key.sh) _or_ [utils/import-key.sh](/utils/import-key.sh).
+> After running this, the node can be started using `systemctl start genesisd` and logged by using `journalctl -fu genesisd -ocat` (or any other method you're used to).
+
+Later, if you ever wish to interact with your node or create a validator, you'll need to have a key. If you haven't already created or imported an existing one, use [utils/create-key.sh](/utils/create-key.sh) _or_ [utils/import-key.sh](/utils/import-key.sh).
 
 ## node-setup-wizard.sh
 
-This script does the same as `quick-node-setup.sh` but is more of an interactive experience and takes care of some extra precautionary steps. It's made for those who prefer to run a script without having to do any manual preparation like backing up previous installations.
+This script does the same as `quick-node-setup.sh` but is more of an interactive experience and takes care of some extra precautionary steps. It's **made for those who prefer to run a script without having to do any manual preparation** like backing up previous installations.
 
 > [!IMPORTANT]
 > While this script creates a backup of an existing _.genesis_ folder (including _/data/priv_validator_state.json_), it doesn't do this for the entire database in the _/data_-folder! **If you don't want this to get wiped, then add the `--preserve-db` flag.**
