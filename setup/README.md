@@ -29,7 +29,7 @@ This script takes care of everything to **join** the `tgenesis_54-1` testnet:
 ### Usage
 
 ```
-sh quick-testnet-setup.sh <moniker>
+sh setup/quick-testnet-setup.sh <moniker>
 ```
 
 ## genesis-validator.sh
@@ -46,5 +46,5 @@ This script uses `add-genesis-account` and `gentx` to create a _genesis_ validat
 ### Usage
 
 ```
-sh genesis-validator.sh <moniker> <key_alias>
+sh setup/genesis-validator.sh <moniker> <key_alias>
 ```
