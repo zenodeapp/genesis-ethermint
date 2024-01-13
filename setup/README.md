@@ -5,7 +5,7 @@
 > 
 > If you prefer to run a script without having to do any manual preparation, use: [**node-setup-wizard.sh**](/setup/node-setup-wizard.sh).
 >
-> The wizard is more of an **interactive experience**; guiding you through the process while taking care of extra precautionary steps like _backing up previous installations_ and _creating keys_.
+> The wizard is an **interactive experience**; guiding you through the process while taking care of extra precautionary steps like _backing up previous installations_ and _creating keys_.
 
 ## dependencies.sh
 
