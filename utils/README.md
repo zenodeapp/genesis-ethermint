@@ -40,7 +40,7 @@ sh utils/import-key.sh <key_alias> <private_eth_key>
 
 ## install-service.sh
 
-This script installs the daemon as a service, which will automatically start the node whenever the device reboots (see [tgenesisd.service](/services/tgenesisd.service)). The setup scripts usually already call this, therefore it is not required to run this yourself.
+This script installs the daemon as a service, which will automatically start the node whenever the device reboots (see [genesisd.service](/services/genesisd.service)). The setup scripts usually already call this, therefore it is not required to run this yourself.
 
 ## shift-ports.sh
 
