@@ -105,6 +105,6 @@ sh ./utils/install-service.sh
 echo ""
 echo "Done!"
 echo ""
-echo "o If you haven't already created a key, use utils/key-create.sh or utils/key-import.sh to create or import a private key."
+echo "o If you haven't already created a key, use utils/create-key.sh or utils/import-key.sh to create or import a private key."
 echo "o Follow this by running setup-local/create-validator.sh to add this key as a validator."
 echo "o When ready, turn on your node using 'systemctl start $BINARY_NAME' and 'journalctl -fu $BINARY_NAME -ocat' to see the logs."
