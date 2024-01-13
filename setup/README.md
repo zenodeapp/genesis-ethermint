@@ -31,13 +31,13 @@ As the name suggests, this script is a quick way to setup a node:
 ### Usage
 
 ```
-sh quick-node-setup.sh <moniker>
+sh setup/quick-node-setup.sh <moniker>
 ```
 
 **Example:** this initializes a node with the name _mynode_:
 
 ```
-   sh quick-node-setup.sh mynode
+sh setup/quick-node-setup.sh mynode
 ```
 
 > After running, the node can be started using `systemctl start genesisd` and monitored with `journalctl -fu genesisd -ocat`.
@@ -58,10 +58,10 @@ This script does the same as `quick-node-setup.sh` but also takes care of:
 
 ### Usage
 
-Running _sh node-setup-wizard.sh_ gives an overview of what the script is capable of:
+Running _sh setup/node-setup-wizard.sh_ gives an overview of what the script is capable of:
 
 ```
-Usage: sh node-setup-wizard.sh --moniker string [...options]
+Usage: sh setup/node-setup-wizard.sh --moniker string [...options]
 
    Options:
      --key string             This creates a new key with the given alias, else no key gets generated.
@@ -77,7 +77,7 @@ Usage: sh node-setup-wizard.sh --moniker string [...options]
 **Example:** this initializes a node with the name _supervalidator_, a key alias of _mygenesiskey_ and doesn't automatically start upon completion:
 
 ```
-sh node-setup-wizard.sh --moniker supervalidator --key mygenesiskey --no-start
+sh setup/node-setup-wizard.sh --moniker supervalidator --key mygenesiskey --no-start
 ```
 
 ### Backup mechanism
