@@ -41,6 +41,9 @@
 > [!WARNING]
 > Only follow these steps if you wish to set up a full node, else you could immediately go to the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
 
+> [!NOTE]
+> More details for every script mentioned in this README can be found in the folders where they are respectively stored: [/setup](/setup) or [/utils](/utils).
+
 ### 1. Cloning the repository
 
 ```
