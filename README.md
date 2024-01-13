@@ -53,7 +53,7 @@ git clone https://github.com/zenodeapp/genesis-evmos.git
 git checkout genesis-v0.5.0
 ```
 
-### 3. Setting up your node
+### 3. Node setup
 
 There are two scripts¹ one could use to initialize a node:
 
@@ -88,12 +88,12 @@ There are two scripts¹ one could use to initialize a node:
 
 ¹ As this repository is only required for full node syncing, we've only included scripts for **initializing a node and starting the sync process** till height `insert_height_here`. Scripts for e.g. _creating a validator_ will only be available in the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
 
-### 4. Explore utilities (Optional)
-
-> [!TIP]
-> The [/utils](/utils)-folder contains useful utilities one could use to manage their node (e.g. for fetching latest seeds and peers, fetching the genesis state, quickly shifting your config's ports etc.). To learn more about these, see the [README](utils/README.md) in the folder.
-
-### 5. Sync your node
+### 4. Node syncing
 
 The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
 > Monitor your node's status using `journalctl -fu genesisd -ocat`.
+
+### 5. Explore utilities (optional)
+
+> [!TIP]
+> The [/utils](/utils)-folder contains useful utilities one could use to manage their node (e.g. for fetching latest seeds and peers, fetching the genesis state, quickly shifting your config's ports etc.). To learn more about these, see the [README](utils/README.md) in the folder.
