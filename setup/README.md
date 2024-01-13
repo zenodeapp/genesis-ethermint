@@ -4,9 +4,40 @@
 
 This script installs all the dependencies (and system configurations) that are necessary for the binary to run. Since this file already gets called from within the other scripts, it is not required to call this yourself.
 
+## quick-node-setup.sh
+
+> [!CAUTION]
+> Running this will **wipe the whole data-folder**; database **AND** priv_validator_state.json file!
+>
+> Make a backup if needed: [utils/create-backup.sh](/utils/create-backup.sh).
+
+As the name suggests, this script is a quick way to setup a node:
+
+- It stops the service (if it exists)
+- Installs all the necessary dependencies
+- Builds the binaries
+- Resets all configuration files to their default
+- Fetches state, seeds and peers
+- Initializes the node
+- Installs the node as a service
+
+### Usage
+
+```
+sh quick-node-setup.sh <moniker>
+```
+
+**Example:** this initializes a node with the name _mynode_:
+
+```
+   sh quick-node-setup.sh mynode
+```
+
+The node can now be started using `systemctl start genesisd`. Later, if you ever wish to interact with your node or create a validator, you'll need to have a key. If you haven't already created or imported an existing one, use [utils/create-key.sh](/utils/create-key.sh) _or_ [utils/import-key.sh](/utils/import-key.sh).
+
 ## node-setup-wizard.sh
 
-As said in the [README.md](../README.md), this script is more of an interactive experience and takes care of some extra precautionary steps. It's made for those who prefer to run a script without having to do any manual preparation like backing up previous installations.
+This script does the same as `quick-node-setup.sh` but is more of an interactive experience and takes care of some extra precautionary steps. It's made for those who prefer to run a script without having to do any manual preparation like backing up previous installations.
 
 > [!IMPORTANT]
 > While this script creates a backup of an existing _.genesis_ folder (including _/data/priv_validator_state.json_), it doesn't do this for the entire database in the _/data_-folder! **If you don't want this to get wiped, then add the `--preserve-db` flag.**
@@ -39,19 +70,4 @@ sh node-setup-wizard.sh --moniker supervalidator --key mygenesiskey --no-start
 
 If a _.genesis_-folder already exists, then the _node-setup-wizard.sh_-script backs this up to a folder in the user's $HOME formatted as `.genesisd_backup_{date_time}`. This is a unique name based on the system's current time and will thus never overwrite previously made backups.
 
-If you plan on running the script more often (testing purposes for instance), you could set the `--backup-dir` to a static name (ex. _.genesis_backup_) to prevent creating a lot of unnecessary folders.
-
-## quick-node-setup.sh
-
-> [!CAUTION]
-> As said in [README.md](../README.md), this script is made moreso for those who prefer to manually configure their setup.
->
-> While this script is much easier to _read_, it does make it more risky to use **for it not containing any backup logic (!) or configurable options whatsoever**. We suggest to either inspect the script and run the commands yourself or adapt it to your circumstances until you're confident enough that it won't lead to unexpected loss in data.
-
-**Example:** this initializes a node with the name _mynode_ and key alias _mykey_:
-
-```
-   sh quick-node-setup.sh mynode mykey
-```
-
-> The args are optional and default to mygenesismoniker and mygenesiskey if they're not provided.
+If you plan on running the script more often (testing purposes for instance), you could set the `--backup-dir` to a static name (ex. _$HOME/.genesis_backup_) to prevent creating a lot of unnecessary folders.
