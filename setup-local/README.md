@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > The scripts in this folder are specifically written for **local** testnet purposes only.
 >
-> If you only want to **join** a public testnet, then head over to [/setup](/setup) instead.
+> If you want to **join** a public testnet, then head over to [/setup](/setup) instead.
 > 
 ## quick-testnet-setup.sh
 
