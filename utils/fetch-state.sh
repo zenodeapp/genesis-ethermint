@@ -7,7 +7,7 @@ REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 . "$REPO_ROOT/utils/_variables.sh"
 
 # Fetch genesis.json
-wget -qO "$CONFIG_DIR/genesis.json" $REPO_BASE_URL/genesis-parameters/main/$CHAIN_ID/genesis.json
+wget -qO "$CONFIG_DIR/genesis.json" $NETWORK_PARAMETERS_URL/main/$CHAIN_ID/genesis.json
 
 # Echo result
 echo "Added genesis.json file to $CONFIG_DIR"

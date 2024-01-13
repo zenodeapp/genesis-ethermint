@@ -14,6 +14,7 @@ As said in the [README.md](../README.md), this script is more of an interactive 
 ### Usage
 
 Running _sh node-setup-wizard.sh_ gives an overview of what the script is capable of:
+
 ```
 Usage: sh node-setup-wizard.sh --moniker string [...options]
 
@@ -25,9 +26,11 @@ Usage: sh node-setup-wizard.sh --moniker string [...options]
      --no-service             This prevents the genesisd service from being installed (default: false).
      --no-start               This prevents the genesisd service from starting at the end of the script (default: false).
 ```
+
 > Here can be seen that the _--moniker_ is the only required field, but it is recommended to also add the _--key_ option if you haven't already created a key. This is useful to have if you later on wish to interact with your node (i.e. create a validator, do transactions etc.).
 
 **Example:** this initializes a node with the name _supervalidator_, a key alias of _mygenesiskey_ and doesn't automatically start upon completion:
+
 ```
 sh node-setup-wizard.sh --moniker supervalidator --key mygenesiskey --no-start
 ```
@@ -43,10 +46,12 @@ If you plan on running the script more often (testing purposes for instance), yo
 > [!CAUTION]
 > As said in [README.md](../README.md), this script is made moreso for those who prefer to manually configure their setup.
 >
-> While this script is much easier to _read_, it does make it more risky to use **for it not containing any backup logic (!) or configurable options whatsoever**. We suggest to either inspect the script and run the commands yourself or adapt it to your circumstances until you're confident enough that it won't lead to unexpected loss in data. 
+> While this script is much easier to _read_, it does make it more risky to use **for it not containing any backup logic (!) or configurable options whatsoever**. We suggest to either inspect the script and run the commands yourself or adapt it to your circumstances until you're confident enough that it won't lead to unexpected loss in data.
 
-**Example:** this initializes a node with the name _mynode_ and key alias  _mykey_:
+**Example:** this initializes a node with the name _mynode_ and key alias _mykey_:
+
 ```
    sh quick-node-setup.sh mynode mykey
 ```
+
 > The args are optional and default to mygenesismoniker and mygenesiskey if they're not provided.

@@ -1,21 +1,43 @@
 #!/bin/bash
 
-#   /$$$$$$                                          /$$                 /$$         /$$       
-#  /$$__  $$                                        |__/                | $$       /$$$$       
-# | $$  \__/  /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$$ /$$  /$$$$$$$      | $$      |_  $$       
-# | $$ /$$$$ /$$__  $$| $$__  $$ /$$__  $$ /$$_____/| $$ /$$_____/      | $$        | $$       
-# | $$|_  $$| $$$$$$$$| $$  \ $$| $$$$$$$$|  $$$$$$ | $$|  $$$$$$       | $$        | $$       
-# | $$  \ $$| $$_____/| $$  | $$| $$_____/ \____  $$| $$ \____  $$      | $$        | $$       
-# |  $$$$$$/|  $$$$$$$| $$  | $$|  $$$$$$$ /$$$$$$$/| $$ /$$$$$$$/      | $$$$$$$$ /$$$$$$     
-#  \______/  \_______/|__/  |__/ \_______/|_______/ |__/|_______/       |________/|______/     
-                                                                                             
-# Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
+# Arguments check
+if [ -z "$1" ]; then
+    echo ""
+    echo "Usage: sh $0 <moniker>"
+    echo ""
+    exit 1
+fi
 
-# This script is intended for those who prefer to manually init their nodes and should more-
-# so be read and adapted to your own setup in order for it to work.
+cat <<"EOF"
 
-# WARNING: This script does not create any backups whatsoever, make sure to create one if
-# you go this route.
+  /$$$$$$                                          /$$                 /$$         /$$       
+ /$$__  $$                                        |__/                | $$       /$$$$       
+| $$  \__/  /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$$ /$$  /$$$$$$$      | $$      |_  $$       
+| $$ /$$$$ /$$__  $$| $$__  $$ /$$__  $$ /$$_____/| $$ /$$_____/      | $$        | $$       
+| $$|_  $$| $$$$$$$$| $$  \ $$| $$$$$$$$|  $$$$$$ | $$|  $$$$$$       | $$        | $$       
+| $$  \ $$| $$_____/| $$  | $$| $$_____/ \____  $$| $$ \____  $$      | $$        | $$       
+|  $$$$$$/|  $$$$$$$| $$  | $$|  $$$$$$$ /$$$$$$$/| $$ /$$$$$$$/      | $$$$$$$$ /$$$$$$     
+ \______/  \_______/|__/  |__/ \_______/|_______/ |__/|_______/       |________/|______/     
+
+Welcome to the decentralized blockchain Renaissance, above money & beyond cryptocurrency!
+EOF
+
+echo ""
+echo "This script should only be used if you intend on running a full-node for the GenesisL1 mainnet."
+echo "This will not take care of any backups! So make sure to do this if you have an existing .tgenesis"
+echo "folder already. You can use utils/create-backup.sh for this."
+echo ""
+echo "NOTE: if you prefer to use a wizard which will also guide you through the creation for a key,"
+echo "backup, auto-start etc, then use node-setup-wizard.sh instead."
+echo ""
+read -p "Do you want to continue? (y/N): " ANSWER
+
+ANSWER=$(echo "$ANSWER" | tr 'A-Z' 'a-z')  # Convert to lowercase
+
+if [ "$ANSWER" != "y" ]; then
+    echo "Aborted."
+    exit 1
+fi
 
 # Root of the current repository
 REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
@@ -24,12 +46,10 @@ REPO_ROOT=$(cd "$(dirname "$0")"/.. && pwd)
 . "$REPO_ROOT/utils/_variables.sh"
 
 # Arguments
-MONIKER=${1:-mygenesismoniker} # $1 or defaults to mygenesismoniker
-KEY=${2:-mygenesiskey} # $2 or defaults to mygenesiskey
+MONIKER=$1
 
 # Stop processes
 systemctl stop $BINARY_NAME
-pkill cosmovisor
 
 # cd to root of the repository
 cd $REPO_ROOT
@@ -42,10 +62,6 @@ make install
 
 # Set chain-id
 $BINARY_NAME config chain-id $CHAIN_ID
-
-# Create key
-$BINARY_NAME config keyring-backend os
-$BINARY_NAME keys add $KEY --keyring-backend os --algo eth_secp256k1
 
 # Init node
 $BINARY_NAME init $MONIKER --chain-id $CHAIN_ID -o
@@ -68,5 +84,9 @@ $BINARY_NAME tendermint unsafe-reset-all
 # Install service
 sh ./utils/install-service.sh
 
-# Start node as service
-systemctl start $BINARY_NAME
+# Echo result
+echo ""
+echo "Done!"
+echo ""
+echo "If you haven't already created a key, use utils/create-key.sh or utils/import-key.sh to create or import a private key."
+echo "When ready, turn on your node using 'systemctl start $BINARY_NAME' and 'journalctl -fu $BINARY_NAME -ocat' to see the logs."
