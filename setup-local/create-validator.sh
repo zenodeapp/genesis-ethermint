@@ -24,6 +24,7 @@ sh $REPO_ROOT/setup/genesis-validator.sh $MONIKER $KEY_ALIAS
 # Collect genesis transactions
 echo ""
 echo "Collecting and applying all genesis transactions..."
+echo "NOTE: collect-gentxs also wipes your persistent_peers list."
 $BINARY_NAME collect-gentxs
 
 # Reset again for genesis.json has changed
