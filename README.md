@@ -39,7 +39,7 @@
 ## Instructions
 
 > [!WARNING]
-> Only follow these steps if you wish to set up a full node, else you could immediately go to the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
+> Only follow these steps if you wish to set up a full node, else you could immediately go to the [`genesis-crypto`](https://github.com/zenodeapp/genesis-crypto) repository.
 
 > [!NOTE]
 > More details for every script mentioned in this README can be found in the folders where they are respectively stored: [/setup](/setup) or [/utils](/utils).
@@ -47,7 +47,7 @@
 ### 1. Cloning the repository
 
 ```
-git clone https://github.com/zenodeapp/genesis-evmos.git
+git clone https://github.com/zenodeapp/genesis-ethermint.git
 ```
 
 ### 2. Checkout the right tag/branch
@@ -89,11 +89,11 @@ There are two scripts¹ one could use to initialize a node:
 
 ---
 
-¹ As this repository is only required for full node syncing, we've only included scripts for **initializing a node and starting the sync process** till height `insert_height_here`. Scripts for e.g. _creating a validator_ will only be available in the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
+¹ As this repository is only required for full node syncing, we've only included scripts for **initializing a node and starting the sync process** till height `insert_height_here`. Scripts for e.g. _creating a validator_ will only be available in the [`genesis-crypto`](https://github.com/zenodeapp/genesis-crypto) repository.
 
 ### 4. Node syncing
 
-The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-cronos`](https://github.com/zenodeapp/genesis-cronos) repository.
+The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-crypto`](https://github.com/zenodeapp/genesis-crypto) repository.
 > Monitor your node's status using `journalctl -fu genesisd -ocat`.
 
 ### 5. Explore utilities (optional)
