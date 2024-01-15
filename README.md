@@ -46,7 +46,7 @@ The instructions provided here will only be suitable for those who would like to
 ### 1. Cloning the repository
 
 ```
-git clone https://github.com/zenodeapp/genesis-evmos.git
+git clone https://github.com/zenodeapp/genesis-ethermint.git
 ```
 
 ### 2. Checkout the right tag/branch
