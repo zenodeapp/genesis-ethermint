@@ -73,5 +73,5 @@ tests/**/node_modules/*
 tests-solidity/**/node_modules/*
 
 # Utils
-utils/quick-shift.sh
-utils/shift-wizard.sh
+utils/tools/quick-shift.sh
+utils/tools/shift-wizard.sh
