@@ -88,7 +88,7 @@ There are two scripts¹ one could use to initialize a node:
 
   > **NOTE:** this won't auto-start the node, which can be done using `systemctl start genesisd`.
   > 
-  > **WARNING:** no keys will be imported or created, which can be done directly using the CLI _or_ see [utils/create-key.sh](/utils/create-key.sh) or [utils/import-key.sh](/utils/import-key.sh).
+  > **WARNING:** no keys will be imported or created, which can be done directly using the CLI _or_ see [utils/key/create.sh](/utils/key/create.sh) or [utils/key/import.sh](/utils/key/import.sh).
 
 ---
 
