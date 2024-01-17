@@ -16,7 +16,6 @@ FETCH_URL=https://raw.githubusercontent.com/zenodeapp/genesis-parameters/main/$C
 SEEDS_URL=$FETCH_URL/seeds.txt
 PEERS_URL=$FETCH_URL/peers.txt
 STATE_URL=$FETCH_URL/genesis.json
-RPC_SERVERS_URL=$FETCH_URL/rpc_servers.txt
 
 # /info module variables.
 IP_INFO_PROVIDER=ipinfo.io/ip
