@@ -25,7 +25,7 @@ EOF
 echo ""
 echo "This script should only be used if you intend on running a full-node for the GenesisL1 mainnet."
 echo "This will not take care of any backups! So make sure to do this if you have an existing .tgenesis"
-echo "folder already. You can use utils/create-backup.sh for this."
+echo "folder already. You can use utils/backup/create.sh for this."
 echo ""
 echo "NOTE: if you prefer to use a wizard which will also guide you through the creation for a key,"
 echo "backup, auto-start etc, then use node-setup-wizard.sh instead."
@@ -73,20 +73,20 @@ cp "./configs/default_config.toml" $CONFIG_DIR/config.toml
 sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" $CONFIG_DIR/config.toml
 
 # Fetch state file from genesis-parameters repo
-sh ./utils/fetch-state.sh
+sh ./utils/fetch/state.sh
 
 # Fetch latest seeds and peers list from genesis-parameters repo
-sh ./utils/fetch-peers.sh
+sh ./utils/fetch/peers.sh
 
 # Reset to imported genesis.json
 $BINARY_NAME tendermint unsafe-reset-all
 
 # Install service
-sh ./utils/install-service.sh
+sh ./utils/service/install.sh
 
 # Echo result
 echo ""
 echo "Done!"
 echo ""
-echo "If you haven't already created a key, use utils/create-key.sh or utils/import-key.sh to create or import a private key."
+echo "If you haven't already created a key, use utils/key/create.sh or utils/key/import.sh to create or import a private key."
 echo "When ready, turn on your node using 'systemctl start $BINARY_NAME' and 'journalctl -fu $BINARY_NAME -ocat' to see the logs."

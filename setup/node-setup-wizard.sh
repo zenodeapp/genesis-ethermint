@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Usage details
+usage() {
+    echo "Usage: sh $0 \e[3m--moniker string\e[0m \e[3m[...options]\e[0m"
+    echo ""
+    echo "   Options:"
+    echo "     \e[3m--key string\e[0m                     This creates a new key with the given alias, else no key gets generated."
+    echo "     \e[3m--backup-dir string\e[0m              Set a different path for the backup directory. (default is time-based, ex: $BACKUP_DIR)."
+    echo "     \e[3m--preserve-db\e[0m                    This makes sure the complete $DATA_DIR folder gets backed up via a move-operation (default: false)."
+    echo "     \e[3m--no-restore\e[0m                     This prevents restoring the old backed up $NODE_DIR folder (default: false)."
+    echo "     \e[3m--no-service\e[0m                     This prevents the $BINARY_NAME service from being installed (default: false)."
+    echo "     \e[3m--no-start\e[0m                       This prevents the $BINARY_NAME service from starting at the end of the script (default: false)."
+    echo "     \e[3m--prune [no|light|aggressive]\e[0m    Prune options: no pruning (archiving node), light pruning, or aggressive pruning (default: light)."
+    exit 1
+}
+
 cat << "EOF"
 
   /$$$$$$                                          /$$                 /$$         /$$       
@@ -46,20 +61,14 @@ PRESERVE_DB=false
 NO_RESTORE=false
 NO_SERVICE=false
 NO_START=false
+PRUNE="light"
 
+# If not enough args are given, echo usage details
 if [ "$#" -lt 1 ]; then
-    echo "Usage: sh $0 \e[3m--moniker string\e[0m \e[3m[...options]\e[0m"
-    echo ""
-    echo "   Options:"
-    echo "     \e[3m--key string\e[0m             This creates a new key with the given alias, else no key gets generated."
-    echo "     \e[3m--backup-dir string\e[0m      Set a different path for the backup directory. (default is time-based, ex: $BACKUP_DIR)."
-    echo "     \e[3m--preserve-db\e[0m            This makes sure the complete $DATA_DIR folder gets backed up via a move-operation (default: false)."
-    echo "     \e[3m--no-restore\e[0m             This prevents restoring the old backed up $NODE_DIR folder (default: false)."
-    echo "     \e[3m--no-service\e[0m             This prevents the $BINARY_NAME service from being installed (default: false)."
-    echo "     \e[3m--no-start\e[0m               This prevents the $BINARY_NAME service from starting at the end of the script (default: false)."
-    exit 1
+    usage
 fi
 
+# Options
 while [ "$#" -gt 0 ]; do
     case "$1" in
         --moniker)
@@ -98,8 +107,23 @@ while [ "$#" -gt 0 ]; do
         --no-start)
             NO_START=true
             ;;
+        --prune)
+            shift
+            case "$1" in
+                no|light|aggressive)
+                    PRUNE="$1"
+                    ;;
+                *)
+                    echo "Error: Invalid value for --prune. Use no, light or aggressive."
+                    exit 1
+                    ;;
+            esac
+            ;;
+        --help|-h|--h)
+            usage
+            ;;
         *)
-            echo "Error: Unknown option $1"
+            echo "Error: Unknown option $1. Use --help to see the available options."
             exit 1
             ;;
     esac
@@ -214,11 +238,22 @@ cp "./configs/default_config.toml" $CONFIG_DIR/config.toml
 # Set moniker again since the configs got overwritten
 sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" $CONFIG_DIR/config.toml
 
+# Set prune settings based on option provided
+if [ $PRUNE = "no"]; then
+    sed -i "s/pruning = .*/pruning = \"nothing\"/" $CONFIG_DIR/app.toml
+elif [ $PRUNE = "aggressive" ]; then
+    # TODO: Create aggressive pruning config
+    sed -i "s/pruning = .*/pruning = \"custom\"/" $CONFIG_DIR/app.toml
+    sed -i "s/pruning-keep-recent = .*/pruning-keep-recent = \"0\"/" $CONFIG_DIR/app.toml
+    sed -i "s/pruning-keep-every = .*/pruning-keep-every = \"0\"/" $CONFIG_DIR/app.toml
+    sed -i "s/pruning-interval = .*/pruning-interval = \"0\"/" $CONFIG_DIR/app.toml
+fi
+
 # Fetch state file from genesis-parameters repo
-sh ./utils/fetch-state.sh
+sh ./utils/fetch/state.sh
 
 # Fetch latest seeds and peers list from genesis-parameters repo
-sh ./utils/fetch-peers.sh
+sh ./utils/fetch/peers.sh
 
 # Reset to imported genesis.json
 $BINARY_NAME tendermint unsafe-reset-all
@@ -242,7 +277,7 @@ fi
 # Add binary as a systemd service
 if ! $NO_SERVICE; then
     # Install service
-    sh ./utils/install-service.sh
+    sh ./utils/service/install.sh
     sleep 3s
 
     # Start node if user hasn't run this wizard with the no-start flag
