@@ -10,7 +10,7 @@
 > [!CAUTION]
 > Running this will **wipe the whole data-folder**; database **AND** priv_validator_state.json file!
 >
-> Make a backup if needed: [utils/create-backup.sh](/utils/create-backup.sh).
+> Make a backup if needed: [utils/backup/create.sh](/utils/backup/create.sh).
 
 This script takes care of everything to **create** a `tgenesis_54-1` chain for **local** testing purposes:
 
@@ -44,7 +44,7 @@ sh setup-local/quick-testnet-setup.sh <moniker>
 > [!IMPORTANT]
 > _create-validator.sh_ requires a key.
 >
-> If you haven't already created or imported one, use: [utils/create-key.sh](/utils/create-key.sh) _or_ [utils/import-key.sh](/utils/import-key.sh).
+> If you haven't already created or imported one, use: [utils/key/create.sh](/utils/key/create.sh) _or_ [utils/key/import.sh](/utils/key/import.sh).
 
 This script leverages [setup/genesis-validator.sh](/setup.genesis-validator.sh) which generates a genesis transaction for creating a validator. This then gets applied to _genesis.json_ by running `collect-gentxs` and `tendermint unsafe-reset-all`, making the genesis state file ready for actual use.
 
