@@ -58,6 +58,9 @@ git checkout genesis-v0.5.0
 
 ### 3. Node setup
 
+> [!IMPORTANT]
+> If you already run a full-node on the Evmos fork and have to upgrade to the latest version **of this fork** (where we started using `.genesis` instead of `.genesisd`), **skip this step and use the [setup/upgrade.sh](/setup/upgrade.sh) script instead.**
+
 There are two scripts¹ one could use to initialize a node:
 
 - [**node-setup-wizard.sh**](setup/node-setup-wizard.sh)
