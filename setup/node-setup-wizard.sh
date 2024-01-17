@@ -250,10 +250,10 @@ elif [ $PRUNE = "aggressive" ]; then
 fi
 
 # Fetch state file from genesis-parameters repo
-sh ./utils/fetch-state.sh
+sh ./utils/fetch/state.sh
 
 # Fetch latest seeds and peers list from genesis-parameters repo
-sh ./utils/fetch-peers.sh
+sh ./utils/fetch/peers.sh
 
 # Reset to imported genesis.json
 $BINARY_NAME tendermint unsafe-reset-all
@@ -277,7 +277,7 @@ fi
 # Add binary as a systemd service
 if ! $NO_SERVICE; then
     # Install service
-    sh ./utils/install-service.sh
+    sh ./utils/service/install.sh
     sleep 3s
 
     # Start node if user hasn't run this wizard with the no-start flag
