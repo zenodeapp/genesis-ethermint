@@ -25,7 +25,7 @@ EOF
 echo ""
 echo "This script should only be used if you intend on running a full-node for the GenesisL1 testnet."
 echo "This will not take care of any backups! So make sure to do this if you have an existing .tgenesis"
-echo "folder already. You can use utils/create-backup.sh for this."
+echo "folder already. You can use utils/backup/create.sh for this."
 echo ""
 echo "WARNING: this script is intended for LOCAL testing and should NOT be used for public testnet purposes."
 echo "Use setup/quick-testnet-setup.sh for this instead."
@@ -99,12 +99,12 @@ sed -i 's/"unbonding_time": "[^"]*"/"unbonding_time": "100s"/g' $CONFIG_DIR/gene
 $BINARY_NAME tendermint unsafe-reset-all
 
 # Install service
-sh ./utils/install-service.sh
+sh ./utils/service/install.sh
 
 # Echo result
 echo ""
 echo "Done!"
 echo ""
-echo "o If you haven't already created a key, use utils/create-key.sh or utils/import-key.sh to create or import a private key."
+echo "o If you haven't already created a key, use utils/key/create.sh or utils/key/import.sh to create or import a private key."
 echo "o Follow this by running setup-local/create-validator.sh to add this key as a validator."
 echo "o When ready, turn on your node using 'systemctl start $BINARY_NAME' and 'journalctl -fu $BINARY_NAME -ocat' to see the logs."
