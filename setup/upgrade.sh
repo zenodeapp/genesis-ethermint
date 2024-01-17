@@ -66,7 +66,7 @@ if [ -d "$GENESISD_DIR" ]; then
 fi
 
 # Fetch latest seeds and peers list from genesis-parameters repo
-sh ./utils/fetch-peers.sh
+sh ./utils/fetch/peers.sh
 
 # Install binaries
 make install && {
