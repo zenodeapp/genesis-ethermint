@@ -16,7 +16,7 @@ This script installs all the dependencies (and system configurations) that are n
 > [!CAUTION]
 > Running this will **wipe the entire data-folder**; database **AND** priv_validator_state.json file!
 >
-> Make a backup if needed: [utils/create-backup.sh](/utils/create-backup.sh).
+> Make a backup if needed: [utils/backup/create.sh](/utils/backup/create.sh).
 
 As the name suggests, this script is a quick way to setup a node:
 
@@ -42,7 +42,7 @@ sh setup/quick-node-setup.sh mynode
 
 > After running, the node can be started using `systemctl start genesisd` and monitored with `journalctl -fu genesisd -ocat`.
 
-Later, if you ever wish to interact with your node or create a validator, you'll need to have a key _created_ or _imported_. If you haven't already done so, use either [utils/create-key.sh](/utils/create-key.sh) _or_ [utils/import-key.sh](/utils/import-key.sh).
+Later, if you ever wish to interact with your node or create a validator, you'll need to have a key _created_ or _imported_. If you haven't already done so, use either [utils/key/create.sh](/utils/key/create.sh) _or_ [utils/key/import.sh](/utils/key/import.sh).
 
 ## node-setup-wizard.sh
 
