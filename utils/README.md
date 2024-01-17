@@ -26,9 +26,17 @@ sh backup/create.sh [backup_dir_path]
 
 This script fetches the (most recent) seeds and peers for the chain-id configured in the [\_variables.sh](./_variables.sh) file and adds it to the `seeds` and `persistent_peers` fields in the config.toml file residing in the node's directory.
 
+```
+sh fetch/peers.sh
+```
+
 ### [state.sh](./fetch/state.sh)
 
 This script fetches the (most recent) `genesis.json` file for the chain-id configured in the [\_variables.sh](./_variables.sh) file and places it inside of the /config-folder residing in the node's directory.
+
+```
+sh fetch/state.sh
+```
 
 ## /info
 
@@ -37,6 +45,10 @@ This script fetches the (most recent) `genesis.json` file for the chain-id confi
 This script will print out your peer-id: _node-id@ip-address:port_. This is useful for sharing your node with others so that they can add you as a persistent peer.
 
 Bear in mind that the _port_ being echo'd is extracted from the _config.toml_-file. So if you start the node on a different port without explicitly stating this in the _config.toml_-file, then the outputted port may not represent the actual port this node uses.
+
+```
+sh info/my-peer.sh
+```
 
 > Add a --local flag to echo a local IP address, instead of your (public) external address.
 
@@ -64,9 +76,17 @@ sh key/import.sh <key_alias> <private_eth_key>
 
 This script installs the daemon as a service, which will automatically start the node whenever the device reboots. See the `$SERVICE_DIR` and `$SERVICE_FILE` variables in [\_variables.sh](./_variables.sh) to see which service gets installed.
 
+```
+sh service/install.sh
+```
+
 ### [uninstall.sh](./service/uninstall.sh)
 
 This script uninstalls the daemon as a service. See the `$SERVICE_FILE` variable in [\_variables.sh](./_variables.sh) to see which service gets uninstalled.
+
+```
+sh service/uninstall.sh
+```
 
 ## /tools
 
