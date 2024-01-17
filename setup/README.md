@@ -14,7 +14,7 @@ This script installs all the dependencies (and system configurations) that are n
 > [!CAUTION]
 > Running this will **wipe the whole data-folder**; database **AND** priv_validator_state.json file!
 >
-> Make a backup if needed: [utils/create-backup.sh](/utils/create-backup.sh).
+> Make a backup if needed: [utils/backup/create.sh](/utils/backup/create.sh).
 
 This script takes care of everything to **join** the `tgenesis_54-1` testnet:
 
@@ -37,7 +37,7 @@ sh setup/quick-testnet-setup.sh <moniker>
 > [!IMPORTANT]
 > _genesis-validator.sh_ requires a key.
 >
-> If you haven't already created or imported one, use: [utils/create-key.sh](/utils/create-key.sh) _or_ [utils/import-key.sh](/utils/import-key.sh).
+> If you haven't already created or imported one, use: [utils/key/create.sh](/utils/key/create.sh) _or_ [utils/key/create.sh](/utils/key/create.sh).
 
 This script uses `add-genesis-account` and `gentx` to create a _genesis_ validator. This will generate a file inside of the `/.tgenesis/config/gentx`-folder, which will contain the transaction details for adding this validator to the `genesis.json` file.
 
