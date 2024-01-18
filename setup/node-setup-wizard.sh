@@ -242,11 +242,10 @@ sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" $CONFIG_DIR/config.toml
 if [ $PRUNE = "no"]; then
     sed -i "s/pruning = .*/pruning = \"nothing\"/" $CONFIG_DIR/app.toml
 elif [ $PRUNE = "aggressive" ]; then
-    # TODO: Create aggressive pruning config
     sed -i "s/pruning = .*/pruning = \"custom\"/" $CONFIG_DIR/app.toml
-    sed -i "s/pruning-keep-recent = .*/pruning-keep-recent = \"0\"/" $CONFIG_DIR/app.toml
+    sed -i "s/pruning-keep-recent = .*/pruning-keep-recent = \"101\"/" $CONFIG_DIR/app.toml
     sed -i "s/pruning-keep-every = .*/pruning-keep-every = \"0\"/" $CONFIG_DIR/app.toml
-    sed -i "s/pruning-interval = .*/pruning-interval = \"0\"/" $CONFIG_DIR/app.toml
+    sed -i "s/pruning-interval = .*/pruning-interval = \"11\"/" $CONFIG_DIR/app.toml
 fi
 
 # Fetch state file from genesis-parameters repo
