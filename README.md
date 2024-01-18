@@ -63,8 +63,8 @@ sh setup/quick-testnet-setup.sh <moniker>
 
 > This wipes the whole _.tgenesis/data_ folder, so proceed with caution!
 
-> [!NOTE]
-> If you can't access the `tgenesisd` command afterwards, you may need to execute the `. ~/.bashrc` _or_ `source ~/.bashrc` command in your terminal.
+> [!IMPORTANT]
+> If you can't access the `tgenesisd` command afterwards, execute the `. ~/.bashrc` _or_ `source ~/.bashrc` command in your terminal.
 
 ### 4. Create or import a key (optional)
 
