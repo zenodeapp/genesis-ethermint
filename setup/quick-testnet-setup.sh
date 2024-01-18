@@ -55,7 +55,7 @@ systemctl stop $BINARY_NAME
 cd $REPO_ROOT
 
 # System update and installation of dependencies
-bash ./setup/dependencies.sh
+. ./setup/dependencies.sh
 
 # Building binaries
 make install
