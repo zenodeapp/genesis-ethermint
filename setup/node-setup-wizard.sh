@@ -298,3 +298,5 @@ EOF
 else
     ponysay "$BINARY_NAME node is ready, use *service $BINARY_NAME start* to start it! Welcome to GenesisL1 blockchain!"
 fi
+
+echo "PS: if you're unable to access the $BINARY_NAME command, run '. ~/.bashrc' or 'source ~/.bashrc' in your terminal."
