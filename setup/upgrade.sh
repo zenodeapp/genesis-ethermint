@@ -47,7 +47,7 @@ systemctl stop $BINARY_NAME
 cd $REPO_ROOT
 
 # System update and installation of dependencies
-bash ./setup/dependencies.sh
+. ./setup/dependencies.sh
 
 # Rename .genesisd to .genesis
 GENESISD_DIR="$HOME/.genesisd"
