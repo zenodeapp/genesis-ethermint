@@ -88,5 +88,6 @@ sh ./utils/service/install.sh
 echo ""
 echo "Done!"
 echo ""
-echo "If you haven't already created a key, use utils/key/create.sh or utils/key/import.sh to create or import a private key."
-echo "When ready, turn on your node using 'systemctl start $BINARY_NAME' and 'journalctl -fu $BINARY_NAME -ocat' to see the logs."
+echo "o Check if you're able to access the $BINARY_NAME command. If you can't, run '. ~/.bashrc' or 'source ~/.bashrc' in your terminal."
+echo "o If you haven't already created a key, use utils/key/create.sh or utils/key/import.sh to create or import a private key."
+echo "o When ready, turn on your node using 'systemctl start $BINARY_NAME' and 'journalctl -fu $BINARY_NAME -ocat' to see the logs."
