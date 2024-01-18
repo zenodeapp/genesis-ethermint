@@ -38,9 +38,7 @@ This script takes care of everything to **create** a `tgenesis_54-1` chain for *
 ```
 sh setup-local/quick-testnet-setup.sh <moniker>
 ```
-
-> [!NOTE]
-> If you can't access the `tgenesisd` command afterwards, you may need to execute the `. ~/.bashrc` _or_ `source ~/.bashrc` command in your terminal.
+> If you can't access the `tgenesisd` command afterwards, execute the `. ~/.bashrc` _or_ `source ~/.bashrc` command in your terminal.
 
 ## create-validator.sh
 
