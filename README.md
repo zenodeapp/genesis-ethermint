@@ -63,10 +63,16 @@ sh setup/quick-testnet-setup.sh <moniker>
 
 > This wipes the whole _.tgenesis/data_ folder, so proceed with caution!
 
-> [!IMPORTANT]
-> If you can't access the `tgenesisd` command afterwards, execute the `. ~/.bashrc` _or_ `source ~/.bashrc` command in your terminal.
+### 4. Daemon check
 
-### 4. Create or import a key (optional)
+If you can't access the `tgenesisd` command at this point, then you may need to execute:
+
+```
+. ~/.bashrc
+```
+> Or the equivalent: `source ~/.bashrc`
+
+### 5. Create or import a key (optional)
 
 A key is necessary to interact with the network/node. If you haven't already created one, either import one or generate a new one, using:
 
@@ -82,7 +88,7 @@ sh utils/key/import.sh <key_alias> <private_eth_key>
 
 > _<private_eth_key>_ is the private key for a (wallet) address you already own.
 
-### 5. Node syncing
+### 6. Node syncing
 
 If everything went well, you should now be able to run your node using:
 
@@ -96,7 +102,7 @@ and see its status with:
 journalctl -fu tgenesisd -ocat
 ```
 
-### 6. Explore utilities (optional)
+### 7. Explore utilities (optional)
 
 > [!TIP]
 > The [/utils](/utils)-folder contains useful utilities one could use to manage their node (e.g. for fetching latest seeds and peers, fetching the genesis state, quickly shifting your config's ports etc.). To learn more about these, see the [README](utils/README.md) in the folder.
