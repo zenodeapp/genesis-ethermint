@@ -175,7 +175,7 @@ pkill cosmovisor
 cd $REPO_ROOT
 
 # System update and installation of dependencies
-sh ./setup/dependencies.sh
+bash ./setup/dependencies.sh
 snap install ponysay
 
 # Backup of previous configuration if one existed
