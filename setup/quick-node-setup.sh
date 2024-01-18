@@ -24,7 +24,7 @@ EOF
 
 echo ""
 echo "This script should only be used if you intend on running a full-node for the GenesisL1 mainnet."
-echo "This will not take care of any backups! So make sure to do this if you have an existing .tgenesis"
+echo "This will not take care of any backups! So make sure to do this if you have an existing .genesis"
 echo "folder already. You can use utils/backup/create.sh for this."
 echo ""
 echo "NOTE: if you prefer to use a wizard which will also guide you through the creation for a key,"
