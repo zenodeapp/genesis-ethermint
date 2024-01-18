@@ -9,9 +9,6 @@
 
 This script installs all the dependencies (and system configurations) that are necessary for the binary to run. Since this file already gets called from within the other scripts, it is not required to call this yourself.
 
-> [!WARNING]
-> Running this script has to be done with `bash`, as the sourcing of the _~/.bashrc_-file may lead to implications if it's run with `sh`.
-
 ## quick-testnet-setup.sh
 
 > [!CAUTION]
@@ -34,6 +31,9 @@ This script takes care of everything to **join** the `tgenesis_54-1` testnet:
 ```
 sh setup/quick-testnet-setup.sh <moniker>
 ```
+
+> [!NOTE]
+> If you can't access the `tgenesisd` command afterwards, you may need to execute the `. ~/.bashrc` _or_ `source ~/.bashrc` command in your terminal.
 
 ## genesis-validator.sh
 
