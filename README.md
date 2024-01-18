@@ -94,12 +94,21 @@ There are two scripts¹ one could use to initialize a node:
 
 ¹ As this repository is only required for full node syncing, we've only included scripts for **initializing a node and starting the sync process** till height `insert_height_here`. Scripts for e.g. _creating a validator_ will only be available in the [`genesis-crypto`](https://github.com/zenodeapp/genesis-crypto) repository.
 
-### 4. Node syncing
+### 4. Daemon check
+
+If you can't access the `genesisd` command at this point, then you may need to execute:
+
+```
+. ~/.bashrc
+```
+> Or the equivalent: `source ~/.bashrc`
+
+### 5. Node syncing
 
 The node will sync till height `insert_height_here` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-crypto`](https://github.com/zenodeapp/genesis-crypto) repository.
 > Monitor your node's status using `journalctl -fu genesisd -ocat`.
 
-### 5. Explore utilities (optional)
+### 6. Explore utilities (optional)
 
 > [!TIP]
 > The [/utils](/utils)-folder contains useful utilities one could use to manage their node (e.g. for fetching latest seeds and peers, fetching the genesis state, quickly shifting your config's ports etc.). To learn more about these, see the [README](utils/README.md) in the folder.

@@ -11,9 +11,6 @@
 
 This script installs all the dependencies (and system configurations) that are necessary for the binary to run. Since this file already gets called from within the other scripts, it is not required to call this yourself.
 
-> [!WARNING]
-> Running this script has to be done with `bash`, as the sourcing of the _~/.bashrc_-file may lead to implications if it's run with `sh`.
-
 ## quick-node-setup.sh
 
 > [!CAUTION]
@@ -42,14 +39,13 @@ sh setup/quick-node-setup.sh <moniker>
 ```
 sh setup/quick-node-setup.sh mynode
 ```
+> If you can't access the `genesisd` command afterwards, execute the `. ~/.bashrc` _or_ `source ~/.bashrc` command in your terminal.
 
-> After running, the node can be started using `systemctl start genesisd` and monitored with `journalctl -fu genesisd -ocat`.
-
-Later, if you ever wish to interact with your node or create a validator, you'll need to have a key _created_ or _imported_. If you haven't already done so, use either [utils/key/create.sh](/utils/key/create.sh) _or_ [utils/key/import.sh](/utils/key/import.sh).
+After running, the node can be started using `systemctl start genesisd` and monitored with `journalctl -fu genesisd -ocat`. Later, if you ever wish to interact with your node or create a validator, you'll need to have a key _created_ or _imported_. If you haven't already done so, use either [utils/key/create.sh](/utils/key/create.sh) _or_ [utils/key/import.sh](/utils/key/import.sh).
 
 ## node-setup-wizard.sh
 
-This script does the same as `quick-node-setup.sh` but also takes care of:
+This script does the same as [`quick-node-setup.sh`](#quick-node-setupsh) but also takes care of:
 
 - Backing up of an existing _.genesis_-folder (excluding the **database** in the _data_-folder)
 - Backing up the entire _data_-folder (optional)
@@ -76,13 +72,14 @@ Usage: sh setup/node-setup-wizard.sh --moniker string [...options]
      --prune [no|light|aggressive]    Prune options: no pruning (archiving node), light pruning, or aggressive pruning (default: light).
 ```
 
-> Here can be seen that the _--moniker_ is the only required field, but it is recommended to also add the _--key_ option if you haven't already created a key. This is useful to have if you later on wish to interact with your node (i.e. create a validator, do transactions etc.).
+Here can be seen that the _--moniker_ is the only required field, but it is recommended to also add the _--key_ option if you haven't already created a key. This is useful to have if you later on wish to interact with your node (i.e. create a validator, do transactions etc.).
 
 **Example:** this initializes a node with the name _supervalidator_, a key alias of _mygenesiskey_ and doesn't automatically start upon completion:
 
 ```
 sh setup/node-setup-wizard.sh --moniker supervalidator --key mygenesiskey --no-start
 ```
+> If you can't access the `genesisd` command afterwards, execute the `. ~/.bashrc` _or_ `source ~/.bashrc` command in your terminal.
 
 ### Backup mechanism
 
