@@ -239,9 +239,9 @@ cp "./configs/default_config.toml" $CONFIG_DIR/config.toml
 sed -i "s/moniker = .*/moniker = \"$MONIKER\"/" $CONFIG_DIR/config.toml
 
 # Set prune settings based on option provided
-if [ $PRUNE = "no"]; then
+if [ "$PRUNE" = "no" ]; then
     sed -i "s/pruning = .*/pruning = \"nothing\"/" $CONFIG_DIR/app.toml
-elif [ $PRUNE = "aggressive" ]; then
+elif [ "$PRUNE" = "aggressive" ]; then
     sed -i "s/pruning = .*/pruning = \"custom\"/" $CONFIG_DIR/app.toml
     sed -i "s/pruning-keep-recent = .*/pruning-keep-recent = \"101\"/" $CONFIG_DIR/app.toml
     sed -i "s/pruning-keep-every = .*/pruning-keep-every = \"0\"/" $CONFIG_DIR/app.toml
