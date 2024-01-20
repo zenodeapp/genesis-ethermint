@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  Chain ID <b>tgenesis_54-1</b>
+  Chain ID <b>tgenesis_290-1</b>
 </p>
 
 <p align="center">
@@ -38,7 +38,7 @@
 
 ## Instructions
 
-The instructions provided here will only be suitable for those who would like to **join** the **public** testnet: `tgenesis_54-1`. If you instead want to **create a local testnet**, see [/setup-local](/setup-local).
+The instructions provided here will only be suitable for those who would like to **join** the **public** testnet: `tgenesis_290-1`. If you instead want to **create a local testnet**, see [/setup-local](/setup-local).
 
 > [!NOTE]
 > More details for every script mentioned in this README can be found in the folders where they are respectively stored: [/setup](/setup), [/setup-local](/setup-local) or [/utils](/utils).
