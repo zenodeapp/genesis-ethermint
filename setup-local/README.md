@@ -12,7 +12,7 @@
 >
 > Make a backup if needed: [utils/backup/create.sh](/utils/backup/create.sh).
 
-This script takes care of everything to **create** a `tgenesis_54-1` chain for **local** testing purposes:
+This script takes care of everything to **create** a `tgenesis_290-1` chain for **local** testing purposes:
 
 - It stops the service (if it exists)
 - Installs all the necessary dependencies
@@ -24,7 +24,7 @@ This script takes care of everything to **create** a `tgenesis_54-1` chain for *
   - **[api] enabled** = _true_
   - **[api] enabled-unsafe-cors** = _true_
 - Creates an empty _genesis.json_-file and sets:
-  - **"chain_id"**: _"tgenesis_54-1"_
+  - **"chain_id"**: _"tgenesis_290-1"_
   - **"denom"**: _"el1"_
   - **"max_deposit_period"**: _"100s"_
   - **"voting_period"**: _"100s"_
