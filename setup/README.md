@@ -16,7 +16,7 @@ This script installs all the dependencies (and system configurations) that are n
 >
 > Make a backup if needed: [utils/backup/create.sh](/utils/backup/create.sh).
 
-This script takes care of everything to **join** the `tgenesis_54-1` testnet:
+This script takes care of everything to **join** the `tgenesis_290-1` testnet:
 
 - It stops the service (if it exists)
 - Installs all the necessary dependencies
@@ -42,7 +42,7 @@ sh setup/quick-testnet-setup.sh <moniker>
 
 This script uses `add-genesis-account` and `gentx` to create a _genesis_ validator. This will generate a file inside of the `/.tgenesis/config/gentx`-folder, which will contain the transaction details for adding this validator to the `genesis.json` file.
 
-> This does not mean that your validator will get added to the _genesis.json_-file just yet. Use this only if you're going to get included in the initial state of `tgenesis_54-1`.
+> This does not mean that your validator will get added to the _genesis.json_-file just yet. Use this only if you're going to get included in the initial state of `tgenesis_290-1`.
 
 ### Usage
 
