@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables for all modules
-CHAIN_ID=tgenesis_54-1
+CHAIN_ID=tgenesis_290-1
 BINARY_NAME=tgenesisd
 NODE_DIR_NAME=.tgenesis
 NODE_DIR=$HOME/$NODE_DIR_NAME
