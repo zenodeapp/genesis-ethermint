@@ -8,12 +8,12 @@ A template for a spending type proposal for Genesis L1 validators gift of 50,000
 tgenesisd tx gov submit-proposal community-pool-spend genesis-validator-gift-proposal.json
 ```
 
-## plan-cronos.sh
+## plan-crypto.sh
 
-For testing purposes only. A script that makes it easier to send out the 'plan_cronos' upgrade proposal and vote 'yes' on it.
+For testing purposes only. A script that makes it easier to send out the 'plan_crypto' upgrade proposal and vote 'yes' on it.
 
 ```
-sh proposals/plan-cronos.sh <key_alias> <upgrade_height> [next_proposal_id]
+sh proposals/plan-crypto.sh <key_alias> <upgrade_height> [next_proposal_id]
 ```
 
 > _next_proposal_id_ is optional but should point towards the upgrade proposal to vote yes on (default: 1)
