@@ -22,9 +22,9 @@ NEXT_PROPOSAL_ID=${3:-1}
 
 echo ""
 
-# Submit software-upgrade proposal for plan_cronos
-echo "Submit a software-upgrade proposal for plan_cronos..."
-$BINARY_NAME tx gov submit-proposal software-upgrade "plan_cronos" --upgrade-height $UPGRADE_HEIGHT \
+# Submit software-upgrade proposal for plan_crypto
+echo "Submit a software-upgrade proposal for plan_crypto..."
+$BINARY_NAME tx gov submit-proposal software-upgrade "plan_crypto" --upgrade-height $UPGRADE_HEIGHT \
 --from $KEY_ALIAS --title "Hardfork to Cronos" --description "Hardfork to Cronos" --deposit "10000000000000000000000el1" \
 --fees "10000000000000000el1" -y
 
