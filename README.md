@@ -46,13 +46,13 @@ The instructions provided here will only be suitable for those who would like to
 ### 1. Cloning the repository
 
 ```
-git clone https://github.com/zenodeapp/genesis-ethermint.git
+git clone https://github.com/alpha-omega-labs/genesis-ethermint.git
 ```
 
 ### 2. Checkout the right tag/branch
 
 ```
-git checkout tgenesis-v0.5.0
+git checkout v0.5.0t
 ```
 
 ### 3. Node setup
