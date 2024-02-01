@@ -52,7 +52,7 @@ git clone https://github.com/alpha-omega-labs/genesis-ethermint.git
 ### 2. Checkout the right tag/branch
 
 ```
-git checkout v0.5.0t
+git checkout v0.5.0-t
 ```
 
 ### 3. Node setup
