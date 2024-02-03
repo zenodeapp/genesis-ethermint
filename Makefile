@@ -61,7 +61,7 @@ build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=evmos \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=genesis \
 		  -X github.com/cosmos/cosmos-sdk/version.AppName=$(EVMOS_BINARY) \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \

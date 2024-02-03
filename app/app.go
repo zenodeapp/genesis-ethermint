@@ -118,7 +118,7 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".genesisd")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".genesis")
 }
 	
 
