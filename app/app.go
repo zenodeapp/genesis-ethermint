@@ -118,12 +118,12 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".genesisd")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".tgenesis")
 }
 	
 
 // Name defines the application binary name
-const Name = "genesisd"
+const Name = "tgenesisd"
 
 var (
 	// DefaultNodeHome default home directories for the application daemon
