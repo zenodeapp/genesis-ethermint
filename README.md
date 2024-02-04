@@ -27,7 +27,7 @@
 > [!IMPORTANT]
 > **From Evmos to Cronos**
 > 
-> This repository is an Evmos-fork and was used before we upgraded to a Cronos-fork. For those who want to run a full-node it's required to start out in this repository and sync up till height `7350000`.
+> This repository is an Evmos-fork and was used before we upgraded to a Cronos-fork. For those who want to run a full-node it's required to start out in this repository and sync up till height `7400000`.
 
 ## Node requirements
 
@@ -92,7 +92,7 @@ There are two scripts¹ one could use to initialize a node:
 
 ---
 
-¹ As this repository is only required for full node syncing, we've only included scripts for **initializing a node and starting the sync process** till height `7350000`. Scripts for e.g. _creating a validator_ will only be available in the [`genesis-crypto`](https://github.com/alpha-omega-labs/genesis-crypto) repository.
+¹ As this repository is only required for full node syncing, we've only included scripts for **initializing a node and starting the sync process** till height `7400000`. Scripts for e.g. _creating a validator_ will only be available in the [`genesis-crypto`](https://github.com/alpha-omega-labs/genesis-crypto) repository.
 
 ### 4. Daemon check
 
@@ -105,7 +105,7 @@ If you can't access the `genesisd` command at this point, then you may need to e
 
 ### 5. Node syncing
 
-The node will sync till height `7350000` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-crypto`](https://github.com/alpha-omega-labs/genesis-crypto) repository.
+The node will sync till height `7400000` and automatically crash, which is expected. Once you've gotten this far, continue with the instructions in the [`genesis-crypto`](https://github.com/alpha-omega-labs/genesis-crypto) repository.
 > Monitor your node's status using `journalctl -fu genesisd -ocat`.
 
 ### 6. Explore utilities (optional)
